@@ -1,0 +1,25 @@
+@font-face {
+    font-family: "Nyj-ExtraBold";
+    font-weight: normal;
+    src: url("./fonts/NyjExtra\ Bold\ \(TTF\).ttf") format("truetype");
+  }
+  @font-face {
+    font-family: "Nyj-Bold";
+    font-weight: normal;
+    src: url("./fonts/NyjBold\ \(TTF\).ttf") format("truetype");
+  }
+  @font-face {
+    font-family: "Nyj-Light";
+    font-weight: normal;
+    src: url("./fonts/NyjLight\ \(TTF\).ttf") format("truetype");
+  }
+  @font-face {
+    font-family: "Nyj-Medium";
+    font-weight: normal;
+    src: url("./fonts/NyjMedium\ \(TTF\).ttf") format("truetype");
+  }
+  
+  body {
+    font-family: "Nyj-Light";
+    font-weight: normal;
+  }
