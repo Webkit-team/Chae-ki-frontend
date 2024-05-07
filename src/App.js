@@ -1,6 +1,6 @@
 import MainPage from './components/pages/MainPage'
 
-function App() {
+const App = () => {
   return (
     <MainPage/>
   );

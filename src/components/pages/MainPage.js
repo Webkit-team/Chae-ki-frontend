@@ -1,8 +1,13 @@
- 
- export const MainPage = () => {
-    return(
-        <div>Hi</div>
-    );
- }
+import Layout from "../Layout/Layout";
+import MainContainer from "../organisms/MainContainer";
 
- export default MainPage;
+
+const MainPage = () => {
+    return (
+        <Layout>
+            <MainContainer/>
+        </Layout>
+    );
+}
+
+export default MainPage;
