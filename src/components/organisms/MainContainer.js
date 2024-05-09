@@ -1,8 +1,8 @@
 const MainContainer = () => {
     return(
-        <div>
+        <h1>
             메인 콘텐츠
-        </div>
+        </h1>
     );
 }
 
