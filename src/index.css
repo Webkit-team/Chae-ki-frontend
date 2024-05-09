@@ -1,25 +1,28 @@
 @font-face {
-    font-family: "Nyj-ExtraBold";
+    font-family: "NanumBarunGothic";
     font-weight: normal;
-    src: url("./fonts/NyjExtra\ Bold\ \(TTF\).ttf") format("truetype");
-  }
-  @font-face {
-    font-family: "Nyj-Bold";
+    src: url("./fonts/NanumBarunGothic.ttf") format("truetype");
+}
+@font-face {
+    font-family: "NanumBarunGothicBold";
     font-weight: normal;
-    src: url("./fonts/NyjBold\ \(TTF\).ttf") format("truetype");
-  }
-  @font-face {
-    font-family: "Nyj-Light";
+    src: url("./fonts/NanumBarunGothicBold.ttf") format("truetype");
+}
+@font-face {
+    font-family: "NanumBarunGothicLight";
     font-weight: normal;
-    src: url("./fonts/NyjLight\ \(TTF\).ttf") format("truetype");
-  }
-  @font-face {
-    font-family: "Nyj-Medium";
+    src: url("./fonts/NanumBarunGothicLight.ttf") format("truetype");
+}
+@font-face {
+    font-family: "NanumBarunGothicUltraLight";
     font-weight: normal;
-    src: url("./fonts/NyjMedium\ \(TTF\).ttf") format("truetype");
-  }
+    src: url("./fonts/NanumBarunGothicUltraLight.ttf") format("truetype");
+}
+
   
   body {
-    font-family: "Nyj-Light";
+    font-family: "NanumBarunGothic";
+    font-weight: 900;
     font-weight: normal;
+    margin:0 auto;
   }
