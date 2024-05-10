@@ -1,7 +1,6 @@
 import Layout from "../../Layout/Layout";
 import SignUpContainer from "../../organisms/SignUpContainer";
 
-
 const SignUpPage = () => {
     return (
         <Layout>
@@ -11,3 +10,4 @@ const SignUpPage = () => {
 }
 
 export default SignUpPage;
+
