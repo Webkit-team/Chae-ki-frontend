@@ -26,3 +26,15 @@
     font-weight: normal;
     margin:0 auto;
   }
+
+  a:link{
+    text-decoration: none;
+    color:black;
+  } 
+  a:visited, a:active{
+    color:black;
+  }
+
+  h1{
+    margin-left:200px
+  }
