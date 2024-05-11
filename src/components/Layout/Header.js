@@ -40,7 +40,7 @@ const Header = () => {
                             color="inherit"
                             align="left"
                             noWrap
-                            sx={{ flex: 1, fontFamily: 'NanumBarunGothicLight', fontWeight: 900, fontSize: '25px', color: '#000000', px: 2, display: 'inline', maxWidth: '50px' }}
+                            sx={{ flex: 1, fontFamily: 'NanumBarunGothicLight', fontWeight: 900, fontSize: '25px', color: '#000000', px: 2, display: 'inline', maxWidth: '80px' }}
                         ><Link to="/">
                                 채키
                             </Link>

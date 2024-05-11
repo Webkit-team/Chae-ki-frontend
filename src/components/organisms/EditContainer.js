@@ -1,6 +1,4 @@
-import "./css/SignUpContainer.css";
-import { styled } from "@mui/material/styles";
-import { Button, IconButton, TextField, Avatar, Box, Container } from "@mui/material";
+import { Button, IconButton, TextField, Avatar, Box, Container, Typography } from "@mui/material";
 
 import CloudUploadIcon from "@mui/icons-material/CloudUpload";
 import PersonIcon from '@mui/icons-material/Person';
@@ -11,24 +9,12 @@ import Visibility from '@mui/icons-material/Visibility';
 import VisibilityOff from '@mui/icons-material/VisibilityOff';
 
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import axios from "axios";
 
 
-// const VisuallyHiddenInput = styled('input')({
-//     clip: 'rect(0 0 0 0)',
-//     clipPath: 'inset(50%)',
-//     height: 1,
-//     overflow: 'hidden',
-//     position: 'absolute',
-//     bottom: 0,
-//     left: 0,
-//     whiteSpace: 'nowrap',
-//     width: 1,
-//   });
 
-
-const SignUpContainer = () => {
+const EditContainer = () => {
 
     const [image, setImage] = useState(null);
     const [id, setId] = useState("");
@@ -36,12 +22,32 @@ const SignUpContainer = () => {
     const [confirmPwd, setConfirmPwd] = useState("");   // 비밀번호 확인
     const [nickname, setNickname] = useState("");
 
-    const [isId, setIsID] = useState(true);
     const [isPwd, setIsPwd] = useState(true);      // 유효성 검사
     const [isNickname, SetIsNickname] = useState(true);
 
     const [showPwd, setShowPwd] = useState(false);      // 비밀번호 숨김 토글
     const [matchPwd, setMatchPwd] = useState(false);    // 비밀번호와 비밀번호 확인 값 비교
+
+
+//////////////////////////////
+
+    // 더미 데이터 가져오는 함수
+    const fetchDummyUserData = () => {
+        // 실제 데이터를 불러오도록 나중에 변경해야함
+        const dummyData = {
+            username: 'gildong',
+            password: 'aaaaaaaa',
+            nickname: '길동이'
+        };
+
+        setPwd(dummyData.password);
+        setNickname(dummyData.nickname);
+    };
+
+    useEffect(() => {
+        fetchDummyUserData();
+    }, []);
+
 
     // 로컬에서 사진 불러오기
     const handleFileChange = (e) => {
@@ -55,22 +61,6 @@ const SignUpContainer = () => {
         }
     };
 
-    const onChangeId = (e) => {
-        const currentId = e.target.value;
-        setId(currentId);
-        const ID_REGEX = /^[a-zA-Z0-9]{5,16}$/;
-
-        if (!ID_REGEX.test(currentId)) {
-            setIsID(false);
-        } else {
-            setIsID(true);
-        }
-    }
-
-    // 아이디 중복확인
-    const handleDupCheckId = () => {
-        console.log("아이디 중복 확인 버튼 눌림!");
-    }
 
     const onChangePwd = (e) => {
         const currentPwd = e.target.value;
@@ -102,10 +92,6 @@ const SignUpContainer = () => {
         setShowPwd(!showPwd);
     }
 
-    // const handleMouseDownPwd = (e) => {
-    //     console.log("이건 뭐냐");
-    //     e.preventDefault();
-    // }
 
     const onChangeNickname = (e) => {
         const currentNickname = e.target.value;
@@ -119,13 +105,8 @@ const SignUpContainer = () => {
         }
     }
 
-    // 아이디 중복확인
-    const handleDupCheckNick = () => {
-        console.log("닉네임 중복 확인 버튼 눌림!");
-    }
-
     // 회원가입 정보 보내는 post 요청 추가해야함
-    const handleSignUp = () => {
+    const handleEdit = () => {
 
         const userData = {
             username: id,
@@ -135,13 +116,13 @@ const SignUpContainer = () => {
 
         // axios.post("localhost:3000/signup", userData)
         //     .then(response => {
-        //         console.log("회원가입 성공!", response.data)
+        //         console.log("회원정보수정 성공!", response.data)
         //     })
         //     .catch(error => {
         //         console.log("ERROR : ", error)
         //     });
 
-        console.log("회원가입 완료!");
+        console.log("회원정보수정 완료!");
         console.log(id);
         console.log(pwd);
         console.log(nickname);
@@ -151,12 +132,12 @@ const SignUpContainer = () => {
 
 
     return (<div className="wrapper">
-
-        <h2 className="mid-header">회원가입</h2>       {/* 2 level - 50px? */}
+        <h2 className="mid-header">회원정보수정</h2>       {/* 2 level - 50px? */}
 
         <div className="container">
 
             <div className="profile-left">
+
 
                 {Box ? (
                     <Box
@@ -212,25 +193,13 @@ const SignUpContainer = () => {
             </div>
 
 
+            {/* 기존 비밀번호와 같은지 확인하는 로직 추가해야함 */}
             <div className="profile-right">
-                <TextField
-                    autoFocus
-                    label="아이디"
-                    InputProps={{ startAdornment: (<IconButton tabIndex={-1}><PersonIcon /></IconButton>) }}
-                    helperText="영문 대소문자 구분, 숫자 포함 5~16자만 사용 가능"
-                    value={id}
-                    onChange={onChangeId}
-                    error={!isId}   // 유효성검사 미통과시 빨갛게
-                    sx={{ mt: 3, mb: 2 }}
-                    variant="outlined"
-                />
-
-                {/* <p><button type="submit" className="">중복확인</button></p> */}
-
 
                 <TextField
                     label="비밀번호"
                     type={showPwd ? "text" : "password"}
+                    // placeholder="Password"
                     variant="outlined"
                     InputProps={{
                         startAdornment: (<IconButton tabIndex={-1}><KeyIcon /></IconButton>),
@@ -259,6 +228,7 @@ const SignUpContainer = () => {
                 <TextField
                     label="비밀번호 확인"
                     type="text"                     // 얘만 나중에 password 형태로 바꿔
+                    placeholder="Enter Your Password Again"
                     InputProps={{ startAdornment: (<IconButton tabIndex={-1}><LockIcon /></IconButton>) }}
                     helperText={!matchPwd && confirmPwd !== "" ? "비밀번호가 일치하지 않습니다." : "비밀번호가 일치합니다."}
                     value={confirmPwd}
@@ -271,6 +241,7 @@ const SignUpContainer = () => {
                 <TextField
                     label="닉네임"
                     // required
+                    placeholder="Nickname"
                     InputProps={{ startAdornment: (<IconButton tabIndex={-1}><BadgeIcon /></IconButton>) }}
                     helperText="한글 2~6자만 사용 가능"
                     value={nickname}
@@ -283,46 +254,27 @@ const SignUpContainer = () => {
                 {/* <button type="submit">회원가입</button><br /> */}
                 <Button
                     variant="contained" color="success"
-                    onClick={handleSignUp}
-                    disabled={!isId || !isPwd || !isNickname || !matchPwd}
+                    onClick={handleEdit}
+                    disabled={!isPwd || !isNickname || !matchPwd}
                     sx={{ mt: 3, mb: 2 }}
                 >
-                    회원가입
+                    회원정보수정
                 </Button>
             </div>
-
-
-            <div className="dup-button">
-                <Button
-                    sx={{
-                        mt: 3, ml: 3, width: 80, height: 56,
-                        alignItems: "center", justifyContent: "center",
-                        float: "right"
-                    }}
-                    onClick={handleDupCheckId}
-                >
-                    중복확인
-                </Button>
-            </div>
-
-            <div>
-                <Button
-                    sx={{
-                        mt: 30, ml: 3, width: 80, height: 56,
-                        alignItems: "center", justifyContent: "center",
-                        float: "right"
-                    }}
-                    onClick={handleDupCheckNick}
-                >
-                    중복확인
-                </Button>
-
-            </div>
-
+            <Button
+                sx={{
+                    mt: 30, ml: 3, width: 80, height: 56,
+                    alignItems: "center", justifyContent: "center",
+                    float: "right"
+                }}
+            >
+                중복확인
+            </Button>
 
         </div>
+
+
     </div>)
 }
 
-
-export default SignUpContainer;
+export default EditContainer;
