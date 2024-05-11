@@ -59,7 +59,7 @@ const ChaekiToday = (props) => {
 
     return (
         <Box sx={{ width: '99vw', marginLeft: '-233px'}}>
-            <Carousel autoPlay interval={3000} sx={{my:10}}>
+            <Carousel autoPlay interval={3000} sx={{my:13}}>
                 {
                     items.map((item, i) => (
                         <Item key={i} item={item} imgList={imgList} index={i} />

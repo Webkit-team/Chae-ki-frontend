@@ -16,6 +16,7 @@ const CustomButton = ({ children, to, sx, ...props }) => {
         },
         margin: '5px',
         borderColor: 'black',
+        fontFamily: 'NanumBarunGothicLight',
         ...sx,
       }}
       {...props}
