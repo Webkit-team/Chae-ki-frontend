@@ -2,6 +2,7 @@ import React from 'react';
 import Grid from '@mui/material/Grid';
 import Box from '@mui/material/Box';
 import CustomButton from '../../atoms/CustomButton';
+import { Text1 } from '../../atoms/Text';
 
 const testImg = "https://placehold.co/150x200"
 const imgList = [
@@ -34,7 +35,7 @@ const imgList = [
 
 const ChallengeRanking = () => {
     return (
-        <Box component="section" sx={{ p: 2 }}>
+        <Box sx={{ p: 2, my:1 }}>
             <Grid container spacing={5} direction="column" alignItems="center">
                 <Grid item md={6} display="flex">
                     <img src='https://placehold.co/200x250' alt="test-img" style={{ marginRight: '35px' }} />
