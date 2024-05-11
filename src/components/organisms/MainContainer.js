@@ -1,8 +1,14 @@
+import ChallengeRanking from '../molecules/Main/ChallengeRanking';
+import BookRanking from '../molecules/Main/BookRanking';
+import ChaekiToday from '../molecules/Main/ChaekiToday';
+
 const MainContainer = () => {
-    return(
-        <h1>
-            메인 콘텐츠
-        </h1>
+    return (
+        <>
+            <ChallengeRanking />
+            <BookRanking />
+            <ChaekiToday />
+        </>
     );
 }
 

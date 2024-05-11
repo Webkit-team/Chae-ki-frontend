@@ -19,12 +19,40 @@
     src: url("./fonts/NanumBarunGothicUltraLight.ttf") format("truetype");
 }
 
+@font-face {
+  font-family: "MaruBuri-Bold";
+  font-weight: normal;
+  src: url("./fonts/MaruBuri-Bold.ttf") format("truetype");
+}
+@font-face {
+  font-family: "MaruBuri-ExtraLight";
+  font-weight: normal;
+  src: url("./fonts/MaruBuri-ExtraLight.ttf") format("truetype");
+}
+@font-face {
+  font-family: "MaruBuri-Light";
+  font-weight: normal;
+  src: url("./fonts/MaruBuri-Light.ttf") format("truetype");
+}
+@font-face {
+  font-family: "MaruBuri-Regular";
+  font-weight: normal;
+  src: url("./fonts/MaruBuri-Regular.ttf") format("truetype");
+}
+@font-face {
+  font-family: "MaruBuri-SemiBold";
+  font-weight: normal;
+  src: url("./fonts/MaruBuri-SemiBold.ttf") format("truetype");
+}
+
+
   
   body {
-    font-family: "NanumBarunGothic";
+    font-family: "NanumBarunGothicLight";
     font-weight: 900;
     font-weight: normal;
     margin:0 auto;
+    overflow-x: hidden;
   }
 
   a:link{
@@ -33,8 +61,4 @@
   } 
   a:visited, a:active{
     color:black;
-  }
-
-  h1{
-    margin-left:200px
   }
