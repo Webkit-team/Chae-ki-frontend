@@ -43,6 +43,7 @@ const Header = () => {
                             color="inherit"
                             align="left"
                             noWrap
+
                             sx={{ flex: 1, fontFamily: 'NanumBarunGothic', fontWeight: 900, fontSize: '25px', color: '#000000', px: 2, display: 'inline', maxWidth: '50px' }}
                         ><Link to="/">
                                 채키

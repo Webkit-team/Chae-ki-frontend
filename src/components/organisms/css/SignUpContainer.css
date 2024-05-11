@@ -1,0 +1,26 @@
+/* .wrapper {
+    display: flex;
+} */
+
+.mid-header {
+    font-size: 30px;
+    text-align: center;
+}
+
+.container {
+    display: flex;
+    /* align-items: center; */
+    justify-content: center;
+}
+
+.profile-left {
+    display: flex;
+    flex-direction: column;
+    padding: 100px 100px 0px 0px;
+}
+
+.profile-right {
+    display: flex;
+    flex-direction: column;
+}
+
