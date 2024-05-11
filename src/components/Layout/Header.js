@@ -40,8 +40,6 @@ const Header = () => {
                     <div style={{ display: 'flex', alignItems: 'center' }}>
                         <img className="header_img" src={chaeki} alt="채키" />
                         <Typography
-                            component="h1"
-                            variant="h5"
                             color="inherit"
                             align="left"
                             noWrap

@@ -2,6 +2,7 @@ import React from 'react';
 import Grid from '@mui/material/Grid';
 import Box from '@mui/material/Box';
 import CustomButton from '../../atoms/CustomButton';
+import { useNavigate } from 'react-router-dom';
 
 const testImg = "https://placehold.co/150x200"
 const imgList = [
@@ -33,8 +34,12 @@ const imgList = [
 ]
 
 const ChallengeRanking = () => {
+    const navigate = useNavigate();
+    const handleClick = (props) => {
+        navigate('/challenge/:id');
+    }
     return (
-        <Box component="section" sx={{ p: 2 }}>
+        <Box sx={{ p: 2, my:1 }}>
             <Grid container spacing={5} direction="column" alignItems="center">
                 <Grid item md={6} display="flex">
                     <img src='https://placehold.co/200x250' alt="test-img" style={{ marginRight: '35px' }} />
@@ -50,7 +55,7 @@ const ChallengeRanking = () => {
                             <CustomButton variant="outlined" to="/challenge" sx={{
                                 backgroundColor: 'black',
                                 '&:hover': {
-                                    backgroundColor: '#00780E',
+                                    backgroundColor: '#949494',
                                     borderColor: 'green',
                                 },
                             }} style={{ color: '#FFFFFF' }} >
@@ -62,7 +67,7 @@ const ChallengeRanking = () => {
                 <Grid item md={6}>
                     <Grid container spacing={5} alignContent='center'>
                         {imgList.map((item, key) => (
-                            <Grid item md={2}>
+                            <Grid item md={2} onClick={(props) => (handleClick())}>
                                 <img src={item.img} alt={item.title} />
                                 <h3>(챌린지명)</h3>
                             </Grid>
