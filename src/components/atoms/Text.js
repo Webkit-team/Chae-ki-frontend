@@ -41,3 +41,28 @@ export const Text3 = ({children, ...props}) => {
     );
 };
 
+export const Text4 = ({children, ...props}) => {
+    return (
+        <Typography 
+        sx={{
+            fontFamily:'NanumBarunGothic',
+            fontWeight: 100,
+            fontSize: '18px',
+        }}>     
+        {children}
+        </Typography>
+    );
+};
+
+export const Text5 = ({children, ...props}) => {
+    return (
+        <Typography 
+        sx={{
+            fontFamily:'NanumBarunGothic',
+            fontWeight: 100,
+            fontSize: '14px',
+        }}>     
+        {children}
+        </Typography>
+    );
+};

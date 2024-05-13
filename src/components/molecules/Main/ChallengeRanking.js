@@ -64,7 +64,7 @@ const ChallengeRanking = () => {
                         </div>
                     </div>
                 </Grid>
-                <Grid item md={6}>
+                <Grid item md={6} sx={{marginTop:3}}>
                     <Grid container spacing={5} alignContent='center'>
                         {imgList.map((item, key) => (
                             <Grid item md={2} onClick={(props) => (handleClick())}>

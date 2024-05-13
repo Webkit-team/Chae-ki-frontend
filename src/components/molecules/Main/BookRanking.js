@@ -52,7 +52,7 @@ const BookRanking = () => {
 
     return (
         <Box sx={{my:10}}>
-            <div style={{display:'flex', alignItems:'center'}}>
+            <div style={{display:'flex', alignItems:'center', justifyContent:'center'}}>
             <Text1>이달의 도서</Text1>
             </div>
             <ImageList sx={{ width: '70vw', height: 270, overflow: 'hidden', pl:1}} gap={10} cols={5}> 

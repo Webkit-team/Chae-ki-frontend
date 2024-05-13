@@ -1,12 +1,16 @@
 import Layout from "../Layout/Layout";
+import UserRanking from "../molecules/Main/UserRanking";
 import MainContainer from "../organisms/MainContainer";
 
 
 const MainPage = () => {
     return (
-        <Layout>
-            <MainContainer/>
-        </Layout>
+        <>
+            <UserRanking />
+            <Layout>
+                <MainContainer />
+            </Layout>
+        </>
     );
 }
 
