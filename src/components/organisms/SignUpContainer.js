@@ -140,7 +140,7 @@ const SignUpContainer = () => {
                     <Box
                         component="img"
                         src={image}
-                        alt="불러온 이미지"
+                        alt="사용자 이미지"
                         sx={{
                             border: "1px solid",
                             borderRadius: "100%",
@@ -259,9 +259,6 @@ const SignUpContainer = () => {
                         alignItems: "center", justifyContent: "center",
                         float: "right",
                         borderRadius: 1,
-                        // "& .MuiButtonBase-root-MuiButton-root": {
-                        //     fontSize: "0.75rem"
-                        // }
                         fontSize: 11
                     }}
                     

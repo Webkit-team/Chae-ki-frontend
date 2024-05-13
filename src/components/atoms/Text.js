@@ -59,3 +59,15 @@ export const Text3 = ({children, ...props}) => {
     );
 };
 
+export const MainText = ({children, ...props}) => {
+    return (
+        <Typography 
+        sx={{
+            fontFamily:'NanumBarunGothic',
+            fontWeight: 400,
+            fontSize: '17px',
+        }}>     
+        {children}
+        </Typography>
+    );
+};

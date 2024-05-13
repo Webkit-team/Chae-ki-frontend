@@ -143,7 +143,7 @@ const EditContainer = () => {
                     <Box
                         component="img"
                         src={image}
-                        alt="불러온 이미지"
+                        alt="사용자 이미지"
                         sx={{
                             border: "1px solid",
                             borderRadius: "100%",
@@ -155,7 +155,7 @@ const EditContainer = () => {
                     <Box
                         component="img"
                         src={defaultImg}
-                        alt="회원정보수정 기본 이미지"
+                        alt="기본 이미지"
                         sx={{
                             // border: "1px solid",
                             // borderRadius: "100%",
