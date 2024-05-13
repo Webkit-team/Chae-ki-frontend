@@ -10,6 +10,10 @@ import BookmarkIcon from '@mui/icons-material/Bookmark';
 import { Link } from "react-router-dom";
 import { useState } from "react";
 
+import defaultImg from "../../assets/defaultProfile.png"
+import CustomButton from "../atoms/CustomButton";
+import { MainText, SubTitle, Text3} from "../atoms/Text";
+
 
 const MyContainer = () => {
 
@@ -24,7 +28,7 @@ const MyContainer = () => {
             case "challenge":
                 return <ChallengeList />;
             case "today":
-                return <p>채키 투데이 내용입니다.</p>
+                return <MainText>채키 투데이 내용입니다.</MainText>
             case "readTime":
                 return <p>누적 독서 시간 ~~</p>
             case "review":
@@ -39,7 +43,7 @@ const MyContainer = () => {
     }
 
     return(<div className="wrapper">
-        <h2 className="mid-header">마이 페이지</h2>
+        <SubTitle>마이 페이지</SubTitle>
 
         <Container sx={{width: 1000}}>
             <Container 
@@ -61,21 +65,25 @@ const MyContainer = () => {
                 >
                     <Avatar
                     alt="프로필 사진"
-                    src={"../../assets/default.png"} // 사용자가 사진을 선택하면 그 사진을, 아니면 기본 사진을 표시
+                    src={defaultImg} // 사용자가 사진을 선택하면 그 사진을, 아니면 기본 사진을 표시
                     sx={{ width: 100, height: 100, border: "1px solid", borderRadius: "50%" }}
                     />
 
                     <Box sx={{ fontSize: "16px", width:"200px", textAlign:"center"}}>
-                        <Typography sx={{ pb:3 }}>"oo"의 서재</Typography>
-                        <Typography>나무 등급</Typography>
+                        <Text3 sx={{ pb:5 }}>"oo"의 서재</Text3>
+                        <Text3>나무 등급</Text3>
                     </Box>
 
                     <Box sx={{ width:"300px", textAlign:"center"}}>
-                        <Button variant="contained">보유 쿠폰</Button>
-                        <Button variant="contained">쿠폰 받기</Button>
+                        <CustomButton variant="contained" sx={{border:"1px solid", borderRadius: 1}}>보유 쿠폰</CustomButton>
+                        <CustomButton variant="contained">쿠폰 받기</CustomButton>
                     </Box>
 
-                    
+                    <Box sx={{ width: "100px", textAlign:"right"}}>
+                        <Text3>회원정보수정</Text3>
+                        <Divider orientation="vertical" variant="middle" flexItem />
+                        <Text3>회원탈퇴</Text3>
+                    </Box>
                 </Box>
                 
                 <Divider width="100%" sx={{border:"solid 1px"}}/>

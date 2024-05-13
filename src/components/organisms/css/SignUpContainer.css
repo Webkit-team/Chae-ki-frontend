@@ -7,20 +7,19 @@
     text-align: center;
 }
 
-.container {
-    display: flex;
-    /* align-items: center; */
-    justify-content: center;
-}
-
 .profile-left {
     display: flex;
     flex-direction: column;
-    padding: 100px 100px 0px 0px;
+    padding: 80px 70px ;
 }
 
 .profile-right {
+    padding-top: 10px;
     display: flex;
     flex-direction: column;
 }
 
+.dup-buttons {
+    display: flex;
+    flex-direction: column;
+}
