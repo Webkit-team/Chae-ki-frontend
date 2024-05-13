@@ -1,4 +1,6 @@
 import { Button, IconButton, TextField, Avatar, Box, Container, Typography } from "@mui/material";
+import CustomTextField from "../atoms/CustomTextField";
+import CustomButton from "../atoms/CustomButton";
 
 import CloudUploadIcon from "@mui/icons-material/CloudUpload";
 import PersonIcon from '@mui/icons-material/Person';
@@ -8,28 +10,30 @@ import BadgeIcon from '@mui/icons-material/Badge';
 import Visibility from '@mui/icons-material/Visibility';
 import VisibilityOff from '@mui/icons-material/VisibilityOff';
 
+import defaultImg from '../../assets/defaultProfile.png';
 
 import { useEffect, useState } from "react";
 import axios from "axios";
+import { SubTitle } from "../atoms/Text";
 
 
 
 const EditContainer = () => {
 
-    const [image, setImage] = useState(null);
+    const [image, setImage] = useState("");
     const [id, setId] = useState("");
-    const [pwd, setPwd] = useState("");     // 비밀번호
-    const [confirmPwd, setConfirmPwd] = useState("");   // 비밀번호 확인
+    const [pwd, setPwd] = useState("");
+    const [confirmPwd, setConfirmPwd] = useState("");
     const [nickname, setNickname] = useState("");
 
-    const [isPwd, setIsPwd] = useState(true);      // 유효성 검사
+    const [isPwd, setIsPwd] = useState(true);
     const [isNickname, SetIsNickname] = useState(true);
 
     const [showPwd, setShowPwd] = useState(false);      // 비밀번호 숨김 토글
     const [matchPwd, setMatchPwd] = useState(false);    // 비밀번호와 비밀번호 확인 값 비교
 
 
-//////////////////////////////
+    //////////////////////////////
 
     // 더미 데이터 가져오는 함수
     const fetchDummyUserData = () => {
@@ -44,12 +48,12 @@ const EditContainer = () => {
         setNickname(dummyData.nickname);
     };
 
+    //////////////////////////////
+
     useEffect(() => {
         fetchDummyUserData();
     }, []);
 
-
-    // 로컬에서 사진 불러오기
     const handleFileChange = (e) => {
         const file = e.target.files[0];
         if (file) {
@@ -65,8 +69,6 @@ const EditContainer = () => {
     const onChangePwd = (e) => {
         const currentPwd = e.target.value;
         setPwd(currentPwd);
-
-        // 비밀번호와 비밀번호 확인 값이 일치하는지에 대한 여부(비밀번호 값 변경 시)
         setMatchPwd(currentPwd === confirmPwd);
 
         const PWD_REGEX = /^[a-zA-Z0-9~!@#$%^&*()]{8,16}$/;
@@ -82,8 +84,6 @@ const EditContainer = () => {
     const onChangeConfirmPwd = (e) => {
         const currentConfirmPwd = e.target.value;
         setConfirmPwd(currentConfirmPwd);
-
-        // 비밀번호와 비밀번호 확인 값이 일치하는지에 대한 여부(비밀번호 확인 값 변경 시)
         setMatchPwd(currentConfirmPwd === pwd);
     }
 
@@ -114,7 +114,7 @@ const EditContainer = () => {
             nickname: nickname
         };
 
-        // axios.post("localhost:3000/signup", userData)
+        // axios.put("localhost:3000/user", userData)
         //     .then(response => {
         //         console.log("회원정보수정 성공!", response.data)
         //     })
@@ -127,19 +127,19 @@ const EditContainer = () => {
         console.log(pwd);
         console.log(nickname);
 
-
     }
 
 
     return (<div className="wrapper">
-        <h2 className="mid-header">회원정보수정</h2>       {/* 2 level - 50px? */}
+        <SubTitle>회원정보수정</SubTitle>
 
-        <div className="container">
+        <Container
+            sx={{ width: 800, pt:"30px", pb: "100px", display: "flex", justifyContent: "center" }}
+        >
 
-            <div className="profile-left">
+            <div className="profile-left" style={{padding: "50px 70px"}}>
 
-
-                {Box ? (
+                {image ? (
                     <Box
                         component="img"
                         src={image}
@@ -147,30 +147,23 @@ const EditContainer = () => {
                         sx={{
                             border: "1px solid",
                             borderRadius: "100%",
-                            width: "200px",
-                            height: "200px"
+                            width: "180px",
+                            height: "180px"
                         }}
                     />
                 ) : (
-                    // <image src="../../assets/none1.png" alt="기본 이미지" />
                     <Box
                         component="img"
-                        src="../../assets/snake.png"
-                        alt="기본 이미지"
+                        src={defaultImg}
+                        alt="회원정보수정 기본 이미지"
                         sx={{
+                            // border: "1px solid",
                             // borderRadius: "100%",
-                            width: "200px",
-                            height: "200px"
+                            width: "180px",
+                            height: "180px"
                         }}
                     />
                 )}
-
-                <Avatar
-                    alt="프로필 사진"
-                    src={image || "../../assets/default.png"} // 사용자가 사진을 선택하면 그 사진을, 아니면 기본 사진을 표시
-                    sx={{ width: 200, height: 200, border: "1px solid", borderRadius: "50%" }}
-                />
-
 
                 <Button
                     component="label"
@@ -178,10 +171,9 @@ const EditContainer = () => {
                     variant="contained"
                     tabIndex={-1}
                     startIcon={<CloudUploadIcon />}
-                    sx={{ mt: 5 }}
+                    sx={{ mt: 3 }}
                 >
                     사진 불러오기
-                    {/* <VisuallyHiddenInput type="file" /> */}
                     <input
                         type="file"
                         accept="image/*"
@@ -193,13 +185,12 @@ const EditContainer = () => {
             </div>
 
 
-            {/* 기존 비밀번호와 같은지 확인하는 로직 추가해야함 */}
+            {/* 기존 비밀번호와 같은지 확인하는 로직 추가해야할까? */}
             <div className="profile-right">
 
-                <TextField
+                <CustomTextField
                     label="비밀번호"
                     type={showPwd ? "text" : "password"}
-                    // placeholder="Password"
                     variant="outlined"
                     InputProps={{
                         startAdornment: (<IconButton tabIndex={-1}><KeyIcon /></IconButton>),
@@ -207,7 +198,6 @@ const EditContainer = () => {
                             (<IconButton
                                 tabIndex={-1}
                                 onClick={handleClickShowPwd}
-                            //onMouseDown={handleMouseDownPwd}                                 //** 얘 빼도 되는거 아닌가
                             >
                                 {showPwd ? (
                                     <VisibilityOff />
@@ -216,19 +206,16 @@ const EditContainer = () => {
                                 )}
                             </IconButton>)
                     }}
-                    helperText="영문 대소문자 구분, 숫자, 특수문자 포함 8~16자 사용 가능"
+                    helperText="영문, 숫자, 특수문자 포함 8~16자 사용 가능"
                     value={pwd}
                     onChange={onChangePwd}
                     error={!isPwd}
                     sx={{ mt: 2, mb: 2 }}
-
                 />
 
-
-                <TextField
+                <CustomTextField
                     label="비밀번호 확인"
                     type="text"                     // 얘만 나중에 password 형태로 바꿔
-                    placeholder="Enter Your Password Again"
                     InputProps={{ startAdornment: (<IconButton tabIndex={-1}><LockIcon /></IconButton>) }}
                     helperText={!matchPwd && confirmPwd !== "" ? "비밀번호가 일치하지 않습니다." : "비밀번호가 일치합니다."}
                     value={confirmPwd}
@@ -237,21 +224,17 @@ const EditContainer = () => {
                     sx={{ mt: 2, mb: 2 }}
                 />
 
-
-                <TextField
+                <CustomTextField
                     label="닉네임"
                     // required
-                    placeholder="Nickname"
                     InputProps={{ startAdornment: (<IconButton tabIndex={-1}><BadgeIcon /></IconButton>) }}
                     helperText="한글 2~6자만 사용 가능"
                     value={nickname}
                     onChange={onChangeNickname}
-                    error={!isNickname}   // 유효성검사 미통과시 빨갛게
+                    error={!isNickname}
                     sx={{ mt: 2, mb: 2 }}
                 />
 
-
-                {/* <button type="submit">회원가입</button><br /> */}
                 <Button
                     variant="contained" color="success"
                     onClick={handleEdit}
@@ -261,18 +244,8 @@ const EditContainer = () => {
                     회원정보수정
                 </Button>
             </div>
-            <Button
-                sx={{
-                    mt: 30, ml: 3, width: 80, height: 56,
-                    alignItems: "center", justifyContent: "center",
-                    float: "right"
-                }}
-            >
-                중복확인
-            </Button>
 
-        </div>
-
+        </Container>
 
     </div>)
 }

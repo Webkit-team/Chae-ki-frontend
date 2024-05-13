@@ -3,19 +3,16 @@ import { Button, TextField, Link, Grid, Box, Container, Typography, IconButton }
 import PersonIcon from '@mui/icons-material/Person';
 import KeyIcon from '@mui/icons-material/Key';
 
+import CustomTextField from '../atoms/CustomTextField';
 import { useState } from 'react';
 import axios from 'axios';
 import { Navigate } from 'react-router-dom';
+import { SubTitle } from "../atoms/Text";
 
-// 로그인 어떻게 성공하는지는 백에서 처리?
-// 로그인 성공했다는 응답이 오고난 뒤, 로그인 상태 관리 하는거는 우리가 하는거?
-// 로그인 상태면 <마이페이지, 로그아웃> / 로그인 상태 아니면 회원가입, 로그인 띄워야하니까
+
 const LoginContainer = () => {
-
     const [isLogin, setIsLogin] = useState(false);
 
-    // 로그인 성공시 메인페이지로 이동해야함. loginSuccess는 이때 필요함
-    // 로그인 실패시 알림창 띄워야함.
     const handleSubmit = async (event) => {
         event.preventDefault();
         const data = new FormData(event.currentTarget);
@@ -59,20 +56,16 @@ const LoginContainer = () => {
                     display: 'flex',
                     flexDirection: 'column',
                     alignItems: 'center',
+                    justifyContent: "center"
                 }}
             >
 
-                {/* <Avatar sx={{ m: 1, bgcolor: 'secondary.main' }}>
-            <LockOutlinedIcon />
-          </Avatar> */}
+                <SubTitle>로그인</SubTitle>
 
-                <h2 className="mid-header" style={{ fontSize: "30px" }}>로그인</h2>
-
-                <Box component="form" onSubmit={handleSubmit} noValidate sx={{ mt: 1 }}>
-                    <TextField
+                <Box component="form" onSubmit={handleSubmit} noValidate sx={{ display:'flex', flexDirection:"column",mt: "28px", alignItems: "center"}} >
+                    <CustomTextField
                         autoFocus
                         margin="normal"
-                        required
                         InputProps={{ startAdornment: (<IconButton tabIndex={-1}><PersonIcon /></IconButton>) }}
                         fullWidth
                         label="ID"
@@ -80,9 +73,8 @@ const LoginContainer = () => {
                         id="id"
                     />
 
-                    <TextField
+                    <CustomTextField
                         margin="normal"
-                        required
                         InputProps={{ startAdornment: (<IconButton tabIndex={-1}><KeyIcon /></IconButton>) }}
                         fullWidth
                         label="Password"
@@ -95,7 +87,7 @@ const LoginContainer = () => {
                         type="submit"
                         fullWidth
                         variant="contained"
-                        sx={{ mt: 3, mb: 2 }}
+                        sx={{ width: 300, mt: 3, mb: 2 }}
                     >
                         로그인
                     </Button>

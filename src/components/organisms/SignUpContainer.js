@@ -1,5 +1,4 @@
 import "./css/SignUpContainer.css";
-import { styled } from "@mui/material/styles";
 import { Button, IconButton, TextField, Avatar, Box, Container } from "@mui/material";
 
 import CloudUploadIcon from "@mui/icons-material/CloudUpload";
@@ -13,35 +12,28 @@ import VisibilityOff from '@mui/icons-material/VisibilityOff';
 
 import { useState } from "react";
 import axios from "axios";
-
-
-// const VisuallyHiddenInput = styled('input')({
-//     clip: 'rect(0 0 0 0)',
-//     clipPath: 'inset(50%)',
-//     height: 1,
-//     overflow: 'hidden',
-//     position: 'absolute',
-//     bottom: 0,
-//     left: 0,
-//     whiteSpace: 'nowrap',
-//     width: 1,
-//   });
+import CustomButton from "../atoms/CustomButton";
+import CustomTextField from "../atoms/CustomTextField";
+import defaultImg from "../../assets/defaultProfile.png"
+import { SubTitle } from "../atoms/Text";
+import { Padding } from "@mui/icons-material";
 
 
 const SignUpContainer = () => {
 
     const [image, setImage] = useState(null);
     const [id, setId] = useState("");
-    const [pwd, setPwd] = useState("");     // 비밀번호
-    const [confirmPwd, setConfirmPwd] = useState("");   // 비밀번호 확인
+    const [pwd, setPwd] = useState("");
+    const [confirmPwd, setConfirmPwd] = useState("");
     const [nickname, setNickname] = useState("");
 
     const [isId, setIsID] = useState(true);
-    const [isPwd, setIsPwd] = useState(true);      // 유효성 검사
+    const [isPwd, setIsPwd] = useState(true);
     const [isNickname, SetIsNickname] = useState(true);
 
     const [showPwd, setShowPwd] = useState(false);      // 비밀번호 숨김 토글
     const [matchPwd, setMatchPwd] = useState(false);    // 비밀번호와 비밀번호 확인 값 비교
+
 
     // 로컬에서 사진 불러오기
     const handleFileChange = (e) => {
@@ -67,7 +59,6 @@ const SignUpContainer = () => {
         }
     }
 
-    // 아이디 중복확인
     const handleDupCheckId = () => {
         console.log("아이디 중복 확인 버튼 눌림!");
     }
@@ -79,7 +70,7 @@ const SignUpContainer = () => {
         // 비밀번호와 비밀번호 확인 값이 일치하는지에 대한 여부(비밀번호 값 변경 시)
         setMatchPwd(currentPwd === confirmPwd);
 
-        const PWD_REGEX = /^[a-zA-Z0-9~!@#$%^&*()]{8,16}$/;
+        const PWD_REGEX = /^[a-zA-Z0-9~!@#$%^&*+-]{8,16}$/;
 
         if (!PWD_REGEX.test(currentPwd)) {
             setIsPwd(false);
@@ -88,24 +79,17 @@ const SignUpContainer = () => {
         }
     }
 
-
     const onChangeConfirmPwd = (e) => {
         const currentConfirmPwd = e.target.value;
         setConfirmPwd(currentConfirmPwd);
 
-        // 비밀번호와 비밀번호 확인 값이 일치하는지에 대한 여부(비밀번호 확인 값 변경 시)
+        // 비밀번호 확인 값과 비밀번호가 일치하는지에 대한 여부(비밀번호 확인 값 변경 시)
         setMatchPwd(currentConfirmPwd === pwd);
     }
-
 
     const handleClickShowPwd = () => {
         setShowPwd(!showPwd);
     }
-
-    // const handleMouseDownPwd = (e) => {
-    //     console.log("이건 뭐냐");
-    //     e.preventDefault();
-    // }
 
     const onChangeNickname = (e) => {
         const currentNickname = e.target.value;
@@ -117,11 +101,6 @@ const SignUpContainer = () => {
         } else {
             SetIsNickname(true);
         }
-    }
-
-    // 아이디 중복확인
-    const handleDupCheckNick = () => {
-        console.log("닉네임 중복 확인 버튼 눌림!");
     }
 
     // 회원가입 정보 보내는 post 요청 추가해야함
@@ -142,23 +121,22 @@ const SignUpContainer = () => {
         //     });
 
         console.log("회원가입 완료!");
-        console.log(id);
-        console.log(pwd);
-        console.log(nickname);
-
-
+        console.log("id: ", id);
+        console.log("pwd: ", pwd);
+        console.log("nickname: ", nickname);
     }
 
 
     return (<div className="wrapper">
+        <SubTitle>회원가입</SubTitle>
 
-        <h2 className="mid-header">회원가입</h2>       {/* 2 level - 50px? */}
-
-        <div className="container">
+        <Container
+            sx={{ width: 800, pt: "30px", pb: "100px", display: "flex", justifyContent: "center" }}
+        >
 
             <div className="profile-left">
-
-                {Box ? (
+                {image ? (
+                    <>
                     <Box
                         component="img"
                         src={image}
@@ -166,30 +144,23 @@ const SignUpContainer = () => {
                         sx={{
                             border: "1px solid",
                             borderRadius: "100%",
-                            width: "200px",
-                            height: "200px"
+                            width: "180px",
+                            height: "180px",
+                            objectFit: "fill"
                         }}
                     />
+                    </>
                 ) : (
-                    // <image src="../../assets/none1.png" alt="기본 이미지" />
                     <Box
                         component="img"
-                        src="../../assets/snake.png"
+                        src={defaultImg}
                         alt="기본 이미지"
                         sx={{
-                            // borderRadius: "100%",
-                            width: "200px",
-                            height: "200px"
+                            width: "180px",
+                            height: "180px"
                         }}
                     />
                 )}
-
-                <Avatar
-                    alt="프로필 사진"
-                    src={image || "../../assets/default.png"} // 사용자가 사진을 선택하면 그 사진을, 아니면 기본 사진을 표시
-                    sx={{ width: 200, height: 200, border: "1px solid", borderRadius: "50%" }}
-                />
-
 
                 <Button
                     component="label"
@@ -197,10 +168,9 @@ const SignUpContainer = () => {
                     variant="contained"
                     tabIndex={-1}
                     startIcon={<CloudUploadIcon />}
-                    sx={{ mt: 5 }}
+                    sx={{ mt: 3 }}
                 >
                     사진 불러오기
-                    {/* <VisuallyHiddenInput type="file" /> */}
                     <input
                         type="file"
                         accept="image/*"
@@ -208,28 +178,24 @@ const SignUpContainer = () => {
                         style={{ display: "none" }}
                     />
                 </Button>
-
             </div>
 
-
             <div className="profile-right">
-                <TextField
+                <CustomTextField
                     autoFocus
                     label="아이디"
+                    required
                     InputProps={{ startAdornment: (<IconButton tabIndex={-1}><PersonIcon /></IconButton>) }}
-                    helperText="영문 대소문자 구분, 숫자 포함 5~16자만 사용 가능"
+                    helperText="영문, 숫자 포함 5~16자 사용 가능"
                     value={id}
                     onChange={onChangeId}
-                    error={!isId}   // 유효성검사 미통과시 빨갛게
-                    sx={{ mt: 3, mb: 2 }}
+                    error={!isId}
                     variant="outlined"
                 />
 
-                {/* <p><button type="submit" className="">중복확인</button></p> */}
-
-
-                <TextField
+                <CustomTextField
                     label="비밀번호"
+                    required
                     type={showPwd ? "text" : "password"}
                     variant="outlined"
                     InputProps={{
@@ -238,7 +204,6 @@ const SignUpContainer = () => {
                             (<IconButton
                                 tabIndex={-1}
                                 onClick={handleClickShowPwd}
-                            //onMouseDown={handleMouseDownPwd}                                 //** 얘 빼도 되는거 아닌가
                             >
                                 {showPwd ? (
                                     <VisibilityOff />
@@ -247,80 +212,67 @@ const SignUpContainer = () => {
                                 )}
                             </IconButton>)
                     }}
-                    helperText="영문 대소문자 구분, 숫자, 특수문자 포함 8~16자 사용 가능"
+                    helperText={<span>영문, 숫자, 특수문자 포함 8~16자 사용 가능
+                        <br/>특수문자 : ~, !, @, #, $, %, ^, &, *, -, +
+                    </span>}
                     value={pwd}
                     onChange={onChangePwd}
                     error={!isPwd}
-                    sx={{ mt: 2, mb: 2 }}
-
                 />
 
-
-                <TextField
+                <CustomTextField
                     label="비밀번호 확인"
+                    required
                     type="text"                     // 얘만 나중에 password 형태로 바꿔
                     InputProps={{ startAdornment: (<IconButton tabIndex={-1}><LockIcon /></IconButton>) }}
                     helperText={!matchPwd && confirmPwd !== "" ? "비밀번호가 일치하지 않습니다." : "비밀번호가 일치합니다."}
                     value={confirmPwd}
                     onChange={onChangeConfirmPwd}
                     error={!matchPwd && confirmPwd !== ""}
-                    sx={{ mt: 2, mb: 2 }}
                 />
 
-
-                <TextField
+                <CustomTextField
                     label="닉네임"
-                    // required
+                    required
                     InputProps={{ startAdornment: (<IconButton tabIndex={-1}><BadgeIcon /></IconButton>) }}
                     helperText="한글 2~6자만 사용 가능"
                     value={nickname}
                     onChange={onChangeNickname}
-                    error={!isNickname}   // 유효성검사 미통과시 빨갛게
-                    sx={{ mt: 2, mb: 2 }}
+                    error={!isNickname}
                 />
 
-
-                {/* <button type="submit">회원가입</button><br /> */}
                 <Button
                     variant="contained" color="success"
                     onClick={handleSignUp}
                     disabled={!isId || !isPwd || !isNickname || !matchPwd}
-                    sx={{ mt: 3, mb: 2 }}
+                    sx={{ mt: 1.5, mb: 2 }}
                 >
                     회원가입
                 </Button>
             </div>
 
 
-            <div className="dup-button">
-                <Button
+            <div className="dup-buttons">
+                <CustomButton variant="outlined"
                     sx={{
-                        mt: 3, ml: 3, width: 80, height: 56,
+                        mt:1.7, ml: 2, width: 50, height: 35, pt:0, pb:0, pr:0, pl:0,
                         alignItems: "center", justifyContent: "center",
-                        float: "right"
+                        float: "right",
+                        borderRadius: 1,
+                        // "& .MuiButtonBase-root-MuiButton-root": {
+                        //     fontSize: "0.75rem"
+                        // }
+                        fontSize: 11
                     }}
+                    
                     onClick={handleDupCheckId}
                 >
                     중복확인
-                </Button>
+                </CustomButton>
             </div>
 
-            <div>
-                <Button
-                    sx={{
-                        mt: 30, ml: 3, width: 80, height: 56,
-                        alignItems: "center", justifyContent: "center",
-                        float: "right"
-                    }}
-                    onClick={handleDupCheckNick}
-                >
-                    중복확인
-                </Button>
+        </Container>
 
-            </div>
-
-
-        </div>
     </div>)
 }
 

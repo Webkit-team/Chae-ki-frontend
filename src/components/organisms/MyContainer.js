@@ -9,6 +9,8 @@ import BookmarkIcon from '@mui/icons-material/Bookmark';
 
 import { Link } from "react-router-dom";
 import { useState } from "react";
+import CustomButton from "../atoms/CustomButton";
+import { SubTitle } from "../atoms/Text";
 
 
 const MyContainer = () => {
@@ -39,7 +41,7 @@ const MyContainer = () => {
     }
 
     return(<div className="wrapper">
-        <h2 className="mid-header">마이 페이지</h2>
+        <SubTitle>마이 페이지</SubTitle>
 
         <Container sx={{width: 1000}}>
             <Container 
@@ -71,8 +73,8 @@ const MyContainer = () => {
                     </Box>
 
                     <Box sx={{ width:"300px", textAlign:"center"}}>
-                        <Button variant="contained">보유 쿠폰</Button>
-                        <Button variant="contained">쿠폰 받기</Button>
+                        <CustomButton variant="contained" sx={{border:"1px solid", borderRadius: 1}}>보유 쿠폰</CustomButton>
+                        <CustomButton variant="contained">쿠폰 받기</CustomButton>
                     </Box>
 
                     
