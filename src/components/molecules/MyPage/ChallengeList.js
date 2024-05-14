@@ -1,5 +1,5 @@
 import { Box, Card, CardContent, Container } from "@mui/material";
-import { MainText, Text2 } from "../atoms/Text";
+import { MainText, Text2 } from "../../atoms/Text";
 
 const ChallengeList = () => {
 

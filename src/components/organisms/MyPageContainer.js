@@ -1,5 +1,5 @@
-import ChallengeList from "../molecules/ChallengeList";
-import ChaekiTodayList from "../molecules/ChaekiTodayList";
+import ChallengeList from "../molecules/MyPage/ChallengeList";
+import ChaekiTodayList from "../molecules/MyPage/ChaekiTodayList";
 import { Box, Container, Avatar, Divider } from "@mui/material";
 import FlagIcon from '@mui/icons-material/Flag';
 import CreateIcon from '@mui/icons-material/Create';
@@ -27,6 +27,8 @@ const MyPageContainer = () => {
     const getActivityComponent = (activity) => {
         switch (activity) {
             case "challenge":
+
+
                 return <ChallengeList />;
             case "today":
                 return <ChaekiTodayList />
@@ -100,36 +102,90 @@ const MyPageContainer = () => {
                     }}
                 >
 
-                    <Box sx={{ textAlign:"center", cursor:"pointer", lineHeight:2}} onClick={() => handleIconClick("challenge")}>
+                    <Box sx={{
+                        textAlign:"center",
+                        cursor:"pointer",
+                        lineHeight:2,
+                        width: 100,
+                        backgroundColor: showActivity === "challenge" ? "#D9D9D9" : "transparent", // 선택된 활동에 따른 배경색 변경
+                        transform: showActivity === "challenge" ? "scale(1.1)" : "none", // 선택된 활동에 따른 크기 변경
+                        border: showActivity === "challenge" ? "solid 1px #d9d9d9" : "none",
+                        borderRadius: showActivity === "challenge" ? "10%" : "none",
+                        }} onClick={() => handleIconClick("challenge")}>
                         <FlagIcon sx={{ fontSize: 50 }}/>
                         <MainText>챌린지</MainText>
                         <MainText>5</MainText>
                     </Box>
 
-                    <Box sx={{ textAlign:"center", cursor:"pointer", lineHeight:2}} onClick={() => handleIconClick("today")}>
+                    <Box sx={{
+                        textAlign:"center",
+                        cursor:"pointer",
+                        lineHeight:2,
+                        width: 100,
+                        backgroundColor: showActivity === "today" ? "#D9D9D9" : "transparent", // 선택된 활동에 따른 배경색 변경
+                        transform: showActivity === "today" ? "scale(1.1)" : "none", // 선택된 활동에 따른 크기 변경
+                        border: showActivity === "today" ? "solid 1px #d9d9d9" : "none",
+                        borderRadius: showActivity === "today" ? "10%" : "none",
+                        }} onClick={() => handleIconClick("today")}>
                         <CreateIcon sx={{ fontSize: 50 }}/>
                         <MainText>채키 투데이</MainText>
                         <MainText>10</MainText>
                     </Box>
 
-                    <Box sx={{ textAlign:"center", cursor:"pointer", lineHeight:2}} onClick={() => handleIconClick("readTime")}>
+                    <Box sx={{
+                        textAlign:"center",
+                        cursor:"pointer",
+                        lineHeight:2,
+                        width: 100,
+                        backgroundColor: showActivity === "readTime" ? "#D9D9D9" : "transparent", // 선택된 활동에 따른 배경색 변경
+                        transform: showActivity === "readTime" ? "scale(1.1)" : "none", // 선택된 활동에 따른 크기 변경
+                        border: showActivity === "readTime" ? "solid 1px #d9d9d9" : "none",
+                        borderRadius: showActivity === "readTime" ? "10%" : "none",
+                        }} onClick={() => handleIconClick("readTime")}>
                         <WatchLaterIcon sx={{ fontSize: 50 }}/>
                         <MainText>독서 기록</MainText>
                     </Box>
 
-                    <Box sx={{ textAlign:"center", cursor:"pointer", lineHeight:2}} onClick={() => handleIconClick("review")}>
+                    <Box sx={{
+                        textAlign:"center",
+                        cursor:"pointer",
+                        lineHeight:2,
+                        width: 100,
+                        backgroundColor: showActivity === "review" ? "#D9D9D9" : "transparent", // 선택된 활동에 따른 배경색 변경
+                        transform: showActivity === "review" ? "scale(1.1)" : "none", // 선택된 활동에 따른 크기 변경
+                        border: showActivity === "review" ? "solid 1px #d9d9d9" : "none",
+                        borderRadius: showActivity === "review" ? "10%" : "none",
+                        }} onClick={() => handleIconClick("review")}>
                         <AutoStoriesIcon sx={{ fontSize: 50 }}/>
                         <MainText>도서 후기</MainText>
                         <MainText>2</MainText>
                     </Box>
 
-                    <Box sx={{ textAlign:"center", cursor:"pointer", lineHeight:2}} onClick={() => handleIconClick("like")}>
+                    <Box sx={{
+                        textAlign:"center",
+                        cursor:"pointer",
+                        lineHeight:2,
+                        width: 100,
+                        backgroundColor: showActivity === "like" ? "#D9D9D9" : "transparent", // 선택된 활동에 따른 배경색 변경
+                        transform: showActivity === "like" ? "scale(1.1)" : "none", // 선택된 활동에 따른 크기 변경
+                        border: showActivity === "like" ? "solid 1px #d9d9d9" : "none",
+                        borderRadius: showActivity === "like" ? "10%" : "none",
+                        }} onClick={() => handleIconClick("like")}>
                         <FavoriteIcon sx={{ fontSize: 50 }}/>
                         <MainText>찜 도서</MainText>
                         <MainText>1</MainText>
                     </Box>
 
-                    <Box sx={{ textAlign:"center", cursor:"pointer", lineHeight:2}} onClick={() => handleIconClick("scrap")}>
+                    <Box sx={{
+                        textAlign:"center",
+                        cursor:"pointer",
+                        lineHeight:2,
+                        width: 100,
+                        backgroundColor: showActivity === "scrap" ? "#D9D9D9" : "transparent", // 선택된 활동에 따른 배경색 변경
+                        transform: showActivity === "scrap" ? "scale(1.1)" : "none", // 선택된 활동에 따른 크기 변경
+                        border: showActivity === "scrap" ? "solid 1px #d9d9d9" : "none",
+                        borderRadius: showActivity === "scrap" ? "10%" : "none",
+                        }} onClick={() => handleIconClick("scrap")}>
                         <BookmarkIcon sx={{ fontSize: 50 }}/>
                         <MainText>스크랩</MainText>
                         <MainText>3</MainText>
