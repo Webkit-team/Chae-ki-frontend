@@ -27,6 +27,7 @@ export const MainText = ({children, ...props}) => {
             fontFamily:'NanumBarunGothic',
             fontWeight: 400,
             fontSize: '17px',
+            lineHeight: "150%"
         }}>     
         {children}
         </Typography>
@@ -73,7 +74,7 @@ export const Text3 = ({children, ...props}) => {
 };
 
 
-export const Text4 = ({children, ...props}) => {
+export const Text4 = ({children, sx, ...props}) => {
     return (
         <Typography 
         sx={{

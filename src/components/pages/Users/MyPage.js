@@ -1,10 +1,12 @@
 import Layout from "../../Layout/Layout";
-import MyContainer from "../../organisms/MyContainer";
+import MyPageContainer from "../../organisms/MyPageContainer";
+
 
 const MyPage = () => {
+        
     return (
         <Layout>
-            <MyContainer/>
+            <MyPageContainer />
         </Layout>
     );
 }

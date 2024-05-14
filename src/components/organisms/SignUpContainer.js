@@ -1,5 +1,5 @@
 import "./css/SignUpContainer.css";
-import { Button, IconButton, TextField, Avatar, Box, Container } from "@mui/material";
+import { Button, IconButton, Box, Container } from "@mui/material";
 
 import CloudUploadIcon from "@mui/icons-material/CloudUpload";
 import PersonIcon from '@mui/icons-material/Person';
@@ -16,7 +16,6 @@ import CustomButton from "../atoms/CustomButton";
 import CustomTextField from "../atoms/CustomTextField";
 import defaultImg from "../../assets/defaultProfile.png"
 import { SubTitle } from "../atoms/Text";
-import { Padding } from "@mui/icons-material";
 
 
 const SignUpContainer = () => {
