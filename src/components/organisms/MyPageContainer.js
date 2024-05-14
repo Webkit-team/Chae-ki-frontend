@@ -1,5 +1,6 @@
 import ChallengeList from "../molecules/ChallengeList";
-import { Box, Container, Avatar, Typography, Button, Divider } from "@mui/material";
+import ChaekiTodayList from "../molecules/ChaekiTodayList";
+import { Box, Container, Avatar, Divider } from "@mui/material";
 import FlagIcon from '@mui/icons-material/Flag';
 import CreateIcon from '@mui/icons-material/Create';
 import WatchLaterIcon from '@mui/icons-material/WatchLater';
@@ -7,15 +8,15 @@ import AutoStoriesIcon from '@mui/icons-material/AutoStories';
 import FavoriteIcon from '@mui/icons-material/Favorite';
 import BookmarkIcon from '@mui/icons-material/Bookmark';
 
-import { Link } from "react-router-dom";
+
 import { useState } from "react";
 
-import defaultImg from "../../assets/defaultProfile.png"
+import defaultImg from "../../assets/defaultProfile.png";
 import CustomButton from "../atoms/CustomButton";
-import { MainText, SubTitle, Text3} from "../atoms/Text";
+import { MainText, SubTitle, Text3, Text5} from "../atoms/Text";
 
 
-const MyContainer = () => {
+const MyPageContainer = () => {
 
     const [showActivity, setShowActivity] = useState(null);
 
@@ -28,15 +29,15 @@ const MyContainer = () => {
             case "challenge":
                 return <ChallengeList />;
             case "today":
-                return <MainText>채키 투데이 내용입니다.</MainText>
+                return <ChaekiTodayList />
             case "readTime":
-                return <p>누적 독서 시간 ~~</p>
+                return <MainText>누적 독서 시간 ~~</MainText>
             case "review":
-                return <p>도서 후기 리스트입니다.</p>
+                return <MainText>도서 후기 리스트입니다.</MainText>
             case "like":
-                return <p>찜 도서 목록입니다.</p>
+                return <MainText>찜 도서 목록입니다.</MainText>
             case "scrap":
-                return <p>스크랩 도서 후기 목록입니다.</p>
+                return <MainText>스크랩 도서 후기 목록입니다.</MainText>
             default:
                 return null;
         }
@@ -50,7 +51,7 @@ const MyContainer = () => {
                 sx={{
                     display: "flex",
                     flexDirection: "column",
-                    alignItems: "center",
+                    alignItems: "center"
                 }}
             >
                 
@@ -59,7 +60,7 @@ const MyContainer = () => {
                     sx={{
                         display: "flex",
                         alignItems: "center",
-                        maxWidth: 700,
+                        maxWidth: 900,
                         pb: 3
                     }}
                 >
@@ -74,15 +75,15 @@ const MyContainer = () => {
                         <Text3>나무 등급</Text3>
                     </Box>
 
-                    <Box sx={{ width:"300px", textAlign:"center"}}>
+                    <Box sx={{ width:"400px", textAlign:"center"}}>
                         <CustomButton variant="contained" sx={{border:"1px solid", borderRadius: 1}}>보유 쿠폰</CustomButton>
                         <CustomButton variant="contained">쿠폰 받기</CustomButton>
                     </Box>
 
-                    <Box sx={{ width: "100px", textAlign:"right"}}>
-                        <Text3>회원정보수정</Text3>
+                    <Box sx={{ width: "300px",display: "flex", alignItems:"end", justifyContent:"end"}}>
+                        <CustomButton sx={{width: 100}}><Text5>회원정보수정</Text5></CustomButton>
                         <Divider orientation="vertical" variant="middle" flexItem />
-                        <Text3>회원탈퇴</Text3>
+                        <CustomButton sx={{width: 80}}><Text5>회원탈퇴</Text5></CustomButton>
                     </Box>
                 </Box>
                 
@@ -101,33 +102,37 @@ const MyContainer = () => {
 
                     <Box sx={{ textAlign:"center", cursor:"pointer", lineHeight:2}} onClick={() => handleIconClick("challenge")}>
                         <FlagIcon sx={{ fontSize: 50 }}/>
-                        <Typography>챌린지</Typography>
-                        <Typography>0</Typography>
+                        <MainText>챌린지</MainText>
+                        <MainText>5</MainText>
                     </Box>
 
-                    <Box sx={{ textAlign:"center", cursor:"pointer"}} onClick={() => handleIconClick("today")}>
+                    <Box sx={{ textAlign:"center", cursor:"pointer", lineHeight:2}} onClick={() => handleIconClick("today")}>
                         <CreateIcon sx={{ fontSize: 50 }}/>
-                        <Typography>채키 투데이</Typography>
+                        <MainText>채키 투데이</MainText>
+                        <MainText>10</MainText>
                     </Box>
 
-                    <Box sx={{ textAlign:"center", cursor:"pointer"}} onClick={() => handleIconClick("readTime")}>
+                    <Box sx={{ textAlign:"center", cursor:"pointer", lineHeight:2}} onClick={() => handleIconClick("readTime")}>
                         <WatchLaterIcon sx={{ fontSize: 50 }}/>
-                        <Typography>독서 시간</Typography>
+                        <MainText>독서 기록</MainText>
                     </Box>
 
-                    <Box sx={{ textAlign:"center", cursor:"pointer"}} onClick={() => handleIconClick("review")}>
+                    <Box sx={{ textAlign:"center", cursor:"pointer", lineHeight:2}} onClick={() => handleIconClick("review")}>
                         <AutoStoriesIcon sx={{ fontSize: 50 }}/>
-                        <Typography>도서 후기</Typography>
+                        <MainText>도서 후기</MainText>
+                        <MainText>2</MainText>
                     </Box>
 
-                    <Box sx={{ textAlign:"center", cursor:"pointer"}} onClick={() => handleIconClick("like")}>
+                    <Box sx={{ textAlign:"center", cursor:"pointer", lineHeight:2}} onClick={() => handleIconClick("like")}>
                         <FavoriteIcon sx={{ fontSize: 50 }}/>
-                        <Typography>찜 도서</Typography>
+                        <MainText>찜 도서</MainText>
+                        <MainText>1</MainText>
                     </Box>
 
-                    <Box sx={{ textAlign:"center", cursor:"pointer"}} onClick={() => handleIconClick("scrap")}>
+                    <Box sx={{ textAlign:"center", cursor:"pointer", lineHeight:2}} onClick={() => handleIconClick("scrap")}>
                         <BookmarkIcon sx={{ fontSize: 50 }}/>
-                        <Typography>스크랩</Typography>
+                        <MainText>스크랩</MainText>
+                        <MainText>3</MainText>
                     </Box>
 
                 </Box>
@@ -157,4 +162,4 @@ const MyContainer = () => {
     </div>)
 }
 
-export default MyContainer;
+export default MyPageContainer;

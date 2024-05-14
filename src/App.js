@@ -23,8 +23,7 @@ const App = () => {
         <Route path="/login" element={<LoginPage />}></Route>
         <Route path="/signup" element={<SignUpPage/>}></Route>
 
-{/* 마이 페이지와 회원정보수정 페이지는 로그인한 뒤에 뜨는 메인페이지에서 이동 가능.
-    마이페이지 '/my'는 api문서 미정의로, 언제든 변경 가능*/}
+{/* 마이 페이지와 회원정보수정 페이지는 로그인한 뒤에 뜨는 메인페이지에서 이동 가능하도록 변경 예정. */}
         <Route path="/my" element={<MyPage/>}></Route>
         <Route path="/user" element={<EditPage/>}></Route>
 
