@@ -1,38 +1,41 @@
-import { Box, Container, Divider } from "@mui/material";
-import { Text3, Text4, MainText } from "../../atoms/Text";
+import { Box, Container, Divider, Typography } from "@mui/material";
+import { Text3, Text4, Text5, MainText } from "../../atoms/Text";
 import CustomCard from "../../atoms/CustomCard";
 
 const ChaekiTodayList = () => {
 
     return (<>
 
-        <Container sx={{ display: "grid", gridTemplateColumns: "400px 400px", justifyContent: "center", gap: 10, width: 900, pt: 2, pb: 3 }}>
+        <Container
+            sx={{
+                display: "grid",
+                gridTemplateColumns: "400px 400px",
+                justifyContent: "center",
+                gap: 10,
+                width: 900,
+                pt: 2, pb: 3
+            }}>
             
-            {/* 방법1. 박스 안에 텍스트 - 박스에서도 레이아웃 설정, 더보기 설정 o */}
             <CustomCard>
                 <Box sx={{
                     display: "flex",
                     width: "90%",
-                    height: 70,
-                    // maxHeight: 80,
-                    position: "relative",
-                    alignItems: "start",
-                    justifyContent: "start",
-                    textAlign:"start"
-                }}>
+                    minHeight: "80px"
+                }}
+                >
                     <MainText
                         sx={{
                             display: '-webkit-box',
                             WebkitBoxOrient: 'vertical',
                             WebkitLineClamp: 3,
-                            // whiteSpace: 'nowrap',
                             overflow: "hidden",
                             textOverflow: 'ellipsis',
 
                         }}
-                    >
-                        재미있게 잘 읽었습니다. 밤에 시작했는데 읽다보니 그냥 끝까지 보느라 잠이 모자랐네요.
+                    >재미있게 잘 읽었습니다. 밤에 시작했는데 읽다보니 그냥 끝까지 보느라 잠이 모자랐네요.
                         소름돋고 너무 재밌었어요.
+                        믿고 읽는 히가시노게이고!
+                        믿고 읽는 히가시노게이고!
                         믿고 읽는 히가시노게이고!
                         믿고 읽는 히가시노게이고!
                         믿고 읽는 히가시노게이고!
@@ -43,24 +46,40 @@ const ChaekiTodayList = () => {
 
                 <Divider width="90%" sx={{ display: "flex", justifyContent: "center", border: "double 1px #D9D9D9" }}></Divider>
 
-                <Box sx={{ display: "flex", position: "relative", right: 100, top: 50, alignItems: "right", justifyContent: "right" }}>
-                    <Text4>메스커레이드 호텔</Text4>
+                <Box sx={{ display: "flex", position: "relative", right: 130, top: 25.5 }}>
+                    <Typography
+                        sx={{
+                            fontFamily: 'NanumBarunGothicBold',
+                            fontWeight: 100,
+                            fontSize: '18px'
+                        }}
+                    >
+                        기린의 날개
+                    </Typography>
+                </Box>
+
+                <Box sx={{ display: "flex", position: "relative", left: 130, top: 0 }}>
+                    <Text5 >24.05.01</Text5>
                 </Box>
             </CustomCard>
 
-            {/* 방법2. 박스 안에 텍스트 - 박스에서도 레이아웃 설정, 더보기 설정 x */}
             <CustomCard>
                 <Box sx={{
                     display: "flex",
-                    width: "100%",
-                    maxHeight: 150,
-                    position: "relative",
-                    alignItems: "center",
-                    justifyContent: "center",
-                    overflow: "scroll"
-                }}>
-                    <Text3>
-                        재미있게 잘 읽었습니다. 밤에 시작했는데 읽다보니 그냥 끝까지 보느라 잠이 모자랐네요.
+                    width: "90%",
+                    minHeight: "80px"
+                }}
+                >
+                    <MainText
+                        sx={{
+                            display: '-webkit-box',
+                            WebkitBoxOrient: 'vertical',
+                            WebkitLineClamp: 3,
+                            overflow: "hidden",
+                            textOverflow: 'ellipsis',
+
+                        }}
+                    >재미있게 잘 읽었습니다. 밤에 시작했는데 읽다보니 그냥 끝까지 보느라 잠이 모자랐네요.
                         소름돋고 너무 재밌었어요.
                         믿고 읽는 히가시노게이고!
                         믿고 읽는 히가시노게이고!
@@ -69,58 +88,117 @@ const ChaekiTodayList = () => {
                         믿고 읽는 히가시노게이고!
                         믿고 읽는 히가시노게이고!
                         믿고 읽는 히가시노게이고!
-                    </Text3>
+                    </MainText>
                 </Box>
 
                 <Divider width="90%" sx={{ display: "flex", justifyContent: "center", border: "double 1px #D9D9D9" }}></Divider>
 
-                <Box sx={{ display: "flex", position: "relative", right: 100, top: 50, alignItems: "right", justifyContent: "right" }}>
-                    <Text4>메스커레이드 호텔</Text4>
+                <Box sx={{ display: "flex", position:"relative", left: 20, top: 25.5 }}>
+                    <Typography
+                        sx={{
+                            fontFamily: 'NanumBarunGothicBold',
+                            fontWeight: 100,
+                            fontSize: '18px'
+                        }}
+                    >
+                        메스커레이드 호텔
+                    </Typography>
+                </Box>
+
+                <Box sx={{ display: "flex", position: "relative", left: 130, top: 0 }}>
+                    <Text5 >24.04.05</Text5>
                 </Box>
             </CustomCard>
-        
-            {/* 방법3. 박스 안넣고 바로 텍스트 - 더보기 설정 o */}
+            {/* 여기부터 진짜 */}
             <CustomCard>
                 <Box sx={{
                     display: "flex",
-                    width: "100%",
-                    maxHeight: 100,
-                    position: "relative",
-                    alignItems: "center",
-                    justifyContent: "center"
-                }}>
-                    <Text3
+                    width: "90%",
+                    minHeight: "80px"
+                }}
+                >
+                    <MainText
                         sx={{
-                            whiteSpace: 'nowrap',
+                            display: '-webkit-box',
+                            WebkitBoxOrient: 'vertical',
+                            WebkitLineClamp: 3,
+                            // whiteSpace: 'nowrap',
                             overflow: "hidden",
                             textOverflow: 'ellipsis',
                         }}
                     >
-                        재미있게 잘 읽었습니다. 밤에 시작했는데 읽다보니 그냥 끝까지 보느라 잠이 모자랐네요.
+                        너무 너무 좋습니다!
+                    </MainText>
+                </Box>
+
+                <Divider width="90%" sx={{ display: "flex", justifyContent: "center", border: "double 1px #D9D9D9" }}></Divider>
+
+                <Box sx={{ display: "flex", position: "relative", left: 20, top: 25.5 }}>
+                    <Typography
+                        sx={{
+                            fontFamily: 'NanumBarunGothicBold',
+                            fontWeight: 100,
+                            fontSize: '18px'
+                        }}
+                    >
+                        기린의 날개
+                    </Typography>
+                </Box>
+
+                <Box sx={{ display: "flex", position: "relative", left: 130, top: 0 }}>
+                    <Text5 >24.05.01</Text5>
+                </Box>
+            </CustomCard>
+
+            <CustomCard>
+                <Box sx={{
+                    display: "flex",
+                    width: "90%",
+                    minHeight: "80px"
+                }}
+                >
+                    <MainText
+                        sx={{
+                            display: '-webkit-box',
+                            WebkitBoxOrient: 'vertical',
+                            WebkitLineClamp: 3,
+                            // whiteSpace: 'nowrap',
+                            overflow: "hidden",
+                            textOverflow: 'ellipsis',
+
+                        }}
+                    >재미있게 잘 읽었습니다. 밤에 시작했는데 읽다보니 그냥 끝까지 보느라 잠이 모자랐네요.
                         소름돋고 너무 재밌었어요.
                         믿고 읽는 히가시노게이고!
-                    </Text3>
-
+                        믿고 읽는 히가시노게이고!
+                        믿고 읽는 히가시노게이고!
+                        믿고 읽는 히가시노게이고!
+                        믿고 읽는 히가시노게이고!
+                        믿고 읽는 히가시노게이고!
+                        믿고 읽는 히가시노게이고!
+                    </MainText>
                 </Box>
+
                 <Divider width="90%" sx={{ display: "flex", justifyContent: "center", border: "double 1px #D9D9D9" }}></Divider>
-                <Text4>돌이킬 수 없는 약속</Text4>
+
+                <Box sx={{ display: "flex", position: "relative", right: 130, top: 25.5 }}>
+                    <Typography
+                        sx={{
+                            fontFamily: 'NanumBarunGothicBold',
+                            fontWeight: 100,
+                            fontSize: '18px'
+                        }}
+                    >
+                        기린의 날개
+                    </Typography>
+                </Box>
+
+                <Box sx={{ display: "flex", position: "relative", left: 130, top: 0 }}>
+                    <Text5 >24.05.01</Text5>
+                </Box>
             </CustomCard>
 
-            {/* 방법4. 박스 안넣고 바로 텍스트 - 더보기 설정 x */}
-            <CustomCard>
-                <Text3>재미있게 잘 읽었습니다. 밤에 시작했는데 읽다보니 그냥 끝까지 보느라 잠이 모자랐네요.
-                    소름돋고 너무 재밌었어요.
-                    믿고 읽는 히가시노게이고!
-                    믿고 읽는 히가시노게이고!
-                        믿고 읽는 히가시노게이고!
-                        믿고 읽는 히가시노게이고!
-                        믿고 읽는 히가시노게이고!
-                        믿고 읽는 히가시노게이고!
-                        믿고 읽는 히가시노게이고!
-                </Text3>
-                <Divider width="90%" sx={{ display: "flex", justifyContent: "center", border: "double 1px #D9D9D9" }}></Divider>
-                <Text4>기린의 날개</Text4>
-            </CustomCard>
+
 
             <CustomCard>
                 <Text3>유에서 무로 돌아갑시다.</Text3>
