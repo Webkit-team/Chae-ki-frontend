@@ -1,5 +1,10 @@
-import ChallengeList from "../molecules/MyPage/ChallengeList";
-import ChaekiTodayList from "../molecules/MyPage/ChaekiTodayList";
+import MyChallengeList from "../molecules/MyPage/MyChallengeList";
+import MyChaekiTodayList from "../molecules/MyPage/MyChaekiTodayList"
+import MyBookList from "../molecules/MyPage/MyBookList";
+import { MainText, SubTitle, Text3, Text5} from "../atoms/Text";
+import defaultImg from "../../assets/defaultProfile.png";
+import CustomButton from "../atoms/CustomButton";
+
 import { Box, Container, Avatar, Divider } from "@mui/material";
 import FlagIcon from '@mui/icons-material/Flag';
 import CreateIcon from '@mui/icons-material/Create';
@@ -8,12 +13,7 @@ import AutoStoriesIcon from '@mui/icons-material/AutoStories';
 import FavoriteIcon from '@mui/icons-material/Favorite';
 import BookmarkIcon from '@mui/icons-material/Bookmark';
 
-
 import { useState } from "react";
-
-import defaultImg from "../../assets/defaultProfile.png";
-import CustomButton from "../atoms/CustomButton";
-import { MainText, SubTitle, Text3, Text5} from "../atoms/Text";
 
 
 const MyPageContainer = () => {
@@ -27,17 +27,15 @@ const MyPageContainer = () => {
     const getActivityComponent = (activity) => {
         switch (activity) {
             case "challenge":
-
-
-                return <ChallengeList />;
+                return <MyChallengeList />;
             case "today":
-                return <ChaekiTodayList />
+                return <MyChaekiTodayList />
             case "readTime":
                 return <MainText>누적 독서 시간 ~~</MainText>
             case "review":
                 return <MainText>도서 후기 리스트입니다.</MainText>
             case "like":
-                return <MainText>찜 도서 목록입니다.</MainText>
+                return <MyBookList />
             case "scrap":
                 return <MainText>스크랩 도서 후기 목록입니다.</MainText>
             default:
@@ -98,7 +96,6 @@ const MyPageContainer = () => {
                         justifyContent: "space-between",
                         width: "90%",
                         pt: 3, pb: 3
-
                     }}
                 >
 
@@ -206,8 +203,6 @@ const MyPageContainer = () => {
                             {getActivityComponent(showActivity)}
                         </Box>
                     )}
-
-
                 </Box>
 
             </Container>
