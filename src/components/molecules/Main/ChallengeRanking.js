@@ -39,7 +39,7 @@ const ChallengeRanking = () => {
         navigate('/challenge/:id');
     }
     return (
-        <Box sx={{ p: 2, my:1 }}>
+        <Box sx={{ p: 2, my:5 }}>
             <Grid container spacing={5} direction="column" alignItems="center">
                 <Grid item md={6} display="flex">
                     <img src='https://placehold.co/200x250' alt="test-img" style={{ marginRight: '35px' }} />
