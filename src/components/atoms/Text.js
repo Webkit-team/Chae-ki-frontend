@@ -20,15 +20,18 @@ export const SubTitle = ({children, ...props}) => {
     );
 };
 
-export const MainText = ({children, ...props}) => {
+export const MainText = ({children, sx, ...props}) => {
     return (
         <Typography 
         sx={{
             fontFamily:'NanumBarunGothic',
             fontWeight: 400,
             fontSize: '17px',
-            lineHeight: "150%"
-        }}>     
+            lineHeight: "150%",
+            ...sx
+        }}
+        {...props}
+        >
         {children}
         </Typography>
     );
@@ -60,14 +63,17 @@ export const Text2 = ({children, ...props}) => {
     );
 };
 
-export const Text3 = ({children, ...props}) => {
+export const Text3 = ({children, sx, ...props}) => {
     return (
         <Typography 
         sx={{
             fontFamily:'NanumBarunGothic',
             fontWeight: 900,
             fontSize: '21px',
-        }}>     
+            ...sx
+        }}
+        {...props}
+        >     
         {children}
         </Typography>
     );
@@ -94,7 +100,7 @@ export const Text5 = ({children, ...props}) => {
             fontFamily:'NanumBarunGothic',
             fontWeight: 100,
             fontSize: '14px',
-        }}>     
+        }}>
         {children}
         </Typography>
     );
