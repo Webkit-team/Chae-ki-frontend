@@ -93,14 +93,17 @@ export const Text4 = ({children, sx, ...props}) => {
     );
 };
 
-export const Text5 = ({children, ...props}) => {
+export const Text5 = ({children, sx, ...props}) => {
     return (
         <Typography 
         sx={{
             fontFamily:'NanumBarunGothic',
             fontWeight: 100,
             fontSize: '14px',
-        }}>
+            ...sx
+        }}
+        {...props}
+        >
         {children}
         </Typography>
     );
