@@ -100,7 +100,7 @@ export const Text5 = ({children, ...props}) => {
             fontFamily:'NanumBarunGothic',
             fontWeight: 100,
             fontSize: '14px',
-        }}>     
+        }}>
         {children}
         </Typography>
     );
