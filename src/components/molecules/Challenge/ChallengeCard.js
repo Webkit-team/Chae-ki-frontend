@@ -10,6 +10,7 @@ const ChallengeCard = () => {
                 <img src="https://placehold.co/300x350" alt="placeholder" />
                 <Box sx={{ p: 1, m: 1 }}>
                     <Text3>챌린지명</Text3>
+                    <Text5>책 분야</Text5>
                     <Text5>참가자 수</Text5>
                     <Text5>기간</Text5>
                 </Box>

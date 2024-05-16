@@ -33,7 +33,7 @@ const CustomTabs = ({ onTabChange, labels}) => {
 
   return (
     <ThemeProvider theme={theme}>
-      <Box sx={{ width: '100%', bgcolor: 'background.paper', mt: 5 }}>
+      <Box sx={{ width: '100%', bgcolor: 'background.paper', mt: 5, borderBottom:'solid 0.5px', borderBottomColor:'#CECECE' }}>
         <Tabs value={value} onChange={handleChange} >
         {labels.map((label, index) => (
             <Tab key={index} label={label} />

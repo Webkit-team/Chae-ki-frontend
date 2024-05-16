@@ -8,6 +8,7 @@ import ChallengePage from './components/pages/Challenge/ChallengePage';
 import ReviewPage from './components/pages/Review/ReviewPage';
 import MyPage from './components/pages/Users/MyPage';
 import EditPage from './components/pages/Users/EditPage';
+import ChallengeDetailPage from './components/pages/Challenge/ChallengeDetailPage';
 
 
 
@@ -17,15 +18,16 @@ const App = () => {
     <BrowserRouter>
       <Routes>
         <Route path="/" element={<MainPage />}></Route>
-        <Route path="/intro" element={<IntroPage/>}></Route>
-        <Route path="/challenge" element={<ChallengePage/>}></Route>
-        <Route path="/review" element={<ReviewPage/>}></Route>
+        <Route path="/intro" element={<IntroPage />}></Route>
+        <Route path="/challenge" element={<ChallengePage />}></Route>
+        <Route path="/challenge/detail/:id" element={<ChallengeDetailPage />} />
+        <Route path="/review" element={<ReviewPage />}></Route>
         <Route path="/login" element={<LoginPage />}></Route>
-        <Route path="/signup" element={<SignUpPage/>}></Route>
+        <Route path="/signup" element={<SignUpPage />}></Route>
 
-{/* 마이 페이지와 회원정보수정 페이지는 로그인한 뒤에 뜨는 메인페이지에서 이동 가능하도록 변경 예정. */}
-        <Route path="/my" element={<MyPage/>}></Route>
-        <Route path="/user" element={<EditPage/>}></Route>
+        {/* 마이 페이지와 회원정보수정 페이지는 로그인한 뒤에 뜨는 메인페이지에서 이동 가능하도록 변경 예정. */}
+        <Route path="/my" element={<MyPage />}></Route>
+        <Route path="/user" element={<EditPage />}></Route>
 
         <Route path="*" element={<ErrorPage />}></Route>
       </Routes>
