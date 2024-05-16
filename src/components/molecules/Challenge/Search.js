@@ -7,10 +7,11 @@ const Search = () => {
         <>
             <TextField placeholder="도서명, 저자명으로 검색합니다." sx={{
                 "& .MuiInputBase-root": {
-                    width: '300px',
+                    width: '260px',
                     height: "40px"
                 },
                 "& .MuiInputBase-input": {
+                    maxWidth: '200px',
                     height: "20px",
                     fontSize: "14px"
                 },

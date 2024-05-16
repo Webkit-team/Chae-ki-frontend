@@ -1,13 +1,13 @@
-import Layout from "../Layout/Layout";
-import BookContainer from "../organisms/BookContainer";
+import React from 'react';
+import Layout from '../Layout/Layout';
+import BookDetailContainer from '../organisms/BookDetailContainer';
 
 const BookDetailPage = () => {
-    return (<>
+    return (
         <Layout>
-            <BookContainer/>
+            <BookDetailContainer/>
         </Layout>
-    
-    </>)
-}
+    );
+};
 
 export default BookDetailPage;

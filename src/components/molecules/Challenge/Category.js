@@ -27,10 +27,11 @@ const TabItem = styled(Tab)(({ theme }) => ({
 }));
 
 export const Category = () => {
-    const [value, setValue] = React.useState(0);
+    const [value, setValue] = React.useState(false);
 
     const handleChange = (event, newValue) => {
-        setValue(newValue);
+        setValue(value === newValue ? false : newValue);
+        console.log(value);
     };
 
     return (

@@ -69,7 +69,7 @@ const Header = () => {
                             서비스 소개
                         </AnimatedLink>
                         <AnimatedLink
-                            to="/challenge"
+                            to="/challenges"
                             color="inherit"
                             variant="body2"
                             sx={{

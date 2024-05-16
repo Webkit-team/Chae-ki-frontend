@@ -1,22 +1,25 @@
 @font-face {
-    font-family: "NanumBarunGothic";
-    font-weight: normal;
-    src: url("./fonts/NanumBarunGothic.ttf") format("truetype");
+  font-family: "NanumBarunGothic";
+  font-weight: normal;
+  src: url("./fonts/NanumBarunGothic.ttf") format("truetype");
 }
+
 @font-face {
-    font-family: "NanumBarunGothicBold";
-    font-weight: normal;
-    src: url("./fonts/NanumBarunGothicBold.ttf") format("truetype");
+  font-family: "NanumBarunGothicBold";
+  font-weight: normal;
+  src: url("./fonts/NanumBarunGothicBold.ttf") format("truetype");
 }
+
 @font-face {
-    font-family: "NanumBarunGothicLight";
-    font-weight: normal;
-    src: url("./fonts/NanumBarunGothicLight.ttf") format("truetype");
+  font-family: "NanumBarunGothicLight";
+  font-weight: normal;
+  src: url("./fonts/NanumBarunGothicLight.ttf") format("truetype");
 }
+
 @font-face {
-    font-family: "NanumBarunGothicUltraLight";
-    font-weight: normal;
-    src: url("./fonts/NanumBarunGothicUltraLight.ttf") format("truetype");
+  font-family: "NanumBarunGothicUltraLight";
+  font-weight: normal;
+  src: url("./fonts/NanumBarunGothicUltraLight.ttf") format("truetype");
 }
 
 @font-face {
@@ -24,21 +27,25 @@
   font-weight: normal;
   src: url("./fonts/MaruBuri-Bold.ttf") format("truetype");
 }
+
 @font-face {
   font-family: "MaruBuri-ExtraLight";
   font-weight: normal;
   src: url("./fonts/MaruBuri-ExtraLight.ttf") format("truetype");
 }
+
 @font-face {
   font-family: "MaruBuri-Light";
   font-weight: normal;
   src: url("./fonts/MaruBuri-Light.ttf") format("truetype");
 }
+
 @font-face {
   font-family: "MaruBuri-Regular";
   font-weight: normal;
   src: url("./fonts/MaruBuri-Regular.ttf") format("truetype");
 }
+
 @font-face {
   font-family: "MaruBuri-SemiBold";
   font-weight: normal;
@@ -46,19 +53,63 @@
 }
 
 
-  
-  body {
-    font-family: "NanumBarunGothicLight";
-    font-weight: 900;
-    font-weight: normal;
-    margin:0 auto;
-    overflow-x:hidden;
-  }
+@font-face {
+  font-family: "DS-DIGI";
+  font-weight: normal;
+  src: url("./fonts/DS-DIGI.TTF") format("truetype");
+}
+@font-face {
+  font-family: "DS-DIGIB";
+  font-weight: normal;
+  src: url("./fonts/DS-DIGIB.TTF") format("truetype");
+}
+@font-face {
+  font-family: "DS-DIGII";
+  font-weight: normal;
+  src: url("./fonts/DS-DIGII.TTF") format("truetype");
+}
+@font-face {
+  font-family: "DS-DIGIT";
+  font-weight: normal;
+  src: url("./fonts/DS-DIGIT.TTF") format("truetype");
+}
 
-  a:link{
-    text-decoration: none;
-    color:black;
-  } 
-  a:visited, a:active{
-    color:black;
+body {
+  font-family: "NanumBarunGothicLight";
+  font-weight: 900;
+  font-weight: normal;
+  margin: 0 auto;
+  overflow-x: hidden;
+}
+
+a:link {
+  text-decoration: none;
+  color: black;
+}
+
+a:visited,
+a:active {
+  color: black;
+}
+
+@keyframes slideUpFadeIn {
+  from {
+      opacity: 0;
+      transform: translateY(10%);
   }
+  to {
+      opacity: 1;
+      transform: translateY(0);
+  }
+}
+
+@keyframes slideRightFadeIn {
+  from {
+      opacity: 0;
+      transform: translateX(-10%);
+  }
+  to {
+      opacity: 1;
+      transform: translateX(0);
+  }
+}

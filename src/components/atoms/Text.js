@@ -2,7 +2,7 @@ import { Typography } from '@mui/material';
 import React from 'react';
 
 
-export const SubTitle = ({children, ...props}) => {
+export const SubTitle = ({children, sx, ...props}) => {
     return (
         <Typography 
         sx={{
@@ -14,7 +14,10 @@ export const SubTitle = ({children, ...props}) => {
             justifyContent: "center",
             pt:5,
             pb:1,
-        }}>     
+            ...sx
+        }}
+        {...props}
+        >     
         {children}
         </Typography>
     );
@@ -37,27 +40,33 @@ export const MainText = ({children, sx, ...props}) => {
     );
 };
 
-export const Text1 = ({children, ...props}) => {
+export const Text1 = ({children, sx, ...props}) => {
     return (
         <Typography 
         sx={{
             fontFamily:'NanumBarunGothic',
             fontWeight: 900,
             fontSize: '32px',
-        }}>     
+            ...sx
+        }}
+        {...props}
+        >     
         {children}
         </Typography>
     );
 };
 
-export const Text2 = ({children, ...props}) => {
+export const Text2 = ({children, sx, ...props}) => {
     return (
         <Typography 
         sx={{
             fontFamily:'NanumBarunGothic',
             fontWeight: 900,
             fontSize: '25px',
-        }}>     
+            ...sx
+        }}
+        {...props}
+        >     
         {children}
         </Typography>
     );
@@ -87,7 +96,10 @@ export const Text4 = ({children, sx, ...props}) => {
             fontFamily:'NanumBarunGothic',
             fontWeight: 100,
             fontSize: '18px',
-        }}>     
+            ...sx
+        }}
+        {...props}
+        >     
         {children}
         </Typography>
     );
