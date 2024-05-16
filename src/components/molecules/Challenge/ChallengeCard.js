@@ -3,12 +3,12 @@ import React from 'react';
 import { Text3, Text4, Text5 } from '../../atoms/Text';
 import CustomButton from '../../atoms/CustomButton';
 
-const ChallengeCard = ({img, title, category, bookname, startdate, enddate, memberCount, id}) => {
+const ChallengeCard = ({img, title, category, bookname, startdate, enddate, memberCount, id, onClick}) => {
     return (
-        <Card sx={{ p: 3, m: 1, display: 'flex', height: '150px' }} >
+        <Card onClick={onClick} sx={{ p: 3, m: 1, display: 'flex', height: '150px', cursor:'pointer'}} >
             <Box sx={{ display: 'flex', flexDirection: 'row', flexGrow: 1 }}>
                 <img src={img} alt="placeholder" style={{border: 'solid 1px #CECECE'}} />
-                <Box sx={{ p: 1, m: 1 }}>
+                <Box sx={{ p: 1, ml: 1 }}>
                     <Text4 sx={{fontSize:'15px', color:'#717171'}}>{title}</Text4>
                     <Text3>{bookname}</Text3>
                     <Text5>분야 : {category}</Text5>

@@ -1,6 +1,7 @@
 import React from 'react';
 import ChallengeCard from './ChallengeCard';
 import { Box, Grid, Pagination } from '@mui/material';
+import { useNavigate } from 'react-router-dom';
 
 const challengeList = [
     {
@@ -66,6 +67,11 @@ const challengeList = [
 ]
 
 const ChallengeList = () => {
+    const navigate = useNavigate();
+
+    const handleClick = (id) =>{
+        navigate(`/challenges/${id}`);
+    }
 
     return (
         <>
@@ -81,6 +87,7 @@ const ChallengeList = () => {
                             enddate={challenge.enddate}
                             memberCount={challenge.memberCount}
                             category={challenge.category}
+                            onClick={() => handleClick(challenge.id)}
                         />
                     </Grid>
                 ))}
