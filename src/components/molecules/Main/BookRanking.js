@@ -55,7 +55,7 @@ const BookRanking = () => {
             <div style={{display:'flex', alignItems:'center', justifyContent:'center'}}>
             <Text1>이달의 도서</Text1>
             </div>
-            <ImageList sx={{ width: '70vw', height: 270, overflow: 'hidden', pl:1}} gap={10} cols={5}> 
+            <ImageList sx={{ width: '950px', height: 270, pl:1}} gap={5} cols={5}> 
                 {imgList.map((item, index) => (
                     <ImageListItem key={index}>
                         <HoverImage

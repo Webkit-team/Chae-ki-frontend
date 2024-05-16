@@ -52,16 +52,20 @@ const ChaekiToday = (props) => {
     ]
 
     return (
-        <Box sx={{ width: '99vw', marginLeft: '-233px'}}>
-            <Carousel autoPlay interval={3000} sx={{my:13}}>
-                {
-                    items.map((item, i) => (
-                        <Item key={i} item={item} imgList={imgList} index={i} />
-                    ))
-                }
-            </Carousel>
-        </Box>
+        <>
+            <Box sx={{ width: '700px', height: '400px'}}>
+                <Carousel autoPlay interval={3000} sx={{width: '100vw', position: 'absolute', top: '1200px', left:0 }}>
+                    {
+                        items.map((item, i) => (
+                            <Item key={i} item={item} imgList={imgList} index={i} />
+                        ))
+                    }
+                </Carousel>
+            </Box>
+
+        </>
     )
+
 }
 
 const Item = (props) => {
@@ -70,7 +74,7 @@ const Item = (props) => {
         <Paper sx={{
             position: 'relative',
             px: 10, py: 5, color: '#000000', fontFamily: 'MaruBuri-Light',
-            '&::before': { 
+            '&::before': {
                 content: '""',
                 position: 'absolute',
                 top: 0,
@@ -80,14 +84,14 @@ const Item = (props) => {
                 backgroundImage: `url(${backgroundImageUrl})`,
                 backgroundSize: 'cover',
                 backgroundPosition: 'center',
-                opacity: 0.5, 
+                opacity: 0.5,
                 zIndex: 1,
             }
         }}>
             <div style={{ position: 'relative', zIndex: 2 }}>
-                <h1 style={{fontFamily:'MaruBuri-Bold', marginBottom:'3px'}}>채키 투데이</h1><hr/>
+                <h1 style={{ fontFamily: 'MaruBuri-Bold', marginBottom: '3px' }}>채키 투데이</h1><hr />
                 <h2>"{props.item.description}"</h2>
-                <span style={{fontSize:'18px'}}>{props.item.bookname}</span>
+                <span style={{ fontSize: '18px' }}>{props.item.bookname}</span>
                 <h4>{props.item.nickname}</h4>
             </div>
         </Paper>

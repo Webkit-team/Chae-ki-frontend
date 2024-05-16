@@ -35,8 +35,7 @@ const Header = () => {
 
     return (
         <React.Fragment>
-            <header>
-                <Toolbar sx={{ borderBottom:'solid 0.5px', borderBottomColor:'#CECECE',minHeight: '60px', backgroundColor: 'white', width: '100%', display: 'flex', justifyContent: 'space-between', px: 0, margin: 'auto', maxWidth: '1450px' }}>
+                <Toolbar sx={{ position:'fiexed', borderBottom:'solid 0.5px', borderBottomColor:'#CECECE',minHeight: '60px', backgroundColor: 'white', width: '100%', display: 'flex', justifyContent: 'space-between', px: 0}}>
                     <div style={{ display: 'flex', alignItems: 'center' }}>
                         <img className="header_img" src={chaeki} alt="채키" />
                         <Typography
@@ -60,7 +59,7 @@ const Header = () => {
                             color="inherit"
                             variant="body2"
                             sx={{
-                                ml: 8,
+                                ml: 4,
                                 textDecoration: 'none',
                                 fontFamily: 'NanumBarunGothic',
                                 fontWeight: '900',
@@ -103,7 +102,6 @@ const Header = () => {
                         <Link to="/signup" className="signup_link">회원가입</Link>
                     </div>
                 </Toolbar>
-            </header>
         </React.Fragment>
     );
 };

@@ -1,15 +1,20 @@
 import React from 'react';
 import ChallengeCard from './ChallengeCard';
-import { Grid } from '@mui/material';
+import { Box, Grid, Pagination } from '@mui/material';
 
 const ChallengeList = () => {
     return (
-        <Grid>
-            <ChallengeCard />
-            <ChallengeCard />
-            <ChallengeCard />
-            <ChallengeCard />
-        </Grid>
+        <>
+            <Grid>
+                <ChallengeCard />
+                <ChallengeCard />
+                <ChallengeCard />
+                <ChallengeCard />
+            </Grid>
+            <Box sx={{ display: 'flex', alignItems: 'center', justifyContent: 'center', pb:5 }}>
+                <Pagination count={10} />
+            </Box>
+        </>
     );
 };
 

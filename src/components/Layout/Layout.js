@@ -9,11 +9,11 @@ const Layout = (props) => {
             <Header />
             <Container maxWidth="lg">
                 <Grid container spacing={3}>
-                    <Grid item xs={false} sm={0.5}/> 
-                    <Grid item xs={12} sm={11}>
+                    <Grid item xs={false} sm={1}/> 
+                    <Grid item xs={12} sm={10}>
                         <main>{props.children}</main>
                     </Grid>
-                    <Grid item xs={false} sm={0.5}/> 
+                    <Grid item xs={false} sm={1}/> 
                 </Grid>
             </Container>
             <Footer />

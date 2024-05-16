@@ -5,7 +5,6 @@ import axios from "axios";
 import { Category } from "../molecules/Challenge/Category";
 import { Box } from "@mui/material";
 import Search from "../molecules/Challenge/Search";
-import Page from "../molecules/Challenge/Page";
 import ChallengeList from "../molecules/Challenge/ChallengeList";
 
 
@@ -37,9 +36,7 @@ const ChallengeContainer = () => {
                 <Category />
                 <Search/>
             </Box>
-            <ChallengeList/>
-            <Page/>
-
+            <ChallengeList />
         </>
     );
 }
