@@ -53,6 +53,26 @@
 }
 
 
+@font-face {
+  font-family: "DS-DIGI";
+  font-weight: normal;
+  src: url("./fonts/DS-DIGI.TTF") format("truetype");
+}
+@font-face {
+  font-family: "DS-DIGIB";
+  font-weight: normal;
+  src: url("./fonts/DS-DIGIB.TTF") format("truetype");
+}
+@font-face {
+  font-family: "DS-DIGII";
+  font-weight: normal;
+  src: url("./fonts/DS-DIGII.TTF") format("truetype");
+}
+@font-face {
+  font-family: "DS-DIGIT";
+  font-weight: normal;
+  src: url("./fonts/DS-DIGIT.TTF") format("truetype");
+}
 
 body {
   font-family: "NanumBarunGothicLight";
