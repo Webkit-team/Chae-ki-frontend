@@ -88,10 +88,10 @@ const ChallengeRanking = () => {
                             <Text5 sx={{ mt: 1 }}>기간: {challengeList[0].startdate} ~ {challengeList[0].enddate}</Text5>
                             <Text5 sx={{ pb: 2 }}>참가인원: {challengeList[0].memberCount} / 20</Text5>
                             <div className='wrap-button' sx={{ display: 'flex' }}>
-                                <CustomButton variant="outlined" to="/book" sx={{ alignSelf: 'flex-end', mt: 'auto' }}>
+                                <CustomButton variant="outlined" to={`/books/${challengeList[0].id}`} sx={{ alignSelf: 'flex-end', mt: 'auto' }}>
                                     도서 상세 보기
                                 </CustomButton>
-                                <CustomButton variant="outlined" to="/challenge" sx={{
+                                <CustomButton variant="outlined" to={`/challenges/${challengeList[0].id}`} sx={{
                                     backgroundColor: 'black',
                                     '&:hover': {
                                         backgroundColor: '#949494',
