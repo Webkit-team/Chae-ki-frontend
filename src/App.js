@@ -8,6 +8,7 @@ import ChallengePage from './components/pages/Challenge/ChallengePage';
 import ReviewPage from './components/pages/Review/ReviewPage';
 import MyPage from './components/pages/Users/MyPage';
 import EditPage from './components/pages/Users/EditPage';
+import BookDetailPage from './components/pages/BookDetailPage';
 
 
 
@@ -22,6 +23,8 @@ const App = () => {
         <Route path="/review" element={<ReviewPage/>}></Route>
         <Route path="/login" element={<LoginPage />}></Route>
         <Route path="/signup" element={<SignUpPage/>}></Route>
+        <Route path="/book" element={<BookDetailPage/>}></Route>
+
 
 {/* 마이 페이지와 회원정보수정 페이지는 로그인한 뒤에 뜨는 메인페이지에서 이동 가능하도록 변경 예정. */}
         <Route path="/my" element={<MyPage/>}></Route>
