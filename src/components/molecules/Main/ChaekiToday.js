@@ -1,4 +1,4 @@
-import { Box, Paper } from '@mui/material';
+import { Box } from '@mui/material';
 import Carousel from 'react-material-ui-carousel';
 import image1 from '../../../assets/backgroundimage/image1.jpg';
 import image2 from '../../../assets/backgroundimage/image2.jpg';
@@ -71,7 +71,7 @@ const ChaekiToday = (props) => {
 const Item = (props) => {
     const backgroundImageUrl = props.imgList[props.index];
     return (
-        <Paper sx={{
+        <Box sx={{
             position: 'relative',
             px: 10, py: 5, color: '#000000', fontFamily: 'MaruBuri-Light',
             '&::before': {
@@ -94,7 +94,7 @@ const Item = (props) => {
                 <span style={{ fontSize: '18px' }}>{props.item.bookname}</span>
                 <h4>{props.item.nickname}</h4>
             </div>
-        </Paper>
+        </Box>
     )
 }
 

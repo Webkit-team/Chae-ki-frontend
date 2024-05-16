@@ -11,7 +11,7 @@ const Search = () => {
                     height: "40px"
                 },
                 "& .MuiInputBase-input": {
-                    maxWidth: '0px',
+                    maxWidth: '200px',
                     height: "20px",
                     fontSize: "14px"
                 },

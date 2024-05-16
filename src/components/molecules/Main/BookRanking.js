@@ -50,7 +50,7 @@ const BookRanking = () => {
     const navigate = useNavigate();
 
     const handelClick = (id) => {
-        navigate(`/book/${id}`);
+        navigate(`/books/${id}`);
     }
 
     return (

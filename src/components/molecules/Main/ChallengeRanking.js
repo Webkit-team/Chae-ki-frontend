@@ -69,14 +69,13 @@ const challengeList = [
         memberCount: '15',
         id: '307',
     },
-
 ]
 
 const ChallengeRanking = () => {
     const navigate = useNavigate();
 
     const handleClick = (id) => {
-        navigate(`/challenge/${id}`);
+        navigate(`/challenges/${id}`);
     }
     return (
         <Box sx={{ p: 2, my: 5 }}>
