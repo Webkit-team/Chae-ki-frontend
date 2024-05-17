@@ -33,7 +33,7 @@ const ChallengeDetailContainer = () => {
     return (
         <>
             <SubTitle>챌린지</SubTitle>
-            <CustomTabs onTabChange={handleTabChange} labels={["챌린지 정보", "채키 타임", "채키 위크", "챌린지 가이드"]} />
+            <CustomTabs onTabChange={handleTabChange} labels={["챌린지 정보", "채키 타임", "채키 투데이", "챌린지 가이드"]} />
             {renderTabContent()}
         </>
     );

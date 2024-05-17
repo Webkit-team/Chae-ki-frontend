@@ -10,7 +10,6 @@ import MyPage from './components/pages/Users/MyPage';
 import EditPage from './components/pages/Users/EditPage';
 import ChallengeDetailPage from './components/pages/Challenge/ChallengeDetailPage';
 import BookDetailPage from './components/pages/BookDetailPage';
-import BookDetailPage from './components/pages/BookDetailPage';
 
 const App = () => {
   return (
