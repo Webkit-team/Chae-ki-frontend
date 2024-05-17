@@ -174,7 +174,7 @@ const BookDetailContainer = () => {
                         <Divider width="100%" sx={{ border: "solid 1px", mt: 1, mb: 1 }}></Divider>
 
                         <Box sx={{ pt:0.5, height: 40 }}>
-                            <Link to={bookDetail.shop_url}><Text5>{bookDetail.shop_url}</Text5></Link>
+                            <Link to={bookDetail.shop_url}><Text5>바로가기(알라딘)</Text5></Link>
                         </Box>
                     </Box>
                 </Box>
