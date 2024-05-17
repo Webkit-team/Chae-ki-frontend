@@ -9,46 +9,57 @@ const MyBookList = () => {
     const bookImg = "https://placehold.co/150x200"
     const itemData = [
         {
+            id: 100,
             img: bookExImg1,
             title: "매스커레이드 호텔"
         },
         {
+            id: 101,
             img: bookExImg2,
             title: "기린의 날개"
         },
         {
+            id: 102,
             img: bookImg,
             title: "매스커레이드 호텔3ㄴㄻㄴㄹㅇㄴㄹㄴㄹ"
         },
         {
+            id: 103,
             img: bookImg,
             title: "매스커레이드 호텔4"
         },
         {
+            id: 104,
             img: bookImg,
             title: "매스커레이드 호텔4"
         },
         {
+            id: 105,
             img: bookImg,
             title: "매스커레이드 호텔4"
         },
         {
+            id: 106,
             img: bookImg,
             title: "매스커레이드 호텔4"
         },
         {
+            id: 107,
             img: bookImg,
             title: "매스커레이드 호텔4"
         },
         {
+            id: 108,
             img: bookImg,
             title: "매스커레이드 호텔4"
         },
         {
+            id: 109,
             img: bookImg,
             title: "매스커레이드 호텔4"
         },
         {
+            id: 110,
             img: bookImg,
             title: "매스커레이드 호텔4"
         },
@@ -56,8 +67,8 @@ const MyBookList = () => {
 
     const navigate = useNavigate();
 
-    const handleBookClick = (props) => {
-        navigate("/book");
+    const handleBookClick = (id) => {
+        navigate(`/books/${id}`);
     }
 
     return (<>
@@ -95,7 +106,7 @@ const MyBookList = () => {
                                 alt="ㅎㅇ"
                                 loading="lazy"
                                 style={{ width: "150px", height: "200px", objectFit: "cover" }}
-                                onClick={(props) => (handleBookClick())}
+                                onClick={() => (handleBookClick(item.id))}
                             />
                             <ImageListItemBar
                                 title={item.title}
