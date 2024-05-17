@@ -3,7 +3,7 @@ import { Dialog, DialogTitle, DialogContent, DialogActions, TextField } from '@m
 import axios from 'axios';
 import CustomButton from '../../atoms/CustomButton';
 
-function ChaekiTodayModal() {
+function ChaekiTodayModal({time}) {
     const [open, setOpen] = useState(false);
     const [pageCount, setPageCount] = useState('');
     const [content, setContent] = useState('');
@@ -21,6 +21,7 @@ function ChaekiTodayModal() {
             const response = await axios.post('서버 URL', {
                 pageCount: pageCount,
                 content: content,
+                time: time,
             });
             console.log(response.data);
             handleClose();
@@ -38,7 +39,8 @@ function ChaekiTodayModal() {
                     borderColor: 'black',
                 },
                 alignSelf: 'flex-end', mt: 'auto',
-                color: '#FFFFFF !important'
+                color: '#FFFFFF !important',
+                width:'150px'
             }}>채키 투데이 작성</CustomButton>
             <Dialog open={open} onClose={handleClose}>
                 <DialogTitle>채키 투데이 작성</DialogTitle>

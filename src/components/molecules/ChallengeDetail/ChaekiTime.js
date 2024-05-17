@@ -132,9 +132,9 @@ const ChaekiTime = () => {
                     </Box>
                 </Box>
             </Box>
-            <Box sx={{ display: 'flex', justifyContent: 'center', mt: 4 }}>
+            <Box sx={{ display: 'flex', justifyContent: 'center', my: 4 }}>
                 {isChaekiTodayActive && (
-                    <ChaekiTodayModal/>
+                    <ChaekiTodayModal time={time}/>
                 )}
             </Box>
         </>
