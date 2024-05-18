@@ -16,7 +16,7 @@ const ChallengeCard = ({img, title, category, bookname, startdate, enddate, memb
                     <Text5 sx={{mt:2, color:'#717171'}}>{startdate} ~ {enddate}</Text5>
                 </Box>
             </Box>
-            <CustomButton variant="outlined" to="/books/:id" sx={{
+            <CustomButton variant="outlined" to={`/books/${id}`} sx={{
                 alignSelf: 'flex-end', mt: 'auto'
             }}>
                 도서 상세 보기

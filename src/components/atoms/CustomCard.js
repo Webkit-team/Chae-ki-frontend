@@ -1,7 +1,7 @@
 import { Card } from "@mui/material";
 
 
-const CustomCard = ({children, ...props}) => {
+const CustomCard = ({children, sx, ...props}) => {
     return (<>
     
         <Card
@@ -11,7 +11,8 @@ const CustomCard = ({children, ...props}) => {
                 "&:hover": {
                     transform: "scale(1.05)",
                     border: "solid"
-                }, border: "solid 1px #D9D9D9"
+                }, border: "solid 1px #D9D9D9",
+                ...sx
             }}
             elevation={10}
             {...props}

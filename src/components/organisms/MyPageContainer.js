@@ -14,11 +14,13 @@ import FavoriteIcon from '@mui/icons-material/Favorite';
 import BookmarkIcon from '@mui/icons-material/Bookmark';
 
 import { useState } from "react";
+import MyCouponList from "../molecules/MyPage/MyCouponList";
 
 
 const MyPageContainer = () => {
 
     const [showActivity, setShowActivity] = useState(null);
+    const [open, setOpen] = useState(false);
 
     const handleIconClick = (activity) => {
         setShowActivity(showActivity === activity ? null : activity);
@@ -41,6 +43,18 @@ const MyPageContainer = () => {
             default:
                 return null;
         }
+    }
+
+    const handleOpen = () => {
+        setOpen(true);
+    }
+
+    const handleClose = () => {
+        setOpen(false);
+    }
+
+    const handleGetCoupon = () => {
+        alert("쿠폰을 받았습니다!");
     }
 
     const handleExpirebtn = () => {
@@ -80,8 +94,10 @@ const MyPageContainer = () => {
                     </Box>
 
                     <Box sx={{ width: "400px", textAlign: "center" }}>
-                        <CustomButton variant="contained" sx={{ border: "1px solid", borderRadius: 1 }}>보유 쿠폰</CustomButton>
-                        <CustomButton variant="contained">쿠폰 받기</CustomButton>
+                        <CustomButton variant="contained" sx={{ border: "1px solid", borderRadius: 1 }} onClick={handleOpen}>보유 쿠폰</CustomButton>
+                        <CustomButton variant="contained" onClick={handleGetCoupon}>쿠폰 받기</CustomButton>
+
+                        <MyCouponList open={open} handleClose={handleClose}></MyCouponList>
                     </Box>
 
                     <Box sx={{ width: "300px", display: "flex", alignItems: "end", justifyContent: "end" }}>
