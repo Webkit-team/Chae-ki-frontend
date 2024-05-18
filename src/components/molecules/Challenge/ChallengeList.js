@@ -76,12 +76,12 @@ const ChallengeList = () => {
     }
 
     useEffect(() => {
-        // axios.get("http://172.30.67.163:8080/challenges")
-        //     .then(
-        //         (res) => {
-        //             console.log(res.data);
-        //         }
-        //     );
+        axios.get("http://172.30.67.163:8080/challenges")
+            .then(
+                (res) => {
+                    console.log(res.data);
+                }
+            );
     }, [])
 
     return (
