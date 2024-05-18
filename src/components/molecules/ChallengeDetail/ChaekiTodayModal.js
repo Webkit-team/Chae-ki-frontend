@@ -53,6 +53,7 @@ function ChaekiTodayModal({time}) {
                         type="number"
                         fullWidth
                         variant="outlined"
+                        inputProps={{ max: 9999 }}
                         value={pageCount}
                         onChange={(e) => setPageCount(e.target.value)}
                     />

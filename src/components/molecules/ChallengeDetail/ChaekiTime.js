@@ -88,7 +88,7 @@ const ChaekiTime = () => {
 
     return (
         <>
-            <Box sx={{ display: 'flex', justifyContent: 'center' }}>
+            <Box sx={{ display: 'flex', justifyContent: 'center', pt:3 }}>
                 <Box sx={{ display: 'flex', flexDirection: 'column', width: '250px', height: '100px', p: 2 }}>
                     <Text1 sx={{ fontFamily: 'DS-DIGIB', fontSize: '72px', height: '86px', pb: 2, textAlign: 'center' }}>
                         {formatTime()}
