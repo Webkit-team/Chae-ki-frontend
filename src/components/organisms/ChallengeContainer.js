@@ -15,18 +15,18 @@ const ChallengeContainer = () => {
     const handleTabChange = (newValue) => {
         setSelectedTab(newValue);
     };
-    useEffect(() => {
-        const fetchData = async () => {
-            try {
-                const response = await axios.get(`/api/data?tab=${selectedTab}&category=yourCategory&page=yourPageNumber`);
-                setData(response.data);
-            } catch (error) {
-                console.error('Error fetching data: ', error);
-            }
-        };
+    // useEffect(() => {
+    //     const fetchData = async () => {
+    //         try {
+    //             const response = await axios.get(`/api/data?tab=${selectedTab}&category=yourCategory&page=yourPageNumber`);
+    //             setData(response.data);
+    //         } catch (error) {
+    //             console.error('Error fetching data: ', error);
+    //         }
+    //     };
 
-        fetchData();
-    }, [selectedTab]);
+    //     fetchData();
+    // }, [selectedTab]);
 
     return (
         <>

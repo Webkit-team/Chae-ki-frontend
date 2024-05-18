@@ -97,8 +97,9 @@ const ChallengeRanking = () => {
                                         backgroundColor: '#949494',
                                         borderColor: 'black',
                                     },
-                                    alignSelf: 'flex-end', mt: 'auto'
-                                }} style={{ color: '#FFFFFF' }} >
+                                    alignSelf: 'flex-end', mt: 'auto',
+                                    color: '#FFFFFF !important'
+                                }}>
                                     챌린지 보기
                                 </CustomButton>
                             </div>

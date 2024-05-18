@@ -1,7 +1,8 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import ChallengeCard from './ChallengeCard';
 import { Box, Grid, Pagination } from '@mui/material';
 import { useNavigate } from 'react-router-dom';
+import axios from 'axios';
 
 const challengeList = [
     {
@@ -11,8 +12,8 @@ const challengeList = [
         bookname: '삶이 흔들릴 때 뇌과학을 읽습니다',
         startdate: '2024-05-17',
         enddate: '2024-05-31',
-        memberCount: '15',        
-        category:'인문학'
+        memberCount: '15',
+        category: '인문학'
     },
     {
         id: '303',
@@ -22,7 +23,7 @@ const challengeList = [
         startdate: '2024-05-18',
         enddate: '2024-05-31',
         memberCount: '10',
-        category:'성공학'
+        category: '성공학'
     },
     {
         id: '304',
@@ -31,8 +32,8 @@ const challengeList = [
         bookname: '나의 돈키호테',
         startdate: '2024-05-19',
         enddate: '2024-05-31',
-        memberCount: '10',  
-        category:'소설/시/희곡'
+        memberCount: '10',
+        category: '소설/시/희곡'
     },
     {
         id: '305',
@@ -42,7 +43,7 @@ const challengeList = [
         startdate: '2024-05-20',
         enddate: '2024-05-31',
         memberCount: '10',
-        category:'경제경영'
+        category: '경제경영'
     },
     {
         id: '306',
@@ -51,8 +52,8 @@ const challengeList = [
         bookname: '감으로 읽고 각으로 쓴다',
         startdate: '2024-05-20',
         enddate: '2024-05-31',
-        memberCount: '15', 
-        category:'인문학'
+        memberCount: '15',
+        category: '인문학'
     },
     {
         id: '307',
@@ -62,16 +63,26 @@ const challengeList = [
         startdate: '2024-05-20',
         enddate: '2024-05-31',
         memberCount: '15',
-        category:'인문학'
+        category: '인문학'
     },
 ]
 
 const ChallengeList = () => {
     const navigate = useNavigate();
+    const fetchData = [];
 
-    const handleClick = (id) =>{
+    const handleClick = (id) => {
         navigate(`/challenges/${id}`);
     }
+
+    useEffect(() => {
+        // axios.get("http://172.30.67.163:8080/challenges")
+        //     .then(
+        //         (res) => {
+        //             console.log(res.data);
+        //         }
+        //     );
+    }, [])
 
     return (
         <>
