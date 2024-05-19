@@ -5,6 +5,7 @@ import chaeki from '../../assets/logo.png';
 import './css/Header.css';
 import { styled } from '@mui/system';
 import { Link } from 'react-router-dom';
+import { useCookies } from 'react-cookie';
 
 const AnimatedLink = styled(Link)(({ theme }) => ({
     position: 'relative',
@@ -32,6 +33,14 @@ const AnimatedLink = styled(Link)(({ theme }) => ({
 }));
 
 const Header = () => {
+    const [cookies, setCookie, removeCookie] = useCookies(["user"]);
+
+    const user = cookies.user;
+
+    const handleLogOut = () => {
+        alert("로그아웃되었습니다!");
+        removeCookie('user', { path: '/' });
+    }
 
     return (
         <React.Fragment>
@@ -97,9 +106,20 @@ const Header = () => {
                             도서후기
                         </AnimatedLink>
                     </Toolbar>
+                    
+                    
                     <div className="login">
-                        <Link to="/login" className="login_link">로그인</Link>
-                        <Link to="/signup" className="signup_link">회원가입</Link>
+                        {user ? (
+                        <>
+                            <Link to="/my" className="my_page_link">마이페이지</Link>
+                            <Link to="/" className="logout_link" onClick={(handleLogOut)}>로그아웃</Link>
+                        </>
+                    ) : (
+                        <>
+                            <Link to="/login" className="login_link">로그인</Link>
+                            <Link to="/signup" className="signup_link">회원가입</Link>
+                        </>
+                    )}
                     </div>
                 </Toolbar>
         </React.Fragment>

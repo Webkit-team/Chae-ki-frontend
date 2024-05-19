@@ -11,6 +11,8 @@ import VisibilityOff from '@mui/icons-material/VisibilityOff';
 
 
 import { useState } from "react";
+import { useNavigate } from 'react-router-dom';
+
 import axios from "axios";
 import CustomButton from "../atoms/CustomButton";
 import CustomTextField from "../atoms/CustomTextField";
@@ -18,7 +20,9 @@ import defaultImg from "../../assets/defaultProfile.png"
 import { SubTitle } from "../atoms/Text";
 
 
+
 const SignUpContainer = () => {
+    const navigate = useNavigate();
 
     const [image, setImage] = useState(null);
     const [imageFile, setImageFile] = useState(null);
@@ -116,6 +120,7 @@ const SignUpContainer = () => {
             .then(response => {
                 if(response.status === 200) {
                     // 로그인 페이지로 이동하기
+                    navigate('/login');
                     console.log("회원가입 완료!");
                 }
             })
