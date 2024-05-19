@@ -3,7 +3,6 @@ import PersonIcon from '@mui/icons-material/Person';
 import KeyIcon from '@mui/icons-material/Key';
 
 import CustomTextField from '../atoms/CustomTextField';
-import { useState } from 'react';
 
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
@@ -14,7 +13,7 @@ import { useCookies } from 'react-cookie';
 
 const LoginContainer = () => {
     const navigate = useNavigate();
-    
+
     const [cookies, setCookie, removeCookie] = useCookies(["user"]);
 
     const handleSubmit = async (event) => {
@@ -109,12 +108,6 @@ const LoginContainer = () => {
                         </Grid>
 
                         {/* 삭제 예정 */}
-                        <Grid item>
-                            <Link href="user" variant="body2">
-                                {"회원정보수정으로"}
-                            </Link>
-                        </Grid>
-
                         <Grid item>
                             <Link href="my" variant="body2">
                                 {"마이페이지로"}
