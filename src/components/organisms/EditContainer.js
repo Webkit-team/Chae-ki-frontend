@@ -20,6 +20,7 @@ import { SubTitle } from "../atoms/Text";
 const EditContainer = () => {
 
     const [image, setImage] = useState("");
+    const [imageFile, setImageFile] = useState(null);
     const [id, setId] = useState("");
     const [pwd, setPwd] = useState("");
     const [confirmPwd, setConfirmPwd] = useState("");
@@ -32,11 +33,9 @@ const EditContainer = () => {
     const [matchPwd, setMatchPwd] = useState(false);    // 비밀번호와 비밀번호 확인 값 비교
 
 
-    //////////////////////////////
-
     // 더미 데이터 가져오는 함수
     const fetchDummyUserData = () => {
-        // 실제 데이터를 불러오도록 나중에 변경해야함
+
         const dummyData = {
             username: 'gildong',
             password: 'aaaaaaaa',
@@ -47,10 +46,34 @@ const EditContainer = () => {
         setNickname(dummyData.nickname);
     };
 
+
+    //////////////////////////////
+
+    const fetchUserData = async (uno) => {
+        try {
+            const response = await axios.get(`http://localhost:8080/users/${uno}`);
+
+            if (response.status === 403) {
+                // 로그인 페이지로 이동하기
+                console.log("로그인이 필요함.");
+
+                return;
+            }
+
+            const userData = response.data;
+            // setId(userData.id);
+            setPwd(userData.password);
+            setNickname(userData.nickname);
+            setImage(userData.image ? `http://localhost:8080/images/${userData.image}` : defaultImg);
+        } catch (error) {
+            console.error("Failed to fetch user data:", error);
+        }
+    }
+
     //////////////////////////////
 
     useEffect(() => {
-        fetchDummyUserData();
+        fetchUserData();
     }, []);
 
     const handleFileChange = (e) => {
@@ -59,6 +82,7 @@ const EditContainer = () => {
             const reader = new FileReader();
             reader.onloadend = () => {
                 setImage(reader.result);
+                setImageFile(file);
             };
             reader.readAsDataURL(file);
         }
@@ -107,11 +131,7 @@ const EditContainer = () => {
     // 회원가입 정보 보내는 post 요청 추가해야함
     const handleEdit = () => {
 
-        const userData = {
-            username: id,
-            password: pwd,
-            nickname: nickname
-        };
+
 
         // axios.put("localhost:3000/user", userData)
         //     .then(response => {
@@ -133,10 +153,10 @@ const EditContainer = () => {
         <SubTitle>회원정보수정</SubTitle>
 
         <Container
-            sx={{ width: 800, pt:"30px", pb: "100px", display: "flex", justifyContent: "center" }}
+            sx={{ width: 800, pt: "30px", pb: "100px", display: "flex", justifyContent: "center" }}
         >
 
-            <div className="profile-left" style={{padding: "50px 70px"}}>
+            <div className="profile-left" style={{ padding: "50px 70px" }}>
 
                 {image ? (
                     <Box

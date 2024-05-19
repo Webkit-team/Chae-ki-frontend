@@ -14,10 +14,13 @@ import FavoriteIcon from '@mui/icons-material/Favorite';
 import BookmarkIcon from '@mui/icons-material/Bookmark';
 
 import { useState } from "react";
+import { useParams, useNavigate } from "react-router-dom";
 import MyCouponList from "../molecules/MyPage/MyCouponList";
 
 
 const MyPageContainer = () => {
+    const { uno } = useParams();
+    // const navigate = useNavigate();
 
     const [showActivity, setShowActivity] = useState(null);
     const [open, setOpen] = useState(false);
@@ -103,7 +106,7 @@ const MyPageContainer = () => {
                     <Box sx={{ width: "300px", display: "flex", alignItems: "end", justifyContent: "end" }}>
                         <CustomButton
                             sx={{ width: 100 }}
-                            to={"/user"}
+                            to={`/users/${uno}`}
                         >
                             <Text5>회원정보수정</Text5>
                         </CustomButton>

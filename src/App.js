@@ -26,7 +26,7 @@ const App = () => {
         
         {/* 마이 페이지와 회원정보수정 페이지는 로그인한 뒤에 뜨는 메인페이지에서 이동 가능하도록 변경 예정. */}
         <Route path="/my" element={<MyPage />}></Route>
-        <Route path="/user" element={<EditPage />}></Route>
+        <Route path="/users/:uno" element={<EditPage />}></Route>
         <Route path="*" element={<ErrorPage />}></Route>
       </Routes>
     </BrowserRouter>
