@@ -13,16 +13,24 @@ import AutoStoriesIcon from '@mui/icons-material/AutoStories';
 import FavoriteIcon from '@mui/icons-material/Favorite';
 import BookmarkIcon from '@mui/icons-material/Bookmark';
 
-import { useState } from "react";
-import { useCookies } from 'react-cookie';
-import { useParams } from "react-router-dom";
 import MyCouponList from "../molecules/MyPage/MyCouponList";
+
+import axios from "axios";
+import { useEffect, useState } from "react";
+import { useCookies } from 'react-cookie';
 
 
 const MyPageContainer = () => {
-    const { uno } = useParams();
     const [cookies, setCookie, removeCookie] = useCookies(["user"]);
 
+    // response.data들
+    const [userImage, setUserImage] = useState(defaultImg);
+    const [nickname, setNickname] = useState(null);
+    const [totalReadingTime, setTotalReadingTime] = useState(null);
+    const [point, setPoint] = useState(null);
+
+    const uno = cookies.user ? cookies.user.uno : null;
+    const jwt = cookies.user ? cookies.user.jwt : null;
 
     const [showActivity, setShowActivity] = useState(null);
     const [open, setOpen] = useState(false);
@@ -66,6 +74,39 @@ const MyPageContainer = () => {
         alert("회원탈퇴 되었습니다!");
     }
 
+
+    useEffect(() => {
+        
+        const fetchUserData = async() => {
+            // if (!uno || !jwt) {
+            //     console.log("UNO or JWT is missing");
+            //     return;
+            //   }
+
+            try {
+                const response = await axios.get(`http://ec2-13-209-50-125.ap-northeast-2.compute.amazonaws.com:8080/users/${uno}`, {
+                    headers: {
+                        Authorization: jwt
+                    }
+                });
+    
+                setUserImage(response.data.imageUrl);
+                setNickname(response.data.nickname);
+                setTotalReadingTime(response.data.totalReadingTime);
+                setPoint(response.data.point);
+
+                console.log(response.data);
+
+            } catch (error) {
+                console.error("Failed to fetch user data:", error);
+                console.log("올바른 jwt를 담아주세요");
+            }
+        };
+
+        fetchUserData();
+    }, [uno, jwt]);
+
+
     return (<div className="wrapper">
         <SubTitle>마이 페이지</SubTitle>
 
@@ -89,7 +130,7 @@ const MyPageContainer = () => {
                 >
                     <Avatar
                         alt="프로필 사진"
-                        src={defaultImg} // 사용자가 사진을 선택하면 그 사진을, 아니면 기본 사진을 표시
+                        src={ userImage ? userImage : defaultImg }
                         sx={{ width: 100, height: 100, border: "1px solid", borderRadius: "50%" }}
                     />
 
@@ -108,7 +149,8 @@ const MyPageContainer = () => {
                     <Box sx={{ width: "300px", display: "flex", alignItems: "end", justifyContent: "end" }}>
                         <CustomButton
                             sx={{ width: 100 }}
-                            to={`/users/${uno}`}
+                            // to={`/users/${cookies.user?.uno}`}
+                            to={`/edit`}
                         >
                             <Text5>회원정보수정</Text5>
                         </CustomButton>

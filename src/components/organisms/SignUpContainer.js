@@ -75,7 +75,7 @@ const SignUpContainer = () => {
         // 비밀번호와 비밀번호 확인 값이 일치하는지에 대한 여부(비밀번호 값 변경 시)
         setMatchPwd(currentPwd === confirmPwd);
 
-        const PWD_REGEX = /^[a-zA-Z0-9~!@#$%^&*+-]{8,16}$/;
+        const PWD_REGEX = /^[^\s]+$/;
 
         if (!PWD_REGEX.test(currentPwd)) {
             setIsPwd(false);
@@ -116,7 +116,7 @@ const SignUpContainer = () => {
         form.append("nickname", nickname)
         form.append("image", imageFile)
 
-        axios.post("http://localhost:8080/signup", form)
+        axios.post("http://ec2-13-209-50-125.ap-northeast-2.compute.amazonaws.com:8080/signup", form)
             .then(response => {
                 if(response.status === 200) {
                     // 로그인 페이지로 이동하기
@@ -215,9 +215,7 @@ const SignUpContainer = () => {
                                 )}
                             </IconButton>)
                     }}
-                    helperText={<span>영문, 숫자, 특수문자 포함 8~16자 사용 가능
-                        <br/>특수문자 : ~, !, @, #, $, %, ^, &, *, -, +
-                    </span>}
+                    helperText={<span>공백을 제외한 모든 문자열과 숫자 사용 가능</span>}
                     value={pwd}
                     onChange={onChangePwd}
                     error={!isPwd}

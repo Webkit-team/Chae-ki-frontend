@@ -26,7 +26,7 @@ const LoginContainer = () => {
         };
 
         try {
-            const response = await axios.post("http://localhost:8080/login",
+            const response = await axios.post("http://ec2-13-209-50-125.ap-northeast-2.compute.amazonaws.com:8080/login",
                 qs.stringify(loginData), // qs를 사용하여 URL-encoded 형식으로 변환
                 {
                     headers: {
@@ -44,6 +44,9 @@ const LoginContainer = () => {
                     jwt: jwt
                 }
                 setCookie("user", user, { path: '/', 'max-age': 3600 }); // 1 hour
+
+                // console.log(user);
+                console.log(response.data);
                 
                 navigate('/');
 
@@ -51,6 +54,8 @@ const LoginContainer = () => {
                 console.error("로그인 실패");
             }
         } catch (error) {
+            alert("아이디 또는 패스워드가 잘못 되었습니다!");
+            console.log("아이디 또는 패스워드가 잘못 되었습니다!");
             console.error("ERROR : ", error);
         }
     };
