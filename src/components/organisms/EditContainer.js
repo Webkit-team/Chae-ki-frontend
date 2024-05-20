@@ -12,6 +12,7 @@ import VisibilityOff from '@mui/icons-material/VisibilityOff';
 import defaultImg from '../../assets/defaultProfile.png';
 
 import { useEffect, useState } from "react";
+import { useCookies } from 'react-cookie';
 import axios from "axios";
 import { SubTitle } from "../atoms/Text";
 
@@ -32,6 +33,8 @@ const EditContainer = () => {
     const [showPwd, setShowPwd] = useState(false);      // 비밀번호 숨김 토글
     const [matchPwd, setMatchPwd] = useState(false);    // 비밀번호와 비밀번호 확인 값 비교
 
+    const [cookies] = useCookies(["user"]);
+
 
     // 더미 데이터 가져오는 함수
     const fetchDummyUserData = () => {
@@ -47,20 +50,33 @@ const EditContainer = () => {
     };
 
 
-    //////////////////////////////
+    const uno = cookies.user ? cookies.user.uno : null;
+
+    useEffect(() => {
+        if (uno) {
+            fetchUserData(uno);
+            console.log(uno);
+        }
+        else {
+            console.log("등록된 회원이 아닙니다!");
+        }
+    }, [uno]);
 
     const fetchUserData = async (uno) => {
         try {
             const response = await axios.get(`http://localhost:8080/users/${uno}`);
 
-            if (response.status === 403) {
-                // 로그인 페이지로 이동하기
-                console.log("로그인이 필요함.");
+            // if (response.status === 403) {
+            //     // 로그인 페이지로 이동하기
+            //     console.log("로그인이 필요함.");
 
-                return;
-            }
+            //     return;
+            // }
 
             const userData = response.data;
+
+            console.log(response.data);
+
             // setId(userData.id);
             setPwd(userData.password);
             setNickname(userData.nickname);
@@ -70,11 +86,8 @@ const EditContainer = () => {
         }
     }
 
-    //////////////////////////////
 
-    useEffect(() => {
-        fetchUserData();
-    }, []);
+
 
     const handleFileChange = (e) => {
         const file = e.target.files[0];
