@@ -14,10 +14,15 @@ import FavoriteIcon from '@mui/icons-material/Favorite';
 import BookmarkIcon from '@mui/icons-material/Bookmark';
 
 import { useState } from "react";
+import { useCookies } from 'react-cookie';
+import { useParams } from "react-router-dom";
 import MyCouponList from "../molecules/MyPage/MyCouponList";
 
 
 const MyPageContainer = () => {
+    const { uno } = useParams();
+    const [cookies, setCookie, removeCookie] = useCookies(["user"]);
+
 
     const [showActivity, setShowActivity] = useState(null);
     const [open, setOpen] = useState(false);
@@ -89,7 +94,7 @@ const MyPageContainer = () => {
                     />
 
                     <Box sx={{ fontSize: "16px", width: "200px", textAlign: "center" }}>
-                        <Text3 sx={{ pb: 5 }}>"oo"의 서재</Text3>
+                        <Text3 sx={{ pb: 5 }}>{cookies.user?.username}의 서재</Text3>
                         <Text3>나무 등급</Text3>
                     </Box>
 
@@ -103,7 +108,7 @@ const MyPageContainer = () => {
                     <Box sx={{ width: "300px", display: "flex", alignItems: "end", justifyContent: "end" }}>
                         <CustomButton
                             sx={{ width: 100 }}
-                            to={"/user"}
+                            to={`/users/${uno}`}
                         >
                             <Text5>회원정보수정</Text5>
                         </CustomButton>

@@ -11,6 +11,8 @@ import VisibilityOff from '@mui/icons-material/VisibilityOff';
 
 
 import { useState } from "react";
+import { useNavigate } from 'react-router-dom';
+
 import axios from "axios";
 import CustomButton from "../atoms/CustomButton";
 import CustomTextField from "../atoms/CustomTextField";
@@ -18,9 +20,12 @@ import defaultImg from "../../assets/defaultProfile.png"
 import { SubTitle } from "../atoms/Text";
 
 
+
 const SignUpContainer = () => {
+    const navigate = useNavigate();
 
     const [image, setImage] = useState(null);
+    const [imageFile, setImageFile] = useState(null);
     const [id, setId] = useState("");
     const [pwd, setPwd] = useState("");
     const [confirmPwd, setConfirmPwd] = useState("");
@@ -41,6 +46,7 @@ const SignUpContainer = () => {
             const reader = new FileReader();
             reader.onloadend = () => {
                 setImage(reader.result);
+                setImageFile(file);
             };
             reader.readAsDataURL(file);
         }
@@ -102,27 +108,25 @@ const SignUpContainer = () => {
         }
     }
 
-    // 회원가입 정보 보내는 post 요청 추가해야함
+
     const handleSignUp = () => {
+        const form = new FormData()
+        form.append("username", id)
+        form.append("password", pwd)
+        form.append("nickname", nickname)
+        form.append("image", imageFile)
 
-        const userData = {
-            username: id,
-            password: pwd,
-            nickname: nickname
-        };
-
-        // axios.post("localhost:3000/signup", userData)
-        //     .then(response => {
-        //         console.log("회원가입 성공!", response.data)
-        //     })
-        //     .catch(error => {
-        //         console.log("ERROR : ", error)
-        //     });
-
-        console.log("회원가입 완료!");
-        console.log("id: ", id);
-        console.log("pwd: ", pwd);
-        console.log("nickname: ", nickname);
+        axios.post("http://localhost:8080/signup", form)
+            .then(response => {
+                if(response.status === 200) {
+                    // 로그인 페이지로 이동하기
+                    navigate('/login');
+                    console.log("회원가입 완료!");
+                }
+            })
+            .catch(error => {
+                console.log("ERROR : ", error)
+            });
     }
 
 

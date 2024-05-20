@@ -10,26 +10,33 @@ import MyPage from './components/pages/Users/MyPage';
 import EditPage from './components/pages/Users/EditPage';
 import ChallengeDetailPage from './components/pages/Challenge/ChallengeDetailPage';
 import BookDetailPage from './components/pages/BookDetailPage';
+import { CookiesProvider } from 'react-cookie';
+import { useCookies } from 'react-cookie';
 
 const App = () => {
+
+  const [cookies] = useCookies(["user"]);
+  const uno = cookies.user ? cookies.user.uno : null;
+
   return (
-    <BrowserRouter>
-      <Routes>
-        <Route path="/" element={<MainPage />}></Route>
-        <Route path="/intro" element={<IntroPage />}></Route>
-        <Route path="/challenges" element={<ChallengePage />}></Route>
-        <Route path="/challenges/:id" element={<ChallengeDetailPage />} />
-        <Route path="/review" element={<ReviewPage />}></Route>
-        <Route path="/login" element={<LoginPage />}></Route>
-        <Route path="/signup" element={<SignUpPage />}></Route>
-        <Route path="/books/:id" element={<BookDetailPage/>}></Route>
-        
-        {/* 마이 페이지와 회원정보수정 페이지는 로그인한 뒤에 뜨는 메인페이지에서 이동 가능하도록 변경 예정. */}
-        <Route path="/my" element={<MyPage />}></Route>
-        <Route path="/user" element={<EditPage />}></Route>
-        <Route path="*" element={<ErrorPage />}></Route>
-      </Routes>
-    </BrowserRouter>
+    <CookiesProvider>
+      <BrowserRouter>
+        <Routes>
+          <Route path="/" element={<MainPage />}></Route>
+          <Route path="/intro" element={<IntroPage />}></Route>
+          <Route path="/challenges" element={<ChallengePage />}></Route>
+          <Route path="/challenges/:id" element={<ChallengeDetailPage />} />
+          <Route path="/review" element={<ReviewPage />}></Route>
+          <Route path="/login" element={<LoginPage />}></Route>
+          <Route path="/signup" element={<SignUpPage />}></Route>
+          <Route path="/books/:id" element={<BookDetailPage />}></Route>
+
+          <Route path="/my" element={<MyPage />}></Route>
+          <Route path="/users" element={<EditPage />}></Route>
+          <Route path="*" element={<ErrorPage />}></Route>
+        </Routes>
+      </BrowserRouter>
+    </CookiesProvider>
   );
 }
 
