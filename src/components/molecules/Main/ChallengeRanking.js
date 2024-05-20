@@ -16,7 +16,7 @@ const StyledImage = styled('img')({
 
 const challengeList = [
     {
-        img: "https://image.aladin.co.kr/product/33686/83/cover500/k422939932_2.jpg",
+        img: "https://image.aladin.co.kr/product/33853/72/cover200/8962632721_1.jpg",
         title: '봄비를 느껴보자',
         bookname: '삶이 흔들릴 때 뇌과학을 읽습니다',
         startdate: '2024-05-17',
