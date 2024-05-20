@@ -24,10 +24,9 @@ const ChallengeContainer = () => {
         const fetchData = async () => {
             const statusMap = ['RECRUITING', 'ONGOING', 'ENDED'];
             const status = statusMap[selectedTab] || 'RECRUITING'; 
-
             try {
-                const response = await axios.get(`http://172.30.67.163:8080/challenges?status=${status}&page=${page - 1}`);
-                setData(response.data);
+                const response = await axios.get(`http://ec2-13-209-50-125.ap-northeast-2.compute.amazonaws.com:8080/challenges?status=${status}&page=${page - 1}`);
+                setData(response.data.content);
             } catch (error) {
                 console.error('Error fetching data: ', error);
             }
