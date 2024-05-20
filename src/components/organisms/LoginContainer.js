@@ -37,6 +37,11 @@ const LoginContainer = () => {
 
 
             if (response.status === 200) {
+                if(response.data.expired === true) {
+                    alert("이미 탈퇴한 사용자입니다.");
+                    return;
+                }
+
                 const jwt = response.headers.authorization;
                 const user = {
                     uno: response.data.no,
@@ -45,12 +50,13 @@ const LoginContainer = () => {
                 }
                 setCookie("user", user, { path: '/', 'max-age': 3600 }); // 1 hour
 
-                // console.log(user);
                 console.log(response.data);
                 
                 navigate('/');
-
-            } else {
+            }
+            
+                    
+            else {
                 console.error("로그인 실패");
             }
         } catch (error) {
@@ -109,13 +115,6 @@ const LoginContainer = () => {
                         <Grid item>
                             <Link href="signup" variant="body2">
                                 {"아직 회원이 아니신가요?"}
-                            </Link>
-                        </Grid>
-
-                        {/* 삭제 예정 */}
-                        <Grid item>
-                            <Link href="my" variant="body2">
-                                {"마이페이지로"}
                             </Link>
                         </Grid>
                     </Grid>

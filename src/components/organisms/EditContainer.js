@@ -110,18 +110,15 @@ const EditContainer = () => {
         }
     }
 
-
     const onChangeConfirmPwd = (e) => {
         const currentConfirmPwd = e.target.value;
         setConfirmPwd(currentConfirmPwd);
         setMatchPwd(currentConfirmPwd === pwd);
     }
 
-
     const handleClickShowPwd = () => {
         setShowPwd(!showPwd);
     }
-
 
     const onChangeNickname = (e) => {
         const currentNickname = e.target.value;
@@ -262,7 +259,6 @@ const EditContainer = () => {
 
                 <CustomTextField
                     label="닉네임"
-                    // required
                     InputProps={{ startAdornment: (<IconButton tabIndex={-1}><BadgeIcon /></IconButton>) }}
                     helperText="한글 2~6자만 사용 가능"
                     value={nickname}

@@ -16,14 +16,17 @@ import BookmarkIcon from '@mui/icons-material/Bookmark';
 import MyCouponList from "../molecules/MyPage/MyCouponList";
 
 import axios from "axios";
+import { useNavigate } from 'react-router-dom';
 import { useEffect, useState } from "react";
 import { useCookies } from 'react-cookie';
 
 
 const MyPageContainer = () => {
+    const navigate = useNavigate();
     const [cookies, setCookie, removeCookie] = useCookies(["user"]);
 
     // response.data들
+    const [no, setNo] = useState(null);
     const [userImage, setUserImage] = useState(defaultImg);
     const [nickname, setNickname] = useState(null);
     const [totalReadingTime, setTotalReadingTime] = useState(null);
@@ -70,13 +73,30 @@ const MyPageContainer = () => {
         alert("쿠폰을 받았습니다!");
     }
 
-    const handleExpirebtn = () => {
-        alert("회원탈퇴 되었습니다!");
+    // 탈퇴
+    const handleExpire = (no) => {
+
+        axios.delete(`http://localhost:8080/users/${no}`, {
+            headers: {
+                Authorization: jwt
+            }})
+            .then(response => {
+                console.log(response.data);
+
+                removeCookie("user");
+                alert("회원탈퇴가 완료되었습니다!");
+
+                navigate("/");
+            })
+            .catch(error => {
+                console.error("ERROR : ", error);
+            })
+
     }
 
 
     useEffect(() => {
-        
+        // 회원정보 불러오기
         const fetchUserData = async() => {
             // if (!uno || !jwt) {
             //     console.log("UNO or JWT is missing");
@@ -90,6 +110,7 @@ const MyPageContainer = () => {
                     }
                 });
     
+                setNo(response.data.no);
                 setUserImage(response.data.imageUrl);
                 setNickname(response.data.nickname);
                 setTotalReadingTime(response.data.totalReadingTime);
@@ -110,7 +131,7 @@ const MyPageContainer = () => {
     return (<div className="wrapper">
         <SubTitle>마이 페이지</SubTitle>
 
-        <Container sx={{ width: 1000 }}>
+        <Container sx={{ width: 1000, pt:4}}>
             <Container
                 sx={{
                     display: "flex",
@@ -158,11 +179,11 @@ const MyPageContainer = () => {
                         <Divider orientation="vertical" variant="middle" flexItem />
 
                         <CustomButton
-                            sx={{ width: 80 }}
-                            onClick={handleExpirebtn}
+                           sx={{ width: 80 }}
+                            onClick={() => handleExpire(no)}
                         >
                             <Text5>회원탈퇴</Text5>
-                        </CustomButton>
+                        </CustomButton> 
                     </Box>
                 </Box>
 
