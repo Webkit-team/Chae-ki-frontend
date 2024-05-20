@@ -35,6 +35,8 @@ const SignUpContainer = () => {
     const [isPwd, setIsPwd] = useState(true);
     const [isNickname, SetIsNickname] = useState(true);
 
+    const [notduple, setNotDuple] = useState(false);
+
     const [showPwd, setShowPwd] = useState(false);      // 비밀번호 숨김 토글
     const [matchPwd, setMatchPwd] = useState(false);    // 비밀번호와 비밀번호 확인 값 비교
 
@@ -65,7 +67,27 @@ const SignUpContainer = () => {
     }
 
     const handleDupCheckId = () => {
-        console.log("아이디 중복 확인 버튼 눌림!");
+        console.log(id);
+
+        axios.get(`http://localhost:8080/users/duplication?username=${id}`)
+            .then(response => {
+                console.log(response.data);
+
+                if(response.data.available === false) {
+                    setNotDuple(true);
+                    alert("사용 가능한 ID입니다!");
+                }
+                else if(response.data.available === true) {
+                    setNotDuple(false);
+                    alert("중복된 ID입니다! 다시 입력해 주세요.");
+                }
+                else {
+                    console.log("뭔가 잘못됨.");
+                }
+            })
+            .catch(error => {
+                console.error("ERROR : ", error);
+            })
     }
 
     const onChangePwd = (e) => {
@@ -116,7 +138,7 @@ const SignUpContainer = () => {
         form.append("nickname", nickname)
         form.append("image", imageFile)
 
-        axios.post("http://ec2-13-209-50-125.ap-northeast-2.compute.amazonaws.com:8080/signup", form)
+        axios.post("http://localhost:8080/signup", form)
             .then(response => {
                 if(response.status === 200) {
                     // 로그인 페이지로 이동하기
@@ -245,7 +267,7 @@ const SignUpContainer = () => {
                 <Button
                     variant="contained" color="success"
                     onClick={handleSignUp}
-                    disabled={!isId || !isPwd || !isNickname || !matchPwd}
+                    disabled={!isId || !isPwd || !isNickname || !matchPwd || !notduple}
                     sx={{ mt: 1.5, mb: 2 }}
                 >
                     회원가입

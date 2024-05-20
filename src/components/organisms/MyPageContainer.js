@@ -84,7 +84,7 @@ const MyPageContainer = () => {
             //   }
 
             try {
-                const response = await axios.get(`http://ec2-13-209-50-125.ap-northeast-2.compute.amazonaws.com:8080/users/${uno}`, {
+                const response = await axios.get(`http://localhost:8080/users/${uno}`, {
                     headers: {
                         Authorization: jwt
                     }

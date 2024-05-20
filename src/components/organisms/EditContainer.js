@@ -55,7 +55,7 @@ const EditContainer = () => {
     // 기존 데이터 불러오기
     const fetchUserData = async (uno) => {
         try {
-            const response = await axios.get(`http://ec2-13-209-50-125.ap-northeast-2.compute.amazonaws.com:8080/users/${uno}`, {
+            const response = await axios.get(`http://localhost:8080/users/${uno}`, {
                 headers: {
                     Authorization: jwt
                 }
@@ -151,7 +151,7 @@ const EditContainer = () => {
                 formData.append("image", imageFile);
             }
 
-            const response = axios.put(`http://ec2-13-209-50-125.ap-northeast-2.compute.amazonaws.com:8080/users/${uno}`, formData, {
+            const response = axios.put(`http://localhost:8080/users/${uno}`, formData, {
                 headers: {
                     Authorization: jwt,
                     // 'Content-Type': 'multipart/form-data'
