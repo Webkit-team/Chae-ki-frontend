@@ -3,7 +3,7 @@ import { Dialog, DialogTitle, DialogContent, DialogActions, TextField } from '@m
 import axios from 'axios';
 import CustomButton from '../../atoms/CustomButton';
 
-function ChaekiTodayModal({time}) {
+function ChaekiTodayModal({time, isEditable}) {
     const [open, setOpen] = useState(false);
     const [pageCount, setPageCount] = useState('');
     const [content, setContent] = useState('');
@@ -60,6 +60,7 @@ function ChaekiTodayModal({time}) {
                     <TextField
                         margin="dense"
                         id="content"
+                        disabled={isEditable}
                         label="내용"
                         type="text"
                         fullWidth

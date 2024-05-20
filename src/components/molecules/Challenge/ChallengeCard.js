@@ -5,8 +5,8 @@ import CustomButton from '../../atoms/CustomButton';
 
 const ChallengeCard = ({img, title, category, bookname, startdate, enddate, memberCount, id, onClick}) => {
     return (
-        <Card onClick={onClick} sx={{ p: 3, m: 1, display: 'flex', height: '150px', cursor:'pointer'}} >
-            <Box sx={{ display: 'flex', flexDirection: 'row', flexGrow: 1 }}>
+        <Card sx={{ p: 3, m: 1, display: 'flex', height: '150px'}} >
+            <Box onClick={onClick} sx={{ display: 'flex', flexDirection: 'row', flexGrow: 1, cursor:'pointer', width:'500px' }}>
                 <img src={img} alt="placeholder" style={{border: 'solid 1px #CECECE'}} />
                 <Box sx={{ p: 1, ml: 1 }}>
                     <Text4 sx={{fontSize:'15px', color:'#717171'}}>{title}</Text4>
@@ -17,7 +17,7 @@ const ChallengeCard = ({img, title, category, bookname, startdate, enddate, memb
                 </Box>
             </Box>
             <CustomButton variant="outlined" to={`/books/${id}`} sx={{
-                alignSelf: 'flex-end', mt: 'auto'
+                alignSelf: 'flex-end', mt: 'auto', zIndex:'999'
             }}>
                 도서 상세 보기
             </CustomButton>
@@ -27,8 +27,8 @@ const ChallengeCard = ({img, title, category, bookname, startdate, enddate, memb
                     backgroundColor: '#949494',
                     borderColor: '#000000',
                 },
-                alignSelf: 'flex-end', mt: 'auto'
-            }} style={{ color: '#FFFFFF' }} to={`/challenges/${id}`}>
+                alignSelf: 'flex-end', mt: 'auto', zIndex:'999', color:'#FFFFFF !important'
+            }} to={`/challenges/${id}`}>
                 참가하기
             </CustomButton>
         </Card>

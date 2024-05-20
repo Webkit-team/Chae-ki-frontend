@@ -71,18 +71,19 @@ const ChallengeList = () => {
     const navigate = useNavigate();
     const fetchData = [];
 
-    const handleClick = (id) => {
+    const handleClick = (e, id) => {
+        e.stopPropagation();
         navigate(`/challenges/${id}`);
     }
 
-    useEffect(() => {
-        axios.get("http://172.30.67.163:8080/challenges")
-            .then(
-                (res) => {
-                    console.log(res.data);
-                }
-            );
-    }, [])
+    // useEffect(() => {
+    //     axios.get("http://172.30.67.163:8080/challenges")
+    //         .then(
+    //             (res) => {
+    //                 console.log(res.data);
+    //             }
+    //         );
+    // }, [])
 
     return (
         <>
@@ -98,14 +99,11 @@ const ChallengeList = () => {
                             enddate={challenge.enddate}
                             memberCount={challenge.memberCount}
                             category={challenge.category}
-                            onClick={() => handleClick(challenge.id)}
+                            onClick={(e) => handleClick(e, challenge.id)}
                         />
                     </Grid>
                 ))}
             </Grid>
-            <Box sx={{ display: 'flex', alignItems: 'center', justifyContent: 'center', pb: 5 }}>
-                <Pagination count={10} />
-            </Box>
         </>
     );
 };
