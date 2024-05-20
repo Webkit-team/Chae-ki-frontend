@@ -26,12 +26,15 @@ const TabItem = styled(Tab)(({ theme }) => ({
   },
 }));
 
-export const Category = () => {
+export const Category = ({onCategoryChange}) => {
     const [value, setValue] = React.useState(false);
 
     const handleChange = (event, newValue) => {
         setValue(value === newValue ? false : newValue);
-        console.log(value);
+        const selectedLabel = event.target.innerText;
+        if (onCategoryChange) {
+            onCategoryChange(value === newValue ? null : selectedLabel);
+        }
     };
 
     return (

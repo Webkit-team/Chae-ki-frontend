@@ -32,7 +32,7 @@ const ChallengeDetailContainer = () => {
     const renderTabContent = () => {
         switch (selectedTab) {
             case 0:
-                return <ChallengeInfo id={id} setStatus={setStatus}/>;
+                return <ChallengeInfo id={id} setStatus={setStatus} status={status}/>;
             case 1:
                 return <ChakiTime id={id}/>;
             case 2:

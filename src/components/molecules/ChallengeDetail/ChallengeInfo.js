@@ -1,25 +1,27 @@
 import { Box, CircularProgress } from '@mui/material';
 import { useParams } from 'react-router-dom';
-import { Text1, Text2, Text3, Text4, Text5 } from '../../atoms/Text';
+import {  Text2, Text4, Text5 } from '../../atoms/Text';
 import CustomButton from '../../atoms/CustomButton';
-import { PointOfSale } from '@mui/icons-material';
 import { useEffect, useState } from 'react';
 import axios from 'axios';
 
-const ChallengeInfo = ({ setStatus }) => {
+const ChallengeInfo = ({ status, setStatus }) => {
   const { id } = useParams();
   const [challenge, setChallenge] = useState(null);
-  const [loading, setLoading] = useState(true);  // 초기 상태를 true로 설정
+  const [loading, setLoading] = useState(true); 
 
   useEffect(() => {
     const fetchData = async () => {
-      setLoading(true);  // 데이터를 가져오기 전에 로딩 상태를 true로 설정
+      setLoading(true);  
       try {
-        const res = await axios.get(`http://ec2-13-209-50-125.ap-northeast-2.compute.amazonaws.com:8080/challenges`);
+        const res = await axios.get(`http://ec2-13-209-50-125.ap-northeast-2.compute.amazonaws.com:8080/challenges?status=${status}`);
         const challengeData = res.data.content;
 
+        console.log("API Response:", challengeData); // 응답 데이터 확인
         const challengeId = Number(id);
         const foundChallenge = challengeData.find(challenge => challenge.no === challengeId);
+        console.log(foundChallenge);
+        
         if (foundChallenge) {
           setChallenge(foundChallenge);
           setStatus(foundChallenge.status);
@@ -27,12 +29,12 @@ const ChallengeInfo = ({ setStatus }) => {
       } catch (error) {
         console.error('Error fetching data: ', error);
       } finally {
-        setLoading(false);  // 데이터 로딩이 완료된 후 로딩 상태를 false로 설정
+        setLoading(false);  
       }
     };
 
     fetchData();
-  }, [id, setStatus]);
+  }, [id, setStatus, status]);
 
   if (loading) {
     return (
