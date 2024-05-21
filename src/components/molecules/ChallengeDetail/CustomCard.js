@@ -85,6 +85,7 @@ export const CustomCard = ({ user }) => {
             const day = new Date(today.createdAt).getDay();
             return daysOfWeek[day].slice(0, 1);
         });
+        console.log(newActiveDays);
         setActiveDays(newActiveDays);
     }, [user.todays]);
 
@@ -98,7 +99,7 @@ export const CustomCard = ({ user }) => {
                 ))}
             </Box>
             <Box sx={{ display: 'flex', flexDirection: 'column', width: '100vw', textAlign: 'center', justifyContent:'center', alignItems:'center' }}>
-                <img src="https://mblogthumb-phinf.pstatic.net/20160817_259/retspe_14714118890125sC2j_PNG/%C7%C7%C4%AB%C3%F2_%281%29.png?type=w800" alt='프로필 이미지' style={{ width: '40px', height: '40px', borderRadius: 30, margin: 5, marginRight: '10px', backgroundColor: 'white', border: '1px solid black' }} />
+                <img src={user.imageUrl} alt='프로필 이미지' style={{ width: '40px', height: '40px', borderRadius: 30, margin: 5, marginRight: '10px', backgroundColor: 'white', border: '1px solid black' }} />
                 <Text1 sx={{fontSize:'18px'}}>{user.nickname}</Text1>
             </Box>
             <Box sx={{ display: 'flex', flexDirection: 'column', pl: 3, alignItems:'flex-start' }}>
@@ -129,7 +130,7 @@ export const CustomCard = ({ user }) => {
     );
 }
 
-export const CustomComment = ({user}) => {
+export const CustomComment = ({comment}) => {
     const [currentIndex, setCurrentIndex] = useState(0); 
     const [isExpanded, setIsExpanded] = useState(true);
     const [isLiked, setIsLiked] = useState(false);
@@ -156,11 +157,11 @@ export const CustomComment = ({user}) => {
     return (
         <CustomPaper sx={{p:'5px', width:'260px'}}>
             <Box sx={{ display: 'flex', flexDirection: 'column', width: '100vw', textAlign: 'center', justifyContent:'center', alignItems:'center' }}>
-                <img src="https://mblogthumb-phinf.pstatic.net/20160817_259/retspe_14714118890125sC2j_PNG/%C7%C7%C4%AB%C3%F2_%281%29.png?type=w800" alt='프로필 이미지' style={{ width: '30px', height: '30px', borderRadius: 30, backgroundColor: 'white', border: '1px solid black' }} />
-                <Text1 sx={{fontSize:'12px'}}>{user.nickname}</Text1>
+                <img src={comment[currentIndex].imageUrl} alt='프로필 이미지' style={{ width: '30px', height: '30px', borderRadius: 30, backgroundColor: 'white', border: '1px solid black' }} />
+                <Text1 sx={{fontSize:'12px'}}>{comment[currentIndex].nickname}</Text1>
             </Box>
             <Box sx={{ display: 'flex', flexDirection: 'column', pl: 3 }}>
-                <TextContainer isExpanded={isExpanded} onClick={toggleExpand} sx={{width:'150px'}}>{user.todays[currentIndex].content}</TextContainer>
+                <TextContainer isExpanded={isExpanded} onClick={toggleExpand} sx={{width:'150px'}}>{comment[currentIndex].content}</TextContainer>
                 <Box sx={{ display: 'flex', alignSelf: 'end', alignItems: 'center', p: '1px' }}>
                     <Button sx={{ px: 0, fontSize: '13px', height: '15px', color: '#00A00B' }}>수정</Button>
                     <Button sx={{ px: 0, fontSize: '13px', height: '15px', color: '#FF0000' }}>삭제</Button>
@@ -170,7 +171,7 @@ export const CustomComment = ({user}) => {
                     ) : (
                         <FavoriteBorderIcon onClick={toggleLike} sx={{ fontSize:'18px',color: '#FD699F' }} />
                     )}
-                    <Text5 sx={{ px: 0.5 }}>{user.todays[currentIndex].likeCount}</Text5>
+                    <Text5 sx={{ px: 0.5 }}>{comment[currentIndex].likeCount}</Text5>
                 </Box>
             </Box>
         </CustomPaper>

@@ -140,7 +140,7 @@ const ChaekiToday = () => {
                 <Text3>댓글창</Text3>
                 <StyledBox sx={{ width: '100%', borderRadius: '20px' }}>
                     {comments.map((user) => (
-                        <CustomComment key={user.id} user={user} />
+                        <CustomComment key={user.id} comment={comments} />
                     ))}
                 </StyledBox>
                 <Box sx={{ display: 'flex', alignItems: 'center', mb: 2, width: '100%', backgroundColor: '#FFFFFF' }}>
