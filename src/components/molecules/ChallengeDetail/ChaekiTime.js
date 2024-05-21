@@ -12,11 +12,17 @@ const ChaekiTime = () => {
     const [timerOn, setTimerOn] = useState(false);
     const [inputTime, setInputTime] = useState('');
     const [isChaekiTodayActive, setIsChaekiTodayActive] = useState(true);
+    const [isEditable, setIsEditable] = useState('');
 
     const checkChaekiToday = async () => {
         try {
-            const response = await axios.get('서버 URL');
-            setIsChaekiTodayActive(response.data);
+            const res = await axios.get('서버 URL');
+            if(res.data){
+                setIsChaekiTodayActive(res.data);
+            }else{
+                setIsEditable('false');
+                // axios.post로 time 저장
+            }
         } catch (error) {
             console.error("채키투데이 확인 중 오류 발생:", error);
         }
@@ -134,7 +140,7 @@ const ChaekiTime = () => {
             </Box>
             <Box sx={{ display: 'flex', justifyContent: 'center', my: 4 }}>
                 {isChaekiTodayActive && (
-                    <ChaekiTodayModal time={time}/>
+                    <ChaekiTodayModal time={time} isEditable={isEditable}/>
                 )}
             </Box>
         </>

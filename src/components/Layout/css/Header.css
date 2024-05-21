@@ -18,6 +18,20 @@
     padding: 0 5px;
     margin-right: 40px;
 }
+.my_page_link{
+    font-weight: 900;
+    font-size: 15px;
+    font-family: 'NanumBarunGothicLight';
+    padding: 0 5px;
+    margin-right: 40px;
+}
+.logout_link{
+    font-weight: 900;
+    font-size: 15px;
+    font-family: 'NanumBarunGothicLight';
+    padding: 0 5px;
+    margin-right: 40px;
+}
 
 .login_link:hover{
     color: grey;
@@ -26,3 +40,12 @@
 .signup_link:hover{
     color: grey;
 }
+
+.my_page_link:hover{
+    color: grey;
+}
+
+.logout_link:hover{
+    color: grey;
+}
+

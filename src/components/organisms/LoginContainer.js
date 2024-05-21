@@ -1,17 +1,20 @@
-// import * as React from 'react';
-import { Button, TextField, Link, Grid, Box, Container, Typography, IconButton } from '@mui/material';
+import { Button, Link, Grid, Box, Container, IconButton } from '@mui/material';
 import PersonIcon from '@mui/icons-material/Person';
 import KeyIcon from '@mui/icons-material/Key';
 
 import CustomTextField from '../atoms/CustomTextField';
-import { useState } from 'react';
+
 import axios from 'axios';
-import { Navigate } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import { SubTitle } from "../atoms/Text";
+import qs from 'qs';
+import { useCookies } from 'react-cookie';
 
 
 const LoginContainer = () => {
-    const [isLogin, setIsLogin] = useState(false);
+    const navigate = useNavigate();
+
+    const [cookies, setCookie, removeCookie] = useCookies(["user"]);
 
     const handleSubmit = async (event) => {
         event.preventDefault();
@@ -22,33 +25,49 @@ const LoginContainer = () => {
             password: data.get("password")
         };
 
+        try {
+            const response = await axios.post("http://localhost:8080/login",
+                qs.stringify(loginData), // qs를 사용하여 URL-encoded 형식으로 변환
+                {
+                    headers: {
+                        'Content-Type': 'application/x-www-form-urlencoded'
+                    }
+                }
+            );
 
-        // try {
-        //     const ax = await axios.post("/login", loginData);
 
-        //     // 얘만 나중에 실제 응답으로 변경
-        //     if (ax.status === 200) {
-        //         console.log("로그인 성공", response.data);
-        //         setIsLogin(true);
-        //         // 홈으로 이동 추가
-        //     } else {
-        //         console.error("ERROR : ", error);
-        //     }
-        // } catch (error) {
-        //     console.log("ㅇㅇ", error);
-        // }
-        
+            if (response.status === 200) {
+                if(response.data.expired === true) {
+                    alert("이미 탈퇴한 사용자입니다.");
+                    return;
+                }
 
-        console.log({
-            id: data.get('id'),
-            password: data.get('password'),
-        });
+                const jwt = response.headers.authorization;
+                const user = {
+                    uno: response.data.no,
+                    username: response.data.username,
+                    jwt: jwt
+                }
+                setCookie("user", user, { path: '/', 'max-age': 3600 }); // 1 hour
 
-        setIsLogin(true);
+                console.log(response.data);
+                
+                navigate('/');
+            }
+            
+                    
+            else {
+                console.error("로그인 실패");
+            }
+        } catch (error) {
+            alert("아이디 또는 패스워드가 잘못 되었습니다!");
+            console.log("아이디 또는 패스워드가 잘못 되었습니다!");
+            console.error("ERROR : ", error);
+        }
     };
 
+
     return (<>
-        {isLogin && <Navigate to="/" />}
 
         <Container component="main" maxWidth="xs">
             <Box
@@ -62,7 +81,7 @@ const LoginContainer = () => {
 
                 <SubTitle>로그인</SubTitle>
 
-                <Box component="form" onSubmit={handleSubmit} noValidate sx={{ display:'flex', flexDirection:"column",mt: "28px", alignItems: "center"}} >
+                <Box component="form" onSubmit={handleSubmit} noValidate sx={{ display: 'flex', flexDirection: "column", mt: "28px", alignItems: "center" }} >
                     <CustomTextField
                         autoFocus
                         margin="normal"
@@ -96,19 +115,6 @@ const LoginContainer = () => {
                         <Grid item>
                             <Link href="signup" variant="body2">
                                 {"아직 회원이 아니신가요?"}
-                            </Link>
-                        </Grid>
-
-{/* 삭제 예정 */}
-                        <Grid item>
-                            <Link href="user" variant="body2">
-                                {"회원정보수정으로"}
-                            </Link>
-                        </Grid>
-
-                        <Grid item>
-                            <Link href="my" variant="body2">
-                                {"마이페이지로"}
                             </Link>
                         </Grid>
                     </Grid>

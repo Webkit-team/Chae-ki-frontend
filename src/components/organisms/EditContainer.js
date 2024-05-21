@@ -12,14 +12,18 @@ import VisibilityOff from '@mui/icons-material/VisibilityOff';
 import defaultImg from '../../assets/defaultProfile.png';
 
 import { useEffect, useState } from "react";
+import { useCookies } from 'react-cookie';
+import { useNavigate } from 'react-router-dom';
 import axios from "axios";
 import { SubTitle } from "../atoms/Text";
 
 
 
 const EditContainer = () => {
+    const navigate = useNavigate();
 
     const [image, setImage] = useState("");
+    const [imageFile, setImageFile] = useState(null);
     const [id, setId] = useState("");
     const [pwd, setPwd] = useState("");
     const [confirmPwd, setConfirmPwd] = useState("");
@@ -31,27 +35,53 @@ const EditContainer = () => {
     const [showPwd, setShowPwd] = useState(false);      // 비밀번호 숨김 토글
     const [matchPwd, setMatchPwd] = useState(false);    // 비밀번호와 비밀번호 확인 값 비교
 
+    const [cookies] = useCookies(["user"]);
 
-    //////////////////////////////
+    const uno = cookies.user ? cookies.user.uno : null;
+    const jwt = cookies.user ? cookies.user.jwt : null;
 
-    // 더미 데이터 가져오는 함수
-    const fetchDummyUserData = () => {
-        // 실제 데이터를 불러오도록 나중에 변경해야함
-        const dummyData = {
-            username: 'gildong',
-            password: 'aaaaaaaa',
-            nickname: '길동이'
-        };
-
-        setPwd(dummyData.password);
-        setNickname(dummyData.nickname);
-    };
-
-    //////////////////////////////
-
+    
     useEffect(() => {
-        fetchDummyUserData();
-    }, []);
+        if (uno) {
+            fetchUserData(uno);
+            console.log(uno);
+        }
+        else {
+            console.log("등록된 회원이 아닙니다!");
+        }
+    }, [uno]);
+
+
+    // 기존 데이터 불러오기
+    const fetchUserData = async (uno) => {
+        try {
+            const response = await axios.get(`http://localhost:8080/users/${uno}`, {
+                headers: {
+                    Authorization: jwt
+                }
+            });
+
+            if (response.status === 403) {
+                navigate("/login");
+                console.log("로그인이 필요함.");
+
+                return;
+            }
+
+            const userData = response.data;
+
+            console.log(userData);
+
+            // setId(userData.id);
+            setPwd(userData.password);
+            setNickname(userData.nickname);
+            setImage(userData.imageUrl);
+        } catch (error) {
+            console.error("Failed to fetch user data:", error);
+            console.log("올바른 jwt를 담아주세요");
+        }
+    }
+
 
     const handleFileChange = (e) => {
         const file = e.target.files[0];
@@ -59,6 +89,7 @@ const EditContainer = () => {
             const reader = new FileReader();
             reader.onloadend = () => {
                 setImage(reader.result);
+                setImageFile(file);
             };
             reader.readAsDataURL(file);
         }
@@ -70,7 +101,7 @@ const EditContainer = () => {
         setPwd(currentPwd);
         setMatchPwd(currentPwd === confirmPwd);
 
-        const PWD_REGEX = /^[a-zA-Z0-9~!@#$%^&*()]{8,16}$/;
+        const PWD_REGEX = /^[^\s]+$/;
 
         if (!PWD_REGEX.test(currentPwd)) {
             setIsPwd(false);
@@ -79,18 +110,15 @@ const EditContainer = () => {
         }
     }
 
-
     const onChangeConfirmPwd = (e) => {
         const currentConfirmPwd = e.target.value;
         setConfirmPwd(currentConfirmPwd);
         setMatchPwd(currentConfirmPwd === pwd);
     }
 
-
     const handleClickShowPwd = () => {
         setShowPwd(!showPwd);
     }
-
 
     const onChangeNickname = (e) => {
         const currentNickname = e.target.value;
@@ -104,39 +132,47 @@ const EditContainer = () => {
         }
     }
 
-    // 회원가입 정보 보내는 post 요청 추가해야함
+    // 정보 수정
     const handleEdit = () => {
 
         const userData = {
-            username: id,
             password: pwd,
-            nickname: nickname
+            nickname: nickname,
         };
 
-        // axios.put("localhost:3000/user", userData)
-        //     .then(response => {
-        //         console.log("회원정보수정 성공!", response.data)
-        //     })
-        //     .catch(error => {
-        //         console.log("ERROR : ", error)
-        //     });
+        try {
+            const formData = new FormData();
+            formData.append("password", pwd);
+            formData.append("nickname", nickname);
+            if (imageFile) {
+                formData.append("image", imageFile);
+            }
 
-        console.log("회원정보수정 완료!");
-        console.log(id);
-        console.log(pwd);
-        console.log(nickname);
+            const response = axios.put(`http://localhost:8080/users/${uno}`, formData, {
+                headers: {
+                    Authorization: jwt,
+                    // 'Content-Type': 'multipart/form-data'
+                }
+            });
+            console.log("회원정보수정 완료!", response.data);
+            alert("회원정보수정이 완료되었습니다!");
 
-    }
+            navigate("/");
+
+        } catch(error) {
+            console.error("Failed to update user data:", error);
+        }
+    };
 
 
     return (<div className="wrapper">
         <SubTitle>회원정보수정</SubTitle>
 
         <Container
-            sx={{ width: 800, pt:"30px", pb: "100px", display: "flex", justifyContent: "center" }}
+            sx={{ width: 800, pt: "30px", pb: "100px", display: "flex", justifyContent: "center" }}
         >
 
-            <div className="profile-left" style={{padding: "50px 70px"}}>
+            <div className="profile-left" style={{ padding: "50px 70px" }}>
 
                 {image ? (
                     <Box
@@ -184,9 +220,7 @@ const EditContainer = () => {
             </div>
 
 
-            {/* 기존 비밀번호와 같은지 확인하는 로직 추가해야할까? */}
             <div className="profile-right">
-
                 <CustomTextField
                     label="비밀번호"
                     type={showPwd ? "text" : "password"}
@@ -205,7 +239,7 @@ const EditContainer = () => {
                                 )}
                             </IconButton>)
                     }}
-                    helperText="영문, 숫자, 특수문자 포함 8~16자 사용 가능"
+                    helperText="공백을 제외한 모든 문자열과 숫자 사용 가능"
                     value={pwd}
                     onChange={onChangePwd}
                     error={!isPwd}
@@ -225,7 +259,6 @@ const EditContainer = () => {
 
                 <CustomTextField
                     label="닉네임"
-                    // required
                     InputProps={{ startAdornment: (<IconButton tabIndex={-1}><BadgeIcon /></IconButton>) }}
                     helperText="한글 2~6자만 사용 가능"
                     value={nickname}
