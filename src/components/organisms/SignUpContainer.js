@@ -35,6 +35,8 @@ const SignUpContainer = () => {
     const [isPwd, setIsPwd] = useState(true);
     const [isNickname, SetIsNickname] = useState(true);
 
+    const [notduple, setNotDuple] = useState(false);
+
     const [showPwd, setShowPwd] = useState(false);      // 비밀번호 숨김 토글
     const [matchPwd, setMatchPwd] = useState(false);    // 비밀번호와 비밀번호 확인 값 비교
 
@@ -65,7 +67,27 @@ const SignUpContainer = () => {
     }
 
     const handleDupCheckId = () => {
-        console.log("아이디 중복 확인 버튼 눌림!");
+        console.log(id);
+
+        axios.get(`http://localhost:8080/users/duplication?username=${id}`)
+            .then(response => {
+                console.log(response.data);
+
+                if(response.data.available === false) {
+                    setNotDuple(true);
+                    alert("사용 가능한 ID입니다!");
+                }
+                else if(response.data.available === true) {
+                    setNotDuple(false);
+                    alert("중복된 ID입니다! 다시 입력해 주세요.");
+                }
+                else {
+                    console.log("뭔가 잘못됨.");
+                }
+            })
+            .catch(error => {
+                console.error("ERROR : ", error);
+            })
     }
 
     const onChangePwd = (e) => {
@@ -75,7 +97,7 @@ const SignUpContainer = () => {
         // 비밀번호와 비밀번호 확인 값이 일치하는지에 대한 여부(비밀번호 값 변경 시)
         setMatchPwd(currentPwd === confirmPwd);
 
-        const PWD_REGEX = /^[a-zA-Z0-9~!@#$%^&*+-]{8,16}$/;
+        const PWD_REGEX = /^[^\s]+$/;
 
         if (!PWD_REGEX.test(currentPwd)) {
             setIsPwd(false);
@@ -215,9 +237,7 @@ const SignUpContainer = () => {
                                 )}
                             </IconButton>)
                     }}
-                    helperText={<span>영문, 숫자, 특수문자 포함 8~16자 사용 가능
-                        <br/>특수문자 : ~, !, @, #, $, %, ^, &, *, -, +
-                    </span>}
+                    helperText={<span>공백을 제외한 모든 문자열과 숫자 사용 가능</span>}
                     value={pwd}
                     onChange={onChangePwd}
                     error={!isPwd}
@@ -247,7 +267,7 @@ const SignUpContainer = () => {
                 <Button
                     variant="contained" color="success"
                     onClick={handleSignUp}
-                    disabled={!isId || !isPwd || !isNickname || !matchPwd}
+                    disabled={!isId || !isPwd || !isNickname || !matchPwd || !notduple}
                     sx={{ mt: 1.5, mb: 2 }}
                 >
                     회원가입
