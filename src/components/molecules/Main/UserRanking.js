@@ -24,11 +24,11 @@ const medalColors = ['#D5A11E', '#A3A3A3', '#CD7F32'];
 
 const UserRanking = () => {
     return (
-        <Card sx={{ position: 'absolute', top: '100px', right: '25px', display: 'flex', flexDirection: 'column', width: '180px', height: '200px', zIndex: 999, borderRadius: 5, padding: 3, border: 'solid 0.1px #CECECE' }}>
+        <Card sx={{ position: 'absolute', top: '100px', right: '25px', display: 'flex', flexDirection: 'column', width: '160px', height: '190px', zIndex: 999, borderRadius: 5, padding: 3,paddingTop:2, border: 'solid 0.1px #CECECE' }}>
             <Box sx={{ display: 'flex', justifyContent: 'space-between' }}>
                 <Text4>유저 랭킹</Text4>
                 <Tooltip title="이 랭킹은 유저가 챌린지 활동을 통해 얻은 포인트로 매겨진 순위입니다." sx={{ maxWidth: 100 }}>
-                    <InfoIcon sx={{ color: '#000000', fontSize: '28px' }} />
+                    <InfoIcon sx={{ color: '#000000', fontSize: '28px'}} />
                 </Tooltip>
             </Box>
             <div style={{ border: 'solid 1px black', marginTop: '8px', marginBottom: '8px' }} />

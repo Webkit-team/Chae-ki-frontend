@@ -14,18 +14,14 @@ const ChallengeInfo = ({ status, setStatus }) => {
     const fetchData = async () => {
       setLoading(true);  
       try {
-        const res = await axios.get(`http://ec2-13-209-50-125.ap-northeast-2.compute.amazonaws.com:8080/challenges?status=${status}`);
+        const res = await axios.get(`http://ec2-13-209-50-125.ap-northeast-2.compute.amazonaws.com:8080/challenges/${id}`);
         const challengeData = res.data.content;
 
         console.log("API Response:", challengeData); // 응답 데이터 확인
-        const challengeId = Number(id);
-        const foundChallenge = challengeData.find(challenge => challenge.no === challengeId);
-        console.log(foundChallenge);
         
-        if (foundChallenge) {
-          setChallenge(foundChallenge);
-          setStatus(foundChallenge.status);
-        }
+        setChallenge(challengeData);
+        setStatus(challengeData.status);
+
       } catch (error) {
         console.error('Error fetching data: ', error);
       } finally {

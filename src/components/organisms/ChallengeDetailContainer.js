@@ -24,6 +24,19 @@ const ChallengeDetailContainer = () => {
                 return '';
         }
     };
+
+    const getDisabledTabs = (status) => {
+        switch(status) {
+            case 'RECRUITING':
+                return [];  // [1, 2]로 바꿔야함 API 연결 후 
+            case 'ONGOING':
+                return []; 
+            case 'ENDED':
+                return [1]; 
+            default:
+                return [];
+        }
+    };
     
     const handleTabChange = (newValue) => {
         setSelectedTab(newValue);
@@ -47,7 +60,11 @@ const ChallengeDetailContainer = () => {
     return (
         <>
             <SubTitle>{getStatusText(status)}</SubTitle>
-            <CustomTabs onTabChange={handleTabChange} labels={["챌린지 정보", "채키 타임", "채키 투데이", "챌린지 가이드"]} />
+            <CustomTabs 
+                onTabChange={handleTabChange} 
+                labels={["챌린지 정보", "채키 타임", "채키 투데이", "챌린지 가이드"]}
+                disabledTabs={getDisabledTabs(status)}
+            />
             {renderTabContent()}
         </>
     );
