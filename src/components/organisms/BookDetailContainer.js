@@ -1,10 +1,12 @@
 import { Box, Divider } from "@mui/material";
 import FavoriteIcon from '@mui/icons-material/Favorite';
+import FavoriteBorderIcon from '@mui/icons-material/FavoriteBorder';
 import { SubTitle, MainText, Text2, Text3, Text5 } from "../atoms/Text";
 
 import bookExImg1 from "../../assets/book1.png"
 import bookExImg2 from "../../assets/book2.png"
 import { Link, useParams } from "react-router-dom";
+import { useState } from "react";
 
 const bookDetailList = [
     {
@@ -69,9 +71,16 @@ const bookDetailList = [
         shop_url: "https://www.aladin.co.kr/shop/wproduct.aspx?ItemId=335627754"
     },
 ]
+
+
 const BookDetailContainer = () => {
 
     const { id } = useParams();
+    const [like, setLike] = useState(false);
+
+    const handleLikeToggle = () => {
+        setLike(!like);
+    }
 
     const bookDetail = bookDetailList.find(bookDetail => bookDetail.id === id);
 
@@ -85,25 +94,19 @@ const BookDetailContainer = () => {
             <SubTitle>도서 상세 조회</SubTitle>
 
             <Box sx={{ display: "flex", width: "100%", justifyContent: "center", pt: 5 }}>
-                <Box sx={{ width: "40%", pr: 5 }}>
-                    <Box sx={{display:"flex"}}>
-                        <Box sx={{display:"flex", width:"50%", justifyContent:"right", pr:2}}>
-                            <FavoriteIcon sx={{ fontSize: 30, pr:0.5 }} />
-                            <Text2>10</Text2>
-                        </Box>
+                <Box sx={{ display:"flex", flexDirection:"column", alignItems:"end", width: "40%", pr: 5 }}>
+                    <Box
+                        component="img"
+                        sx={{
+                            width: 250,
+                            height: 350,
+                            objectFit: "cover"
+                        }}
+                        src={bookDetail.image_url}
+                        alt="이미지"
+                    />
 
-                        <Box
-                            component="img"
-                            sx={{
-                                width: 250,
-                                height: 350,
-                                objectFit: "cover"
-                            }}
-                            src={bookDetail.image_url}
-                            alt="이미지"
-                        />
-                    </Box>
-                    
+
                     <Box sx={{ display: "flex", flexDirection: "column", textAlign: "right" }}>
                         <Box sx={{ pt: 3.5, height: 40 }}>
                             <Text3>저자</Text3>
@@ -135,9 +138,22 @@ const BookDetailContainer = () => {
                     <Box sx={{ width: "100%" }}>
                         <Divider width="100%" sx={{ border: "solid 1px", mb: 1 }}></Divider>
 
-                        <Box sx={{ display:"flex", height: 80 }}>
-                            <Text2>{bookDetail.name}</Text2>
+                        <Box sx={{display: "flex", width: "100%"}}>
+                            <Box sx={{width: "85%", height: 80 }}>
+                                <Text2>{bookDetail.name}</Text2>
+                            </Box>
+
+                            <Box sx={{ display:"flex", width: "15%", justifyContent:"end"}}>
+                                <Box onClick={handleLikeToggle} sx={{ cursor: "pointer" }}>
+                                    {like ? <FavoriteIcon sx={{ fontSize: 30, pr: 0.5 }} /> : <FavoriteBorderIcon sx={{ fontSize: 30, pr: 0.5 }} />}
+                                </Box>
+
+                                <Text2>10</Text2>
+                            </Box>
                         </Box>
+
+
+
 
                         <Divider width="100%" sx={{ border: "solid 1px", mt: 1, mb: 1 }}></Divider>
 
@@ -173,7 +189,7 @@ const BookDetailContainer = () => {
 
                         <Divider width="100%" sx={{ border: "solid 1px", mt: 1, mb: 1 }}></Divider>
 
-                        <Box sx={{ pt:0.5, height: 40 }}>
+                        <Box sx={{ pt: 0.5, height: 40 }}>
                             <Link to={bookDetail.shop_url}><Text5>바로가기(알라딘)</Text5></Link>
                         </Box>
                     </Box>

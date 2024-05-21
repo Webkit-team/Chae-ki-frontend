@@ -5,7 +5,7 @@ import { MainText, SubTitle, Text3, Text5 } from "../atoms/Text";
 import defaultImg from "../../assets/defaultProfile.png";
 import CustomButton from "../atoms/CustomButton";
 
-import { Box, Container, Avatar, Divider } from "@mui/material";
+import { Box, Container, Avatar, Divider, Tooltip } from "@mui/material";
 import FlagIcon from '@mui/icons-material/Flag';
 import CreateIcon from '@mui/icons-material/Create';
 import WatchLaterIcon from '@mui/icons-material/WatchLater';
@@ -14,6 +14,12 @@ import FavoriteIcon from '@mui/icons-material/Favorite';
 import BookmarkIcon from '@mui/icons-material/Bookmark';
 
 import MyCouponList from "../molecules/MyPage/MyCouponList";
+
+import treeImg from "../../assets/gradeImages/tree4.png";
+import forestImg from "../../assets/gradeImages/forest5.png";
+import sproutImg from "../../assets/gradeImages/sprout2.png";
+import plantImg from "../../assets/gradeImages/plant3.png";
+import seedImge from "../../assets/gradeImages/seed1.png";
 
 import axios from "axios";
 import { useNavigate } from 'react-router-dom';
@@ -31,6 +37,7 @@ const MyPageContainer = () => {
     const [nickname, setNickname] = useState(null);
     const [totalReadingTime, setTotalReadingTime] = useState(null);
     const [point, setPoint] = useState(null);
+    const { grade, gradeImage, num } = determineGrade(point);
 
     const uno = cookies.user ? cookies.user.uno : null;
     const jwt = cookies.user ? cookies.user.jwt : null;
@@ -45,7 +52,7 @@ const MyPageContainer = () => {
     const getActivityComponent = (activity) => {
         switch (activity) {
             case "challenge":
-                return <MyChallengeList />;
+                return <MyChallengeList uno={uno} jwt={jwt}/>;
             case "today":
                 return <MyChaekiTodayList />
             case "readTime":
@@ -59,6 +66,35 @@ const MyPageContainer = () => {
             default:
                 return null;
         }
+    }
+
+    // 포인트로 등급 결정
+    function determineGrade(point) {
+        let grade, gradeImage, num;
+      
+        if (point >= 1000) {
+          num = "5";
+          grade = "숲";
+          gradeImage = forestImg;
+        } else if (point >= 700) {
+          num = "4";
+          grade = "나무";
+          gradeImage = treeImg;
+        } else if (point >= 300) {
+          num = "3";
+          grade = "묘목";
+          gradeImage = plantImg;
+        } else if (point >= 100) {
+          num = "2";
+          grade = "새싹";
+          gradeImage = sproutImg;
+        } else {
+          num = "1";
+          grade = "씨앗";
+          gradeImage = seedImge;
+        }
+      
+        return { grade, gradeImage, num };
     }
 
     const handleOpen = () => {
@@ -128,24 +164,20 @@ const MyPageContainer = () => {
     }, [uno, jwt]);
 
 
-    return (<div className="wrapper">
+    return (<Container >
         <SubTitle>마이 페이지</SubTitle>
 
-        <Container sx={{ width: 1000, pt:4}}>
-            <Container
-                sx={{
-                    display: "flex",
-                    flexDirection: "column",
-                    alignItems: "center"
-                }}
-            >
-
+        <Box sx={{pt:4}}>
+            <Box sx={{ display: "flex", flexDirection: "column" }}>
+                
                 {/* 사용자 영역 */}
                 <Box
                     sx={{
                         display: "flex",
                         alignItems: "center",
-                        maxWidth: 900,
+                        justifyContent: "center",
+                        width: "100%",
+                        gap: 3,
                         pb: 3
                     }}
                 >
@@ -155,19 +187,39 @@ const MyPageContainer = () => {
                         sx={{ width: 100, height: 100, border: "1px solid", borderRadius: "50%" }}
                     />
 
-                    <Box sx={{ fontSize: "16px", width: "200px", textAlign: "center" }}>
-                        <Text3 sx={{ pb: 5 }}>{cookies.user?.username}의 서재</Text3>
-                        <Text3>나무 등급</Text3>
+                    <Box sx={{ display:"flex", fontSize: "16px", width: "25%" }}>
+                        <Box sx={{ display:"flex", alignItems:"center" }}>
+                            <Text3>{cookies.user?.username}의 서재</Text3>
+                        </Box>
+                        
+                        <Box sx={{display:"flex", pl:2, pb:2 }} >
+                            <Tooltip title={`${num}단계 : ${grade} 등급`} arrow>
+                                <Box
+                                    component="img"
+                                    src={gradeImage}
+                                    sx={{
+                                        width: 35,
+                                        height: 35,
+                                        // backgroundColor: "#d9d9d9",
+                                        borderRadius: "20%",
+                                    }}                                
+                                />                
+                            </Tooltip>   
+                        </Box>
+
+                        {/* <Box >
+                            <Text3>{grade} 등급</Text3>
+                        </Box> */}
                     </Box>
 
-                    <Box sx={{ width: "400px", textAlign: "center" }}>
+                    <Box sx={{ width: "25%", textAlign: "center" }}>
                         <CustomButton variant="contained" sx={{ border: "1px solid", borderRadius: 1 }} onClick={handleOpen}>보유 쿠폰</CustomButton>
                         <CustomButton variant="contained" onClick={handleGetCoupon}>쿠폰 받기</CustomButton>
 
                         <MyCouponList open={open} handleClose={handleClose}></MyCouponList>
                     </Box>
 
-                    <Box sx={{ width: "300px", display: "flex", alignItems: "end", justifyContent: "end" }}>
+                    <Box sx={{ width: "25%", display: "flex", textItems: "end", justifyContent: "end" }}>
                         <CustomButton
                             sx={{ width: 100 }}
                             // to={`/users/${cookies.user?.uno}`}
@@ -194,7 +246,8 @@ const MyPageContainer = () => {
                     sx={{
                         display: "flex",
                         justifyContent: "space-between",
-                        width: "90%",
+                        width: "100%",
+                        // textAlign: "center",
                         pt: 3, pb: 3
                     }}
                 >
@@ -305,12 +358,12 @@ const MyPageContainer = () => {
                     )}
                 </Box>
 
-            </Container>
+            </Box>
 
-        </Container>
+        </Box>
 
 
-    </div>)
+    </Container>)
 }
 
 export default MyPageContainer;

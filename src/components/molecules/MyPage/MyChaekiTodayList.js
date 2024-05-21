@@ -1,5 +1,7 @@
 import { Box, Container, Divider, Modal, Typography } from "@mui/material";
 import ThumbUpIcon from '@mui/icons-material/ThumbUp';
+import ThumbUpAltIcon from '@mui/icons-material/ThumbUpAlt';
+import ThumbUpOffAltIcon from '@mui/icons-material/ThumbUpOffAlt';
 
 import { Text5, MainText } from "../../atoms/Text";
 import CustomCard from "../../atoms/CustomCard";
@@ -114,8 +116,8 @@ const ChaekiTodayList = () => {
                             <Text5>{selectedData.created_at}</Text5>
                         </Box>
 
-                        <Box sx={{ display: "flex", width: "5%", justifyContent: "right" }}>
-                            <ThumbUpIcon />
+                        <Box sx={{ display: "flex", width: "5%", justifyContent: "right" }}>    
+                            <ThumbUpAltIcon />
                             <MainText sx={{ pl: 1 }}>{selectedData.like_count}</MainText>
                         </Box>
                     </Box>
@@ -207,7 +209,7 @@ const ChaekiTodayList = () => {
                             </Box>
 
                             <Box sx={{ display: "flex", pl: 1 }}>
-                                <ThumbUpIcon />
+                                <ThumbUpAltIcon />
                                 <MainText sx={{ pl: 1 }}>{data.like_count}</MainText>
                             </Box>
                         </Box>
