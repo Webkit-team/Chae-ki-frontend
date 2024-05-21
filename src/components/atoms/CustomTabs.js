@@ -23,7 +23,7 @@ const theme = createTheme({
   },
 });
 
-const CustomTabs = ({ onTabChange, labels}) => {
+const CustomTabs = ({ onTabChange, labels, disabledTabs = []}) => {
   const [value, setValue] = React.useState(0);
 
   const handleChange = (event, newValue) => {
@@ -36,7 +36,7 @@ const CustomTabs = ({ onTabChange, labels}) => {
       <Box sx={{ width: '100%', bgcolor: 'background.paper', mt: 5, borderBottom:'solid 0.5px', borderBottomColor:'#CECECE' }}>
         <Tabs value={value} onChange={handleChange} >
         {labels.map((label, index) => (
-            <Tab key={index} label={label} />
+            <Tab key={index} label={label} disabled={disabledTabs.includes(index)} />
           ))}
         </Tabs>
       </Box>

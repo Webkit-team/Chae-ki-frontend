@@ -1,13 +1,29 @@
 import { Box, Card } from '@mui/material';
-import React from 'react';
+import React, { useState } from 'react';
 import { Text3, Text4, Text5 } from '../../atoms/Text';
 import CustomButton from '../../atoms/CustomButton';
 
 const ChallengeCard = ({ img, title, category, bookname, startdate, enddate, memberCount, id, onClick }) => {
+    const [isLoading, setIsLoading] = useState(true);
+
+    const handleImageLoad = () => {
+        setIsLoading(false);
+    };
+
     return (
         <Card sx={{ p: 3, m: 1, display: 'flex', height: 'auto' }} >
             <Box onClick={onClick} sx={{ display: 'flex', flexDirection: 'row', flexGrow: 1, cursor: 'pointer', width: '500px', height: '150px' }}>
-                <img src={img} alt="placeholder" style={{ border: 'solid 1px #CECECE' }} />
+                <Box sx={{ position: 'relative', width: '150px', height: '160px' }}>
+                    {isLoading && (
+                        <Box sx={{ position: 'absolute', top: 0, left: 0, width: '100%', height: '100%', backgroundColor: '#f0f0f0' }} />
+                    )}
+                    <img
+                        src={img}
+                        alt="placeholder"
+                        style={{ display: isLoading ? 'none' : 'block', width: '100%', height: '100%', objectFit: 'cover', border: 'solid 1px #CECECE' }}
+                        onLoad={handleImageLoad}
+                    />
+                </Box>
                 <Box sx={{ display: 'flex', flexDirection: 'column', px: 1, py: 0, ml: 1, justifyContent: 'space-between', height: '150px', width: '100%' }}>
                     <Box>
                         <Text4 sx={{ fontSize: '15px', color: '#717171' }}>{title}</Text4>

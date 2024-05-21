@@ -23,8 +23,8 @@ const Copyright = () => {
 const Footer = () => {
 
   return (
-    <Box component="footer" sx={{ py: 4, width: '100%', m: 0, height:'100px', borderTop:'1px solid #CECECE'}}>
-      <Box sx={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', px:6 }}>
+    <Box component="footer" sx={{ py: 4, width: '100%', m: 0, height:'100px', borderTop:'1px solid #CECECE', backgroundColor:'#dce5ed'}}>
+      <Box sx={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', px:6,  }}>
         <Box sx={{display:'flex'}}>
           <a href="https://www.instagram.com/">
             <InstagramIcon sx={{ fontSize: 40, mx: 0.25 }} />
