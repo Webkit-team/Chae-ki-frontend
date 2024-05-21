@@ -2,12 +2,41 @@ import { Box, Card } from '@mui/material';
 import React, { useState } from 'react';
 import { Text3, Text4, Text5 } from '../../atoms/Text';
 import CustomButton from '../../atoms/CustomButton';
+import { useCookies } from 'react-cookie';
+import axios from 'axios';
 
 const ChallengeCard = ({ img, title, category, bookname, startdate, enddate, memberCount, id, onClick }) => {
     const [isLoading, setIsLoading] = useState(true);
+    const [cookies] = useCookies(["user"]);
 
     const handleImageLoad = () => {
         setIsLoading(false);
+    };
+
+    const handleJoin = async () => {
+
+        const token = cookies.user ? cookies.user.jwt : null;
+        const uno = cookies.user ? cookies.user.uno : null;
+        if (!token) {
+            alert('로그인이 필요합니다.');
+            return;
+        }
+        try {
+            const res = await axios.post(
+                `http://ec2-13-209-50-125.ap-northeast-2.compute.amazonaws.com:8080/challenges/${id}/users/${uno}`,
+                {},
+                {
+                    headers: {
+                        'Authorization': `Bearer ${token}`,
+                    },
+                }
+            );
+            if(res){
+                alert('챌린지에 참가하셨습니다.');
+            }
+        } catch (error) {
+            console.error('참가 실패:', error.response ? error.response.data : error.message);
+        }
     };
 
     return (
@@ -46,7 +75,7 @@ const ChallengeCard = ({ img, title, category, bookname, startdate, enddate, mem
                     borderColor: '#000000',
                 },
                 alignSelf: 'flex-end', mt: 'auto', zIndex: '999', color: '#FFFFFF !important'
-            }} to={`/challenges/${id}`}>
+            }} onClick={handleJoin}>
                 참가하기
             </CustomButton>
         </Card>

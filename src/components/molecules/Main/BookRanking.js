@@ -1,6 +1,6 @@
 import { Box, ImageList, ImageListItem, styled } from '@mui/material';
 import React from 'react';
-import { Navigate, useNavigate } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import { Text1 } from '../../atoms/Text';
 
 const imgList = [

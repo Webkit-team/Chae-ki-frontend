@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React from 'react';
 import ChallengeRanking from '../molecules/Main/ChallengeRanking';
 import BookRanking from '../molecules/Main/BookRanking';
 import ChaekiToday from '../molecules/Main/ChaekiToday';
@@ -15,7 +15,7 @@ const MainContainer = () => {
                         transition: 'background 1s ease-in-out', 
                         position: 'absolute', 
                         top: '-40px', 
-                        left: '-280px', 
+                        left: '-490px', 
                         width: '100vw', 
                         height: '400px', 
                         zIndex: -1,

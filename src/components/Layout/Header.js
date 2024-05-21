@@ -33,7 +33,7 @@ const AnimatedLink = styled(Link)(({ theme }) => ({
 }));
 
 const Header = () => {
-    const [cookies, setCookie, removeCookie] = useCookies(["user"]);
+    const [cookies, removeCookie] = useCookies(["user"]);
 
     const user = cookies.user;
 

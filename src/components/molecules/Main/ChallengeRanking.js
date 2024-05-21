@@ -3,9 +3,8 @@ import Grid from '@mui/material/Grid';
 import Box from '@mui/material/Box';
 import CustomButton from '../../atoms/CustomButton';
 import { useNavigate } from 'react-router-dom';
-import { Text1, Text2, Text3, Text4, Text5 } from '../../atoms/Text';
-import { Button, Tooltip, makeStyles, styled } from '@mui/material';
-import { ClassNames } from '@emotion/react';
+import { Text1,Text5 } from '../../atoms/Text';
+import { Tooltip,  styled } from '@mui/material';
 
 const StyledImage = styled('img')({
     width: '150px',

@@ -26,7 +26,7 @@ const LoginContainer = () => {
         };
 
         try {
-            const response = await axios.post("http://localhost:8080/login",
+            const response = await axios.post("http://ec2-13-209-50-125.ap-northeast-2.compute.amazonaws.com:8080/login",
                 qs.stringify(loginData), // qs를 사용하여 URL-encoded 형식으로 변환
                 {
                     headers: {

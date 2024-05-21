@@ -69,7 +69,7 @@ const SignUpContainer = () => {
     const handleDupCheckId = () => {
         console.log(id);
 
-        axios.get(`http://localhost:8080/users/duplication?username=${id}`)
+        axios.get(`http://ec2-13-209-50-125.ap-northeast-2.compute.amazonaws.com:8080/users/duplication?username=${id}`)
             .then(response => {
                 console.log(response.data);
 

@@ -1,8 +1,7 @@
-import React, { useEffect } from 'react';
+
 import ChallengeCard from './ChallengeCard';
-import { Box, Grid, Pagination } from '@mui/material';
+import { Grid } from '@mui/material';
 import { useNavigate } from 'react-router-dom';
-import axios from 'axios';
 
 const ChallengeList = ({data}) => {
     const navigate = useNavigate();

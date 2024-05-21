@@ -1,12 +1,11 @@
-import { Box, Button, IconButton, Paper, styled, Typography } from '@mui/material';
+import { Box, Button, IconButton, Paper, styled } from '@mui/material';
 import React, { useEffect, useState } from 'react';
-import { Text1, Text3, Text4, Text5 } from '../../atoms/Text';
+import { Text1, Text3, Text5 } from '../../atoms/Text';
 import FlagIcon from '@mui/icons-material/Flag';
 import FavoriteIcon from '@mui/icons-material/Favorite';
 import FavoriteBorderIcon from '@mui/icons-material/FavoriteBorder';
 import ArrowBackIosIcon from '@mui/icons-material/ArrowBackIos';
 import ArrowForwardIosIcon from '@mui/icons-material/ArrowForwardIos';
-import axios from 'axios';
 
 const daysOfWeek = ["일요일", "월요일", "화요일", "수요일", "목요일", "금요일", "토요일"];
 

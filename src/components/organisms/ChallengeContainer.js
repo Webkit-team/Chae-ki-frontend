@@ -8,7 +8,6 @@ import Search from "../molecules/Challenge/Search";
 import ChallengeList from "../molecules/Challenge/ChallengeList";
 
 const ChallengeContainer = () => {
-    const [selectedTab, setSelectedTab] = useState(0);
     const [selectedCategory, setSelectedCategory] = useState(''); 
     const [data, setData] = useState([]);
     const [page, setPage] = useState(1);
@@ -16,7 +15,6 @@ const ChallengeContainer = () => {
     const [status, setStatus] = useState('RECRUITING');
 
     const handleTabChange = (newValue) => {
-        setSelectedTab(newValue);
         const statusMap = ['RECRUITING', 'ONGOING', 'ENDED'];
         setStatus(statusMap[newValue] || 'RECRUITING');
     };

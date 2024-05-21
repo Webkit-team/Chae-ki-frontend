@@ -61,7 +61,7 @@ const ChaekiToday = () => {
     const { id } = useParams();
     const [users, setUsers] = useState([]);
     const [comments, setComments] = useState([]);
-    const [cookies, setCookie, removeCookie] = useCookies(["user"]);
+    const [cookies] = useCookies(["user"]);
     const [commentContent, setCommentContent] = useState('');
 
     const fetchData = async (week) => {
