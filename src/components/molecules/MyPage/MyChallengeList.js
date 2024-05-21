@@ -1,21 +1,26 @@
 import { Box, Card, CardContent, Container, MenuItem, Select } from "@mui/material";
 import { MainText, Text5 } from "../../atoms/Text";
 import CustomFormControl from "../../atoms/CustomFormControl"
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 import bookExImg1 from "../../../assets/book1.png"
 import bookExImg2 from "../../../assets/book2.png"
 import CustomButton from "../../atoms/CustomButton";
+import axios from "axios";
 
-const ChallengeList = () => {
+const MyChallengeList = (uno, jwt) => {
 
+    // 더미데이터 상태 관리 -> 나중에 삭제 예정
     const [challenge, setChallenge] = useState("doing");
+
+    // 실제 데이터 상태 관리
+    const [challenges, setChallenges] = useState([]);
 
     const handleChange = (e) => {
         setChallenge(e.target.value);
     };
 
-    const challengeData = {
+    const challengeDummyData = {
         // ChallengeInfo.js에 챌린지 데이터 있음.
         // 일단 ChallengeInfo에 있는 챌린지로 이동하도록 했음.
         doing: [
@@ -125,6 +130,30 @@ const ChallengeList = () => {
         ],
     };
 
+
+    
+    useEffect(() => {
+        const fetchChallengeData = async() => {
+            try {
+                const response = await axios.get(`http://localhost:8080/users/${uno}/challenges`, {
+                headers: {
+                    Authorization: jwt
+                }});
+
+                if (response.status === 200) {
+                    console.log(response.data);
+                    setChallenges(response.data);
+                }
+
+            } catch (error) {
+                console.error("Failed to fetch challenges:", error);
+            }
+        };
+
+        fetchChallengeData();
+    }, [uno, jwt]);
+
+
     return (<>
 
         <Container sx={{ display: "flex", flexDirection: "column", width: 900 }}>
@@ -144,8 +173,18 @@ const ChallengeList = () => {
             </Box>
 
 
+            {/* challenges.map((challenge) => (
+                    <Box key={challenge.id} sx={{ mb: 2, p: 2, border: "1px solid #ccc" }}>
+                        <MainText>{challenge.name}</MainText>
+                        <MainText>{challenge.description}</MainText>
+                        <MainText>시작일: {challenge.startDate}</MainText>
+                        <MainText>종료일: {challenge.endDate}</MainText>
+                    </Box>
+                )) */}
+
+
             <Box sx={{ display: "flex", flexDirection: "column", alignItems: "left" }}>
-                {challengeData[challenge]?.map((data, index) => (
+                {challengeDummyData[challenge]?.map((data, index) => (
                     <Card
                         key={index}
                         sx={{
@@ -211,4 +250,4 @@ const ChallengeList = () => {
     </>)
 }
 
-export default ChallengeList;
+export default MyChallengeList;
