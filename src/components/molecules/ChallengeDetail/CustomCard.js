@@ -7,6 +7,7 @@ import FavoriteBorderIcon from '@mui/icons-material/FavoriteBorder';
 import ArrowBackIosIcon from '@mui/icons-material/ArrowBackIos';
 import ArrowForwardIosIcon from '@mui/icons-material/ArrowForwardIos';
 import axios from 'axios';
+
 const daysOfWeek = ["일요일", "월요일", "화요일", "수요일", "목요일", "금요일", "토요일"];
 
 const CustomPaper = styled(Paper)(({ theme }) => ({
@@ -50,7 +51,7 @@ const TextContainer = styled(Text5)(({ theme, isExpanded }) => ({
 export const CustomCard = ({ user }) => {
     const [currentIndex, setCurrentIndex] = useState(0); 
     const [activeDays, setActiveDays] = useState([]);
-    const [isExpanded, setIsExpanded] = useState(true);
+    const [isExpanded, setIsExpanded] = useState(false);
     const [isLiked, setIsLiked] = useState(false);
 
     const toggleExpand = () => {
@@ -154,7 +155,7 @@ export const CustomComment = ({user}) => {
     };
 
     return (
-        <CustomPaper sx={{p:'5px', width:'200px'}}>
+        <CustomPaper sx={{p:'5px', width:'100%'}}>
             <Box sx={{ display: 'flex', flexDirection: 'column', width: '100vw', textAlign: 'center', justifyContent:'center', alignItems:'center' }}>
                 <img src="https://mblogthumb-phinf.pstatic.net/20160817_259/retspe_14714118890125sC2j_PNG/%C7%C7%C4%AB%C3%F2_%281%29.png?type=w800" alt='프로필 이미지' style={{ width: '30px', height: '30px', borderRadius: 30, backgroundColor: 'white', border: '1px solid black' }} />
                 <Text1 sx={{fontSize:'12px'}}>{user.nickname}</Text1>

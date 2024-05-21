@@ -3,10 +3,9 @@ import { dummyData } from './dummyData';
 import { CustomCard, CustomComment } from './CustomCard';
 
 
-
 const StyledBox = styled(Box)({
     maxWidth: '720px',
-    maxHeight: '400px',
+    maxHeight: '420px',
     bgcolor: 'background.paper',
     pr: 5,
     my: 1,
@@ -26,23 +25,17 @@ const StyledBox = styled(Box)({
     },
 });
 
-
-
-
-
-
-
 const ChaekiToday = () => {
 
     return (
         <Box sx={{ display: 'flex' }}>
-            <StyledBox sx={{ width: '80vw' }}>
+            <StyledBox sx={{ width: '90vw' }}>
                 {dummyData.users.map((user) => (
                     <CustomCard key={user.id} user={user} />
                 ))}
             </StyledBox>
             <Box>
-                <StyledBox sx={{ width: '19vw', }}>
+                <StyledBox sx={{ width: '12vw'}}>
                     {dummyData.users.map((user) => (
                         <CustomComment key={user.id} user={user} />
                     ))}
