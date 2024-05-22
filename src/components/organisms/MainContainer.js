@@ -16,7 +16,7 @@ const MainContainer = () => {
                         position: 'absolute', 
                         top: '-40px', 
                         left: '-490px', 
-                        width: '100vw', 
+                        width: '5000px', 
                         height: '400px', 
                         zIndex: -1,
                     }} 

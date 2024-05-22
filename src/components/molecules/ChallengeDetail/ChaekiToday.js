@@ -66,10 +66,13 @@ const ChaekiToday = () => {
 
     const fetchData = async (week) => {
         try {
+            console.log(week)
             const response = await axios.get(`http://ec2-13-209-50-125.ap-northeast-2.compute.amazonaws.com:8080/challenges/${id}/week/${week}`);
-            console.log(response.data);
+            console.log('응답 상태'+response.status);
             setUsers(response.data.users);
             setComments(response.data.comments);
+
+
         } catch (error) {
             console.error("요청 중 오류가 발생했습니다:", error);
         }
@@ -102,7 +105,7 @@ const ChaekiToday = () => {
 
     const handleChange = (event, newValue) => {
         setValue(value === newValue ? false : newValue);
-        fetchData(newValue);
+        fetchData(newValue + 1);
     }
 
     const handlePostComment = () => {
@@ -147,7 +150,7 @@ const ChaekiToday = () => {
                     <CustomTextField
                         sx={{ flexGrow: 1 }}
                         placeholder="댓글을 입력하세요..."
-                        value={commentContent} 
+                        value={commentContent}
                         onChange={(e) => setCommentContent(e.target.value)}
                     ></CustomTextField>
                     <CustomButton variant="contained" onClick={handlePostComment}>입력</CustomButton>
