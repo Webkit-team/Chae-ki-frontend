@@ -1,5 +1,4 @@
 import { Box, Container, Divider, Modal, Typography } from "@mui/material";
-import ThumbUpIcon from '@mui/icons-material/ThumbUp';
 import ThumbUpAltIcon from '@mui/icons-material/ThumbUpAlt';
 import ThumbUpOffAltIcon from '@mui/icons-material/ThumbUpOffAlt';
 
@@ -15,49 +14,6 @@ const ChaekiTodayList = ({uno, jwt}) => {
     const [chaekiTodays, setChaekiTodays] = useState([]);
     const [selectedData, setSelectedData] = useState(null);     // 클릭한 카드 정보 저장
 
-
-
-    // const myChaekiTodayData = [
-    //     {
-    //         challengeName: "다함께 추리를!다함께 추리를!다함께 추리를!다함께 추리를!",
-    //         bookName: "매스커레이드 호텔 매스커레이드 호텔 매스커레이드 호텔",
-    //         created_at: "2024-04-05",
-    //         like_count: 7,
-    //         content: `재미있게 잘 읽었습니다. 밤에 시작했는데 읽다보니 그냥 끝까지 보느라 잠이 모자랐네요.소름돋고 너무 재밌었어요.
-    //         믿고 읽는 히가시노게이고!믿고 읽는 히가시노게이고!믿고 읽는 히가시노게이고!믿고 읽는 히가시노게이고!믿고 읽는 히가시노게이고!믿고 읽는 히가시노게이고!
-    //         믿고 읽는 히가시노게이고!재미있게 잘 읽었습니다. 밤에 시작했는데 읽다보니 그냥 끝까지 보느라 잠이 모자랐네요.
-    //         소름돋고 너무 재밌었어요.믿고 읽는 히가시노게이고!믿고 읽는 히가시노게이고!믿고 읽는 히가시노게이고!
-    //         믿고 읽는 히가시노게이고!믿고 읽는 히가시노게이고!믿고 읽는 히가시노게이고!
-    //         믿고 읽는 히가시노게이고!재미있게 잘 읽었습니다. 밤에 시작했는데 읽다보니 그냥 끝까지 보느라 잠이 모자랐네요.
-    //         소름돋고 너무 재밌었어요.믿고 읽는 히가시노게이고!믿고 읽는 히가시노게이고!믿고 읽는 히가시노게이고!믿고 읽는 히가시노게이고!믿고 읽는 히가시노게이고!믿고 읽는 히가시노게이고!
-    //         믿고 읽는 히가시노게이고!재미있게 잘 읽었습니다. 밤에 시작했는데 읽다보니 그냥 끝까지 보느라 잠이 모자랐네요.
-    //         소름돋고 너무 재밌었어요.믿고 읽는 히가시노게이고!믿고 읽는 히가시노게이고!믿고 읽는 히가시노게이고!믿고 읽는 히가시노게이고!`
-    //     },
-    //     {
-    //         challengeName: "다함께 추리를!",
-    //         bookName: "기린의 날개",
-    //         created_at: "2024-05-05",
-    //         like_count: 5,
-    //         content: `너무너무 좋습니다.`
-    //     },
-    //     {
-    //         challengeName: "다함께 추리를2!",
-    //         bookName: "기린의 날개",
-    //         created_at: "2024-05-05",
-    //         like_count: 5,
-    //         content: `너무너무 좋습니다.`
-    //     },
-    //     {
-    //         challengeName: "다함께 추리를3!",
-    //         bookName: "매스커레이드 호텔",
-    //         created_at: "2024-05-05",
-    //         like_count: 5,
-    //         content: `재미있게 잘 읽었습니다. 밤에 시작했는데 읽다보니 그냥 끝까지 보느라 잠이 모자랐네요.
-    //         소름돋고 너무 재밌었어요.
-    //         믿고 읽는 히가시노게이고!믿고 읽는 히가시노게이고!믿고 읽는 히가시노게이고!믿고 읽는 히가시노게이고!
-    //         믿고 읽는 히가시노게이고!믿고 읽는 히가시노게이고!믿고 읽는 히가시노게이고!`
-    //     },
-    // ]
 
     useEffect(() => {
         const fetchChaekiTodayData = async() => {
@@ -78,9 +34,6 @@ const ChaekiTodayList = ({uno, jwt}) => {
 
         fetchChaekiTodayData();
     }, [uno, jwt]);
-
-
-
 
 
     const handleOpen = (data) => {
