@@ -39,6 +39,11 @@ const MyPageContainer = () => {
     const [point, setPoint] = useState(null);
     const { grade, gradeImage, num } = determineGrade(point);
 
+    // 활동 개수
+    const [challengesCount, SetChallengesCount] = useState(0);
+    const [chaekiTodaysCount, setChaekiTodaysCount] = useState(0);
+    const [bookLikeCount, setBookLikeCount] = useState(0);
+
     const uno = cookies.user ? cookies.user.uno : null;
     const jwt = cookies.user ? cookies.user.jwt : null;
 
@@ -52,15 +57,15 @@ const MyPageContainer = () => {
     const getActivityComponent = (activity) => {
         switch (activity) {
             case "challenge":
-                return <MyChallengeList uno={uno} jwt={jwt}/>;
+                return <MyChallengeList uno={uno} jwt={jwt} SetChallengesCount={SetChallengesCount}/>;
             case "today":
-                return <MyChaekiTodayList uno={uno} jwt={jwt}/>
+                return <MyChaekiTodayList uno={uno} jwt={jwt} setChaekiTodaysCount={setChaekiTodaysCount}/>
             case "readTime":
                 return <MainText>누적 독서 시간 ~~</MainText>
             case "review":
                 return <MainText>도서 후기 리스트입니다.</MainText>
             case "like":
-                return <MyBookList />
+                return <MyBookList uno={uno} jwt={jwt} setBookLikeCount={setBookLikeCount}/>
             case "scrap":
                 return <MainText>스크랩 도서 후기 목록입니다.</MainText>
             default:
@@ -268,7 +273,7 @@ const MyPageContainer = () => {
                     }} onClick={() => handleIconClick("challenge")}>
                         <FlagIcon sx={{ fontSize: 50 }} />
                         <MainText>챌린지</MainText>
-                        <MainText>5</MainText>
+                        <MainText>{challengesCount}</MainText>
                     </Box>
 
                     <Box sx={{
@@ -283,7 +288,7 @@ const MyPageContainer = () => {
                     }} onClick={() => handleIconClick("today")}>
                         <CreateIcon sx={{ fontSize: 50 }} />
                         <MainText>채키 투데이</MainText>
-                        <MainText>10</MainText>
+                        <MainText>{chaekiTodaysCount}</MainText>
                     </Box>
 
                     <Box sx={{
@@ -327,7 +332,7 @@ const MyPageContainer = () => {
                     }} onClick={() => handleIconClick("like")}>
                         <FavoriteIcon sx={{ fontSize: 50 }} />
                         <MainText>찜 도서</MainText>
-                        <MainText>1</MainText>
+                        <MainText>{bookLikeCount}</MainText>
                     </Box>
 
                     <Box sx={{

@@ -8,7 +8,7 @@ import CustomButton from "../../atoms/CustomButton";
 import { useEffect, useState } from "react";
 import axios from "axios";
 
-const ChaekiTodayList = ({uno, jwt}) => {
+const ChaekiTodayList = ({uno, jwt, setChaekiTodaysCount}) => {
     const [open, setOpen] = useState(false);
 
     const [chaekiTodays, setChaekiTodays] = useState([]);
@@ -26,6 +26,7 @@ const ChaekiTodayList = ({uno, jwt}) => {
                     if (response.status === 200) {
                         console.log(response.data);
                         setChaekiTodays(response.data);
+                        setChaekiTodaysCount(response.data.length)
                     }
             } catch (error) {
                 console.error("Failed to fetch chakiTodays: ", error)
@@ -33,7 +34,7 @@ const ChaekiTodayList = ({uno, jwt}) => {
         };
 
         fetchChaekiTodayData();
-    }, [uno, jwt]);
+    }, [uno, jwt, setChaekiTodaysCount]);
 
 
     const handleOpen = (data) => {

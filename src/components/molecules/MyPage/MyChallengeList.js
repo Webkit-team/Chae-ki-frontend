@@ -6,7 +6,7 @@ import { useEffect, useState } from "react";
 import CustomButton from "../../atoms/CustomButton";
 import axios from "axios";
 
-const MyChallengeList = ({uno, jwt}) => {
+const MyChallengeList = ({uno, jwt, SetChallengesCount}) => {
 
     // const [challenge, setChallenge] = useState("doing");
 
@@ -28,6 +28,7 @@ const MyChallengeList = ({uno, jwt}) => {
                 if (response.status === 200) {
                     console.log(response.data);
                     setChallenges(response.data);
+                    SetChallengesCount(response.data.length);
                 }
 
             } catch (error) {
