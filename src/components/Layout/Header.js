@@ -12,7 +12,7 @@ const AnimatedLink = styled(Link)(({ theme }) => ({
     display: 'inline-block',
     fontSize: '18px',
     textDecoration: 'none',
-    color:'inherit',
+    color: 'inherit',
     '&::after': {
         content: '""',
         position: 'absolute',
@@ -24,7 +24,7 @@ const AnimatedLink = styled(Link)(({ theme }) => ({
         transition: 'width .3s',
     },
     '&:hover': {
-        color: 'grey', 
+        color: 'grey',
     },
     '&:hover::after': {
         width: '100%',
@@ -35,81 +35,81 @@ const AnimatedLink = styled(Link)(({ theme }) => ({
 const Header = () => {
     const [cookies, removeCookie] = useCookies(["user"]);
 
-    const user = cookies.user.uno;
+    const user = cookies.user ? cookies.user.uno : null;
 
-    const handleLogOut = () => {        
+    const handleLogOut = () => {
         removeCookie('user', { path: '/' });
         alert("로그아웃되었습니다!");
     }
 
     return (
         <React.Fragment>
-                <Toolbar sx={{ position:'fiexed', borderBottom:'solid 0.5px', borderBottomColor:'#CECECE',minHeight: '60px', backgroundColor: 'white', width: '100%', display: 'flex', justifyContent: 'space-between', px: 0}}>
-                    <div style={{ display: 'flex', alignItems: 'center' }}>
-                        <img className="header_img" src={chaeki} alt="채키" />
-                        <Typography
-                            color="inherit"
-                            align="left"
-                            noWrap
+            <Toolbar sx={{ position: 'fiexed', borderBottom: 'solid 0.5px', borderBottomColor: '#CECECE', minHeight: '60px', backgroundColor: 'white', width: '100%', display: 'flex', justifyContent: 'space-between', px: 0 }}>
+                <div style={{ display: 'flex', alignItems: 'center' }}>
+                    <img className="header_img" src={chaeki} alt="채키" />
+                    <Typography
+                        color="inherit"
+                        align="left"
+                        noWrap
 
-                            sx={{ flex: 1, fontFamily: 'NanumBarunGothic', fontWeight: 900, fontSize: '25px', color: '#000000', px: 2, display: 'inline', maxWidth: '50px' }}
-                        ><Link to="/">
-                                채키
-                            </Link>
-                        </Typography>
-                    </div>
-                    <Toolbar
-                        component="nav"
-                        variant="dense"
-                        sx={{ overflowX: 'auto', overflowY: 'hidden', minHeight: '50px', width: 'auto', display: 'flex', alignItems: 'center' }}
+                        sx={{ flex: 1, fontFamily: 'NanumBarunGothic', fontWeight: 900, fontSize: '25px', color: '#000000', px: 2, display: 'inline', maxWidth: '50px' }}
+                    ><Link to="/">
+                            채키
+                        </Link>
+                    </Typography>
+                </div>
+                <Toolbar
+                    component="nav"
+                    variant="dense"
+                    sx={{ overflowX: 'auto', overflowY: 'hidden', minHeight: '50px', width: 'auto', display: 'flex', alignItems: 'center' }}
+                >
+                    <AnimatedLink
+                        to="/Intro"
+                        color="inherit"
+                        variant="body2"
+                        sx={{
+                            ml: 4,
+                            textDecoration: 'none',
+                            fontFamily: 'NanumBarunGothic',
+                            fontWeight: '900',
+                            cursor: 'pointer',
+                        }}
                     >
-                        <AnimatedLink
-                            to="/Intro"
-                            color="inherit"
-                            variant="body2"
-                            sx={{
-                                ml: 4,
-                                textDecoration: 'none',
-                                fontFamily: 'NanumBarunGothic',
-                                fontWeight: '900',
-                                cursor: 'pointer',
-                            }}
-                        >
-                            채키 소개
-                        </AnimatedLink>
-                        <AnimatedLink
-                            to="/challenges"
-                            color="inherit"
-                            variant="body2"
-                            sx={{
-                                ml: 8,
-                                textDecoration: 'none',
-                                fontFamily: 'NanumBarunGothic',
-                                fontWeight: '900',
-                                cursor: 'pointer',
-                            }}
-                        >
-                            챌린지
-                        </AnimatedLink>
-                        <AnimatedLink
-                            to="/review"
-                            color="inherit"
-                            variant="body2"
-                            sx={{
-                                ml: 8,
-                                textDecoration: 'none',
-                                fontFamily: 'NanumBarunGothic',
-                                fontWeight: '900',
-                                cursor: 'pointer',
-                            }}
-                        >
-                            도서후기
-                        </AnimatedLink>
-                    </Toolbar>
-                    
-                    
-                    <div className="login">
-                        {user ? (
+                        채키 소개
+                    </AnimatedLink>
+                    <AnimatedLink
+                        to="/challenges"
+                        color="inherit"
+                        variant="body2"
+                        sx={{
+                            ml: 8,
+                            textDecoration: 'none',
+                            fontFamily: 'NanumBarunGothic',
+                            fontWeight: '900',
+                            cursor: 'pointer',
+                        }}
+                    >
+                        챌린지
+                    </AnimatedLink>
+                    <AnimatedLink
+                        to="/review"
+                        color="inherit"
+                        variant="body2"
+                        sx={{
+                            ml: 8,
+                            textDecoration: 'none',
+                            fontFamily: 'NanumBarunGothic',
+                            fontWeight: '900',
+                            cursor: 'pointer',
+                        }}
+                    >
+                        도서후기
+                    </AnimatedLink>
+                </Toolbar>
+
+
+                <div className="login">
+                    {user ? (
                         <>
                             <Link to="/my" className="my_page_link">마이페이지</Link>
                             <Link to="/" className="logout_link" onClick={(handleLogOut)}>로그아웃</Link>
@@ -120,8 +120,8 @@ const Header = () => {
                             <Link to="/signup" className="signup_link">회원가입</Link>
                         </>
                     )}
-                    </div>
-                </Toolbar>
+                </div>
+            </Toolbar>
         </React.Fragment>
     );
 };
