@@ -138,10 +138,9 @@ const SignUpContainer = () => {
         form.append("nickname", nickname)
         form.append("image", imageFile)
 
-        axios.post("http://localhost:8080/signup", form)
+        axios.post("http://ec2-13-209-50-125.ap-northeast-2.compute.amazonaws.com:8080/signup", form)
             .then(response => {
                 if(response.status === 200) {
-                    // 로그인 페이지로 이동하기
                     navigate('/login');
                     console.log("회원가입 완료!");
                 }

@@ -7,8 +7,7 @@ import * as React from 'react';
 import Tab, { tabClasses } from '@mui/material/Tab';
 import { useParams } from 'react-router-dom';
 import axios from 'axios';
-import { useState } from 'react';
-import { useEffect } from 'react';
+import { useState, useEffect } from 'react';
 import { useCookies } from 'react-cookie';
 
 
@@ -68,10 +67,9 @@ const ChaekiToday = () => {
         try {
             console.log(week)
             const response = await axios.get(`http://ec2-13-209-50-125.ap-northeast-2.compute.amazonaws.com:8080/challenges/${id}/week/${week}`);
-            console.log('응답 상태'+response.status);
+            console.log(response.data.comments);
             setUsers(response.data.users);
             setComments(response.data.comments);
-
 
         } catch (error) {
             console.error("요청 중 오류가 발생했습니다:", error);
@@ -80,7 +78,6 @@ const ChaekiToday = () => {
 
     const postComment = async (content) => {
         try {
-
             const token = cookies.user ? cookies.user.jwt : null;
             const uno = cookies.user ? cookies.user.uno : null;
             const response = await axios.post(
@@ -103,18 +100,21 @@ const ChaekiToday = () => {
         fetchData(1);
     }, []);
 
+    useEffect(() => {
+        fetchData(value + 1);
+    }, [value]);
+
     const handleChange = (event, newValue) => {
-        setValue(value === newValue ? false : newValue);
-        fetchData(newValue + 1);
+        setValue(newValue); 
     }
 
     const handlePostComment = () => {
         postComment(commentContent);
-        setCommentContent(''); // 댓글 입력 후 입력 필드를 비웁니다.
+        setCommentContent('');
     };
 
     return (
-        <Box sx={{ display: 'flex', width: '100vw' }}>
+        <Box sx={{ display: 'flex', width: '100%', justifyContent: 'space-between' }}>
             <Box sx={{ display: 'flex', flexDirection: 'column' }}>
                 <Tabs
                     value={value}
@@ -133,29 +133,55 @@ const ChaekiToday = () => {
                     <TabItem label="3주" />
                     <TabItem label="4주" />
                 </Tabs>
-                <StyledBox sx={{ width: '100%' }}>
-                    {users.map((user) => (
-                        <CustomCard key={user.id} user={user} />
-                    ))}
-                </StyledBox>
+                {users.length > 0 && (
+                    <StyledBox sx={{ width: '110%', height: 'auto', mb: 3 }}>
+                        {users.map((user) => (
+                            <CustomCard key={user.userNo} user={user} uno={cookies.user.uno} />
+                        ))}
+                    </StyledBox>
+                )}
             </Box>
-            <Box sx={{ width: '290px', backgroundColor: '#D9D9D9', borderRadius: '15px', p: 1, m: 1 }}>
+            <Box sx={{
+                width: '290px',
+                backgroundColor: '#D9D9D9',
+                borderRadius: '15px',
+                p: 1,
+                m: 1,
+                display: 'flex',
+                flexDirection: 'column',
+                justifyContent: 'space-between',
+                height: '480px'
+            }}>
                 <Text3>댓글창</Text3>
-                <StyledBox sx={{ width: '100%', borderRadius: '20px' }}>
-                    {comments.map((user) => (
-                        <CustomComment key={user.id} comment={comments} />
-                    ))}
-                </StyledBox>
-                <Box sx={{ display: 'flex', alignItems: 'center', mb: 2, width: '100%', backgroundColor: '#FFFFFF' }}>
+                {comments.length > 0 && (
+                    <StyledBox sx={{
+                        width: '100%',
+                        borderRadius: '20px',
+                        flexGrow: 1,
+                        overflowY: 'auto'
+                    }}>
+                        {comments.map((comment) => (
+                            <CustomComment key={comment.commentNo} comment={comment} uno={cookies.user.uno} />
+                        ))}
+                    </StyledBox>
+                )}
+                <Box sx={{
+                    display: 'flex',
+                    alignItems: 'center',
+                    mb: 2,
+                    width: '100%',
+                    backgroundColor: '#FFFFFF'
+                }}>
                     <CustomTextField
                         sx={{ flexGrow: 1 }}
                         placeholder="댓글을 입력하세요..."
                         value={commentContent}
                         onChange={(e) => setCommentContent(e.target.value)}
-                    ></CustomTextField>
+                    />
                     <CustomButton variant="contained" onClick={handlePostComment}>입력</CustomButton>
                 </Box>
             </Box>
+
         </Box>
     );
 };

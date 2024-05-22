@@ -6,7 +6,9 @@ import { SubTitle, MainText, Text2, Text3, Text5 } from "../atoms/Text";
 import bookExImg1 from "../../assets/book1.png"
 import bookExImg2 from "../../assets/book2.png"
 import { Link, useParams } from "react-router-dom";
-import { useState } from "react";
+
+import axios from "axios";
+import { useEffect, useState } from "react";
 
 const bookDetailList = [
     {
@@ -73,20 +75,45 @@ const bookDetailList = [
 ]
 
 
-const BookDetailContainer = () => {
+const BookDetailContainer = ({uno, jwt}) => {
 
     const { id } = useParams();
     const [like, setLike] = useState(false);
+
+    // 실제 데이터 상태 관리
+    const [book, setBook] = useState([]);
 
     const handleLikeToggle = () => {
         setLike(!like);
     }
 
-    const bookDetail = bookDetailList.find(bookDetail => bookDetail.id === id);
+    // const bookDetail = bookDetailList.find(bookDetail => bookDetail.id === id);
 
-    if (!bookDetail) {
-        return <div>존재하지 않는 도서입니다.</div>
-    }
+    // if (!bookDetail) {
+    //     return <div>존재하지 않는 도서입니다.</div>
+    // }
+
+
+    useEffect(() => {
+        const fetchBookData = async() => {
+            try {
+                const response = await axios.get(`http://ec2-13-209-50-125.ap-northeast-2.compute.amazonaws.com:8080/books/${id}/users/${uno}`, {
+                headers: {
+                    Authorization: jwt
+                }});
+
+                if (response.status === 200) {
+                    console.log(response.data);
+                    setBook(response.data);
+                }
+
+            } catch (error) {
+                console.error("Failed to fetch challenges:", error);
+            }
+        }
+
+        fetchBookData();
+    } ,[id, uno, jwt]);
 
 
     return (
@@ -102,7 +129,7 @@ const BookDetailContainer = () => {
                             height: 350,
                             objectFit: "cover"
                         }}
-                        src={bookDetail.image_url}
+                        src={book.imageUrl}
                         alt="이미지"
                     />
 
@@ -140,7 +167,7 @@ const BookDetailContainer = () => {
 
                         <Box sx={{display: "flex", width: "100%"}}>
                             <Box sx={{width: "85%", height: 80 }}>
-                                <Text2>{bookDetail.name}</Text2>
+                                <Text2>{book.name}</Text2>
                             </Box>
 
                             <Box sx={{ display:"flex", width: "15%", justifyContent:"end"}}>
@@ -158,39 +185,39 @@ const BookDetailContainer = () => {
                         <Divider width="100%" sx={{ border: "solid 1px", mt: 1, mb: 1 }}></Divider>
 
                         <Box sx={{ height: 235, overflowY: "auto" }}>
-                            <MainText>{bookDetail.description}</MainText>
+                            <MainText>{book.description}</MainText>
                         </Box>
 
                         <Divider width="100%" sx={{ border: "solid 1px", mt: 1, mb: 1 }}></Divider>
 
                         <Box sx={{ pt: 2.5, height: 40 }}>
-                            <MainText>{bookDetail.writer}</MainText>
+                            <MainText>{book.writer}</MainText>
                         </Box>
 
                         <Box sx={{ height: 40 }}>
-                            <MainText>{bookDetail.translator}</MainText>
+                            <MainText>{book.translator}</MainText>
                         </Box>
 
                         <Box sx={{ height: 40 }}>
-                            <MainText>{bookDetail.publisher}</MainText>
+                            <MainText>{book.publisher}</MainText>
                         </Box>
 
                         <Box sx={{ height: 40 }}>
-                            <MainText>{bookDetail.publish_date}</MainText>
+                            <MainText>{book.publishDate}</MainText>
                         </Box>
 
                         <Box sx={{ height: 40 }}>
-                            <MainText>{bookDetail.category}</MainText>
+                            <MainText>{book.category}</MainText>
                         </Box>
 
                         <Box sx={{ height: 40 }}>
-                            <MainText>{bookDetail.price}</MainText>
+                            <MainText>{book.price}</MainText>
                         </Box>
 
                         <Divider width="100%" sx={{ border: "solid 1px", mt: 1, mb: 1 }}></Divider>
 
                         <Box sx={{ pt: 0.5, height: 40 }}>
-                            <Link to={bookDetail.shop_url}><Text5>바로가기(알라딘)</Text5></Link>
+                            <Link to={book.shopUrl}><Text5>바로가기(알라딘)</Text5></Link>
                         </Box>
                     </Box>
                 </Box>

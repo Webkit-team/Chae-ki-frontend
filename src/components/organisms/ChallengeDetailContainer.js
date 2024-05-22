@@ -4,7 +4,7 @@ import { SubTitle } from '../atoms/Text';
 import CustomTabs from '../atoms/CustomTabs';
 import ChallengeInfo from '../molecules/ChallengeDetail/ChallengeInfo';
 import ChakiTime from '../molecules/ChallengeDetail/ChaekiTime';
-import ChakiWeek from '../molecules/ChallengeDetail/ChaekiToday';
+import ChakiToday from '../molecules/ChallengeDetail/ChaekiToday';
 import ChallengeGuide from '../molecules/ChallengeDetail/ChallengeGuide';
 
 const ChallengeDetailContainer = () => {
@@ -49,7 +49,7 @@ const ChallengeDetailContainer = () => {
             case 1:
                 return <ChakiTime id={id}/>;
             case 2:
-                return <ChakiWeek id={id}/>;
+                return <ChakiToday id={id}/>;
             case 3:
                 return <ChallengeGuide id={id}/>;
             default:
