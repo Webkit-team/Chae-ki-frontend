@@ -75,7 +75,7 @@ const Header = () => {
                                 cursor: 'pointer',
                             }}
                         >
-                            서비스 소개
+                            채키 소개
                         </AnimatedLink>
                         <AnimatedLink
                             to="/challenges"

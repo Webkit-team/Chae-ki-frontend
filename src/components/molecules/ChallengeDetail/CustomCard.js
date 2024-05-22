@@ -17,7 +17,6 @@ const CustomPaper = styled(Paper)(({ theme }) => ({
     marginLeft:2,
     marginTop: theme.spacing(2),
     boxShadow: theme.shadows[3],
-    borderTopLeftRadius: 0,
     '&::before': {
         content: '""',
         position: 'absolute',
@@ -154,25 +153,29 @@ export const CustomComment = ({comment}) => {
     };
 
     return (
-        <CustomPaper sx={{p:'5px', width:'260px'}}>
-            <Box sx={{ display: 'flex', flexDirection: 'column', width: '100vw', textAlign: 'center', justifyContent:'center', alignItems:'center' }}>
-                <img src={comment[currentIndex].imageUrl} alt='프로필 이미지' style={{ width: '30px', height: '30px', borderRadius: 30, backgroundColor: 'white', border: '1px solid black' }} />
-                <Text1 sx={{fontSize:'12px'}}>{comment[currentIndex].nickname}</Text1>
-            </Box>
-            <Box sx={{ display: 'flex', flexDirection: 'column', pl: 3 }}>
-                <TextContainer isExpanded={isExpanded} onClick={toggleExpand} sx={{width:'150px'}}>{comment[currentIndex].content}</TextContainer>
-                <Box sx={{ display: 'flex', alignSelf: 'end', alignItems: 'center', p: '1px' }}>
-                    <Button sx={{ px: 0, fontSize: '13px', height: '15px', color: '#00A00B' }}>수정</Button>
-                    <Button sx={{ px: 0, fontSize: '13px', height: '15px', color: '#FF0000' }}>삭제</Button>
-                    <FlagIcon sx={{ fontSize:'18px', mr: 2, color: '#FF0000' }} onClick={handleReport} />
+        <CustomPaper sx={{ p: '10px', width: '260px' }}>
+        <Box sx={{ display: 'flex', flexDirection: 'column', textAlign: 'left', justifyContent: 'flex-start', alignItems: 'flex-start', px:1 }}>
+            <img src={comment[currentIndex].imageUrl} alt='프로필 이미지' style={{ width: '30px', height: '30px', borderRadius: 30, backgroundColor: 'white', border: '1px solid black' }} />
+            <Text1 sx={{ fontSize: '12px' }}>{comment[currentIndex].nickname}</Text1>
+        </Box>
+        <Box sx={{ display: 'flex', flexDirection: 'column', pl: 3, textAlign: 'left', justifyContent: 'flex-start', alignItems: 'flex-start' }}>
+            <TextContainer isExpanded={isExpanded} onClick={toggleExpand} sx={{ width: '150px' }}>{comment[currentIndex].content}</TextContainer>
+            <Box sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', width: '100%', p: '1px' }}>
+                <Box sx={{ display: 'flex', alignItems: 'center' }}>
+                    <Button sx={{ px: 0, fontSize: '13px', height: '15px', color: '#00A00B', py: 0, minWidth: '30px' }}>수정</Button>
+                    <Button sx={{ px: 0, fontSize: '13px', height: '15px', color: '#FF0000', py: 0, minWidth: '35px' }}>삭제</Button>
+                </Box>
+                <Box sx={{ display: 'flex', alignItems: 'center' }}>
+                    <FlagIcon sx={{ fontSize: '18px', mr: 2, color: '#FF0000' }} onClick={handleReport} />
                     {isLiked ? (
-                        <FavoriteIcon onClick={toggleLike} sx={{ fontSize:'18px',color: '#FD699F' }} />
+                        <FavoriteIcon onClick={toggleLike} sx={{ fontSize: '18px', color: '#FD699F' }} />
                     ) : (
-                        <FavoriteBorderIcon onClick={toggleLike} sx={{ fontSize:'18px',color: '#FD699F' }} />
+                        <FavoriteBorderIcon onClick={toggleLike} sx={{ fontSize: '18px', color: '#FD699F' }} />
                     )}
                     <Text5 sx={{ px: 0.5 }}>{comment[currentIndex].likeCount}</Text5>
                 </Box>
             </Box>
-        </CustomPaper>
+        </Box>
+    </CustomPaper>
     );
 }
