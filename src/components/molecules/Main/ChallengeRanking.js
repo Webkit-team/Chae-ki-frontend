@@ -8,7 +8,7 @@ import { Tooltip, styled } from '@mui/material';
 import axios from 'axios';
 
 const StyledImage = styled('img')({
-    width: '150px',
+    width: '100%',
     height: '220px',
     objectFit: 'cover',
     border: 'solid 1px #CECECE',
@@ -24,7 +24,6 @@ const ChallengeRanking = () => {
             try {
                 const response = await axios.get('http://ec2-13-209-50-125.ap-northeast-2.compute.amazonaws.com:8080/challenges');
                 setData(response.data.content);
-                console.log(data[0].name);
             } catch (error) {
                 console.error('Error fetching data: ', error);
             }
@@ -37,7 +36,7 @@ const ChallengeRanking = () => {
         navigate(`/challenges/${id}`);
     }
     return (
-        <Box sx={{ p: 2, my: 5 }}>
+        <Box sx={{ my: 5, alignItems:"center" }}>
             <Grid container spacing={5} direction="column" alignItems="center">
                 {data.length > 0 && (
                     <Grid item md={6} display="flex" sx={{ animation: `slideRightFadeIn 1s 0ms`, marginBottom: 7 }}>
@@ -72,15 +71,15 @@ const ChallengeRanking = () => {
                         </div>
                     </Grid>
                 )}
-                <Box sx={{ mt: 6 }}>
-                    <Grid container spacing={3} gap={5} sx={{ justifyContent: 'center' }}>
+                <Box sx={{ mt: 6, alignItems:'center', justifyContent: 'center' }}>
+                    <Grid container spacing={1} gap={5} sx={{ justifyContent: 'center' }}>
                         {data.slice(1, 6).map((item, key) => (
-                            <Grid item md={2} key={key} onClick={() => handleClick(item.no)} sx={{ padding: 1, width: '250px', animation: `slideUpFadeIn 1s ease-out ${key * 100}ms forwards` }} >
+                            <Grid item md={2} key={key} onClick={() => handleClick(item.no)} sx={{ padding: 1, width: '100%', animation: `slideUpFadeIn 1s ease-out ${key * 100}ms forwards` }} >
                                 <StyledImage src={item.book.imageUrl} alt={item.book.name} />
-                                <Tooltip title={item.book.name} arrow>
-                                    <Box sx={{ display: "flex", alignItems: "center", justifyContent: "center" }}>
+                                <Tooltip title={item.name} arrow>
+                                    <Box sx={{ display: "flex", alignItems: "center", justifyContent: "center", textAlign:'center' }}>
                                         <Text5 sx={{ overflow: "hidden", textOverflow: "ellipsis", whiteSpace: "nowrap", width: '100%' }}>
-                                            {item.book.name}
+                                            {item.name}
                                         </Text5>
                                     </Box>
                                 </Tooltip>

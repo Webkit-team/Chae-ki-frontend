@@ -27,7 +27,7 @@ const ChallengeCard = ({ img, title, category, bookname, startdate, enddate, mem
                 {},
                 {
                     headers: {
-                        'Authorization': `Bearer ${token}`,
+                        'Authorization': token,
                     },
                 }
             );
