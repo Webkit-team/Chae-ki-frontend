@@ -7,8 +7,7 @@ import * as React from 'react';
 import Tab, { tabClasses } from '@mui/material/Tab';
 import { useParams } from 'react-router-dom';
 import axios from 'axios';
-import { useState } from 'react';
-import { useEffect } from 'react';
+import { useState, useEffect } from 'react';
 import { useCookies } from 'react-cookie';
 
 
@@ -66,9 +65,8 @@ const ChaekiToday = () => {
 
     const fetchData = async (week) => {
         try {
-            console.log(week)
             const response = await axios.get(`http://ec2-13-209-50-125.ap-northeast-2.compute.amazonaws.com:8080/challenges/${id}/week/${week}`);
-            console.log(response.data.users);
+            console.log(response.data.comments);
             setUsers(response.data.users);
             setComments(response.data.comments);
 
@@ -101,18 +99,21 @@ const ChaekiToday = () => {
         fetchData(1);
     }, []);
 
+    useEffect(() => {
+        fetchData(value + 1);
+    }, [value]);
+
     const handleChange = (event, newValue) => {
-        setValue(value === newValue ? false : newValue);
-        fetchData(newValue + 1);
+        setValue(newValue); 
     }
 
     const handlePostComment = () => {
         postComment(commentContent);
-        setCommentContent(''); 
+        setCommentContent('');
     };
 
     return (
-        <Box sx={{ display: 'flex', width: '100%', justifyContent:'space-between' }}>
+        <Box sx={{ display: 'flex', width: '100%', justifyContent: 'space-between' }}>
             <Box sx={{ display: 'flex', flexDirection: 'column' }}>
                 <Tabs
                     value={value}
@@ -131,7 +132,7 @@ const ChaekiToday = () => {
                     <TabItem label="3주" />
                     <TabItem label="4주" />
                 </Tabs>
-                {comments.length > 0 && (
+                {users.length > 0 && (
                     <StyledBox sx={{ width: '110%', height: 'auto', mb: 3 }}>
                         {users.map((user) => (
                             <CustomCard key={user.userNo} user={user} uno={cookies.user.uno} />
@@ -151,16 +152,18 @@ const ChaekiToday = () => {
                 height: '480px'
             }}>
                 <Text3>댓글창</Text3>
-                <StyledBox sx={{
-                    width: '100%',
-                    borderRadius: '20px',
-                    flexGrow: 1,
-                    overflowY: 'auto' 
-                }}>
-                    {comments.map((comment) => (
-                        <CustomComment key={comment.commentNo} comment={comments} uno={cookies.user.uno}/>
-                    ))}
-                </StyledBox>
+                {comments.length > 0 && (
+                    <StyledBox sx={{
+                        width: '100%',
+                        borderRadius: '20px',
+                        flexGrow: 1,
+                        overflowY: 'auto'
+                    }}>
+                        {comments.map((comment) => (
+                            <CustomComment key={comment.commentNo} comment={comment} uno={cookies.user.uno} />
+                        ))}
+                    </StyledBox>
+                )}
                 <Box sx={{
                     display: 'flex',
                     alignItems: 'center',

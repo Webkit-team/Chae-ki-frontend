@@ -59,7 +59,7 @@ const ChallengeInfo = ({ status, setStatus }) => {
         {},
         {
           headers: {
-            'Authorization': {token},
+            'Authorization': token,
           },
         }
       );

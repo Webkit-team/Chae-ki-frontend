@@ -1,7 +1,8 @@
 import { Box, ImageList, ImageListItem, styled } from '@mui/material';
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { Text1 } from '../../atoms/Text';
+import axios from 'axios';
 
 const imgList = [
     {
@@ -48,6 +49,21 @@ const HoverImage = styled('img')({
 
 const BookRanking = () => {
     const navigate = useNavigate();
+    const [bookData, setBookData] = useState([]);
+
+    useEffect(() => {
+        const fetchData = async () => {
+            try {
+                const response = await axios.get(`http://ec2-13-209-50-125.ap-northeast-2.compute.amazonaws.com:8080/bookRank`);
+                setBookData(response.data);
+            } catch (error) {
+                console.error("요청 중 오류가 발생했습니다:", error);
+            }
+        };
+        fetchData();
+    }, []);
+
+    
 
     const handelClick = (id) => {
         navigate(`/books/${id}`);
@@ -59,14 +75,14 @@ const BookRanking = () => {
                 <Text1>이달의 도서</Text1>
             </Box>
             <Box>
-                <ImageList sx={{ width: '1000px', height: 'auto', m: 0, overflow: "hidden", zIndex: '1', py:10 }} gap={15} cols={5}>
-                    {imgList.map((item, index) => (
+                <ImageList sx={{ width: '100%', height: 'auto', m: 0, overflow: "hidden", zIndex: '1', py:10, ml:'-23px' }} gap={15} cols={5}>
+                    {bookData.map((item, index) => (
                         <ImageListItem key={index} cols={1}>
                             <HoverImage
-                                src={item.img}
-                                srcSet={item.img}
-                                alt={item.title}
-                                onClick={() => (handelClick(item.id))}
+                                src={item.imageUrl}
+                                srcSet={item.imageUrl}
+                                alt='책 랭킹'
+                                onClick={() => (handelClick(item.bookNo))}
                             />
                         </ImageListItem>
                     ))}

@@ -15,7 +15,6 @@ const UserRanking = () => {
         const fetchData = async () => {
             try {
                 const response = await axios.get('http://ec2-13-209-50-125.ap-northeast-2.compute.amazonaws.com:8080/userRank');
-                console.log(response.data);
                 setUsers(response.data);
             } catch (error) {
                 console.error('Error fetching data: ', error);
