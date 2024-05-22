@@ -88,10 +88,14 @@ const MyPageContainer = () => {
           num = "2";
           grade = "새싹";
           gradeImage = sproutImg;
+        } else if (point < 100) {
+            num = "2";
+            grade = "새싹";
+            gradeImage = sproutImg;
         } else {
-          num = "1";
-          grade = "씨앗";
-          gradeImage = seedImge;
+            num = null;
+            grade = null;
+            gradeImage = null;
         }
       
         return { grade, gradeImage, num };
@@ -112,7 +116,7 @@ const MyPageContainer = () => {
     // 탈퇴
     const handleExpire = (no) => {
 
-        axios.delete(`http://localhost:8080/users/${no}`, {
+        axios.delete(`http://ec2-13-209-50-125.ap-northeast-2.compute.amazonaws.com:8080/users/${no}`, {
             headers: {
                 Authorization: jwt
             }})
@@ -140,7 +144,7 @@ const MyPageContainer = () => {
             //   }
 
             try {
-                const response = await axios.get(`http://localhost:8080/users/${uno}`, {
+                const response = await axios.get(`http://ec2-13-209-50-125.ap-northeast-2.compute.amazonaws.com:8080/users/${uno}`, {
                     headers: {
                         Authorization: jwt
                     }
@@ -189,7 +193,7 @@ const MyPageContainer = () => {
 
                     <Box sx={{ display:"flex", fontSize: "16px", width: "25%" }}>
                         <Box sx={{ display:"flex", alignItems:"center" }}>
-                            <Text3>{cookies.user?.username}의 서재</Text3>
+                            <Text3>{nickname}의 서재</Text3>
                         </Box>
                         
                         <Box sx={{display:"flex", pl:2, pb:2 }} >
