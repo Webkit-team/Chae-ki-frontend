@@ -16,7 +16,7 @@ import { useCookies } from 'react-cookie';
 const App = () => {
 
   const [cookies] = useCookies(["user"]);
-  const uno = cookies.user ? cookies.user.uno : null;
+  // const uno = cookies.user ? cookies.user.uno : null;
 
   return (
     <CookiesProvider>

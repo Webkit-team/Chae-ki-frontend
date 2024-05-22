@@ -54,7 +54,7 @@ const MyPageContainer = () => {
             case "challenge":
                 return <MyChallengeList uno={uno} jwt={jwt}/>;
             case "today":
-                return <MyChaekiTodayList />
+                return <MyChaekiTodayList uno={uno} jwt={jwt}/>
             case "readTime":
                 return <MainText>누적 독서 시간 ~~</MainText>
             case "review":
@@ -123,7 +123,7 @@ const MyPageContainer = () => {
             .then(response => {
                 console.log(response.data);
 
-                removeCookie("user");
+                removeCookie("user", { path: '/' });
                 alert("회원탈퇴가 완료되었습니다!");
 
                 navigate("/");
