@@ -3,133 +3,20 @@ import { MainText, Text5 } from "../../atoms/Text";
 import CustomFormControl from "../../atoms/CustomFormControl"
 import { useEffect, useState } from "react";
 
-import bookExImg1 from "../../../assets/book1.png"
-import bookExImg2 from "../../../assets/book2.png"
 import CustomButton from "../../atoms/CustomButton";
 import axios from "axios";
 
-const MyChallengeList = ({uno, jwt}) => {
+const MyChallengeList = ({uno, jwt, SetChallengesCount}) => {
 
-    // 더미데이터 상태 관리 -> 나중에 삭제 예정
-    const [challenge, setChallenge] = useState("doing");
+    // const [challenge, setChallenge] = useState("doing");
 
-    // 실제 데이터 상태 관리
-    const [challenges, setChallenges] = useState([]);
-
-    const handleChange = (e) => {
-        setChallenge(e.target.value);
-    };
-
-    // const challengeDummyData = {
-    //     doing: [
-    //         {
-    //             id: '302',
-    //             challengename: "나도 탐정이 될 수 있다?1",
-    //             bookname: "매스커레이드 호텔",
-    //             image_url: bookExImg1,
-    //             category: '소설',
-    //             start_date: "2024-05-15",
-    //             end_date: "2024-05-30",
-    //         },
-    //         {
-    //             id: '303',
-    //             challengename: "나도 탐정이 될 수 있다?2",
-    //             bookname: "매스커레이드 호텔",
-    //             image_url: bookExImg1,
-    //             category: '소설',
-    //             start_date: "2024-05-15",
-    //             end_date: "2024-05-30",
-    //         },
-    //         {
-    //             id: '102',
-    //             challengename: "나도 탐정이 될 수 있다?3",
-    //             bookname: "매스커레이드 호텔",
-    //             image_url: bookExImg1,
-    //             category: '소설',
-    //             start_date: "2024-05-15",
-    //             end_date: "2024-05-30",
-    //         },
-    //         {
-    //             id: '103',
-    //             challengename: "나도 탐정이 될 수 있다?4",
-    //             bookname: "매스커레이드 호텔",
-    //             image_url: bookExImg1,
-    //             category: '소설',
-    //             start_date: "2024-05-15",
-    //             end_date: "2024-05-30",
-    //         },
-    //         {
-    //             id: '104',
-    //             challengename: "나도 탐정이 될 수 있다?5",
-    //             bookname: "매스커레이드 호텔",
-    //             image_url: bookExImg1,
-    //             category: '소설',
-    //             start_date: "2024-05-15",
-    //             end_date: "2024-05-30",
-    //         },
-
-    //     ],
-
-    //     done: [
-    //         {
-    //             id: '305',
-    //             challengename: "명탐점이 되고 싶은 날1",
-    //             bookname: "기린의 날개",
-    //             image_url: bookExImg2,
-    //             category: '소설',
-    //             start_date: "2024-04-01",
-    //             end_date: "2024-04-15",
-    //         },
-    //         {
-    //             id: '306',
-    //             challengename: "명탐점이 되고 싶은 날2",
-    //             bookname: "기린의 날개",
-    //             image_url: bookExImg2,
-    //             category: '소설',
-    //             start_date: "2024-04-01",
-    //             end_date: "2024-04-15",
-    //         },
-    //         {
-    //             id: '107',
-    //             challengename: "명탐점이 되고 싶은 날3",
-    //             bookname: "기린의 날개",
-    //             image_url: bookExImg2,
-    //             category: '소설',
-    //             start_date: "2024-04-01",
-    //             end_date: "2024-04-15",
-    //         },
-    //         {
-    //             id: '108',
-    //             challengename: "명탐점이 되고 싶은 날4",
-    //             bookname: "기린의 날개",
-    //             image_url: bookExImg2,
-    //             category: '소설',
-    //             start_date: "2024-04-01",
-    //             end_date: "2024-04-15",
-    //         },
-    //         {
-    //             id: '109',
-    //             challengename: "명탐점이 되고 싶은 날5",
-    //             bookname: "기린의 날개",
-    //             image_url: bookExImg2,
-    //             category: '소설',
-    //             start_date: "2024-04-01",
-    //             end_date: "2024-04-15",
-    //         },
-    //         {
-    //             id: '110',
-    //             challengename: "명탐점이 되고 싶은 날6",
-    //             bookname: "기린의 날개",
-    //             image_url: bookExImg2,
-    //             category: '소설',
-    //             start_date: "2024-04-01",
-    //             end_date: "2024-04-15",
-    //         },
-    //     ],
+    // const handleChange = (e) => {
+    //     setChallenge(e.target.value);
     // };
-
-
+        
+    const [challenges, setChallenges] = useState([]);
     
+
     useEffect(() => {
         const fetchChallengeData = async() => {
             try {
@@ -141,10 +28,11 @@ const MyChallengeList = ({uno, jwt}) => {
                 if (response.status === 200) {
                     console.log(response.data);
                     setChallenges(response.data);
+                    SetChallengesCount(response.data.length);
                 }
 
             } catch (error) {
-                console.error("Failed to fetch challenges:", error);
+                console.error("Failed to fetch challenges: ", error);
             }
         };
 
@@ -155,7 +43,7 @@ const MyChallengeList = ({uno, jwt}) => {
     return (<>
 
         <Container sx={{ display: "flex", flexDirection: "column", width: 900 }}>
-            <Box sx={{ display: "flex", justifyContent: "center" }}>
+            {/* <Box sx={{ display: "flex", justifyContent: "center" }}>
                 <CustomFormControl>
 
                     <Select
@@ -168,7 +56,7 @@ const MyChallengeList = ({uno, jwt}) => {
                     </Select>
 
                 </CustomFormControl>
-            </Box>
+            </Box> */}
 
 
             <Box sx={{ display: "flex", flexDirection: "column", alignItems: "left" }}>

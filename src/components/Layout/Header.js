@@ -35,7 +35,7 @@ const AnimatedLink = styled(Link)(({ theme }) => ({
 const Header = () => {
     const [cookies, removeCookie] = useCookies(["user"]);
 
-    const user = cookies.user.uno;
+    const user = cookies.user ? cookies.user.uno : null;
 
     const handleLogOut = () => {        
         removeCookie('user', { path: '/' });
