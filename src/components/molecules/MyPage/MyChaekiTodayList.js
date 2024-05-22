@@ -1,59 +1,41 @@
 import { Box, Container, Divider, Modal, Typography } from "@mui/material";
-import ThumbUpIcon from '@mui/icons-material/ThumbUp';
 import ThumbUpAltIcon from '@mui/icons-material/ThumbUpAlt';
 import ThumbUpOffAltIcon from '@mui/icons-material/ThumbUpOffAlt';
 
 import { Text5, MainText } from "../../atoms/Text";
 import CustomCard from "../../atoms/CustomCard";
 import CustomButton from "../../atoms/CustomButton";
-import { useState } from "react";
+import { useEffect, useState } from "react";
+import axios from "axios";
 
-const ChaekiTodayList = () => {
+const ChaekiTodayList = ({uno, jwt, setChaekiTodaysCount}) => {
     const [open, setOpen] = useState(false);
+
+    const [chaekiTodays, setChaekiTodays] = useState([]);
     const [selectedData, setSelectedData] = useState(null);     // 클릭한 카드 정보 저장
 
 
-    const myChaekiTodayData = [
-        {
-            challengeName: "다함께 추리를!다함께 추리를!다함께 추리를!다함께 추리를!",
-            bookName: "매스커레이드 호텔 매스커레이드 호텔 매스커레이드 호텔",
-            created_at: "2024-04-05",
-            like_count: 7,
-            content: `재미있게 잘 읽었습니다. 밤에 시작했는데 읽다보니 그냥 끝까지 보느라 잠이 모자랐네요.소름돋고 너무 재밌었어요.
-            믿고 읽는 히가시노게이고!믿고 읽는 히가시노게이고!믿고 읽는 히가시노게이고!믿고 읽는 히가시노게이고!믿고 읽는 히가시노게이고!믿고 읽는 히가시노게이고!
-            믿고 읽는 히가시노게이고!재미있게 잘 읽었습니다. 밤에 시작했는데 읽다보니 그냥 끝까지 보느라 잠이 모자랐네요.
-            소름돋고 너무 재밌었어요.믿고 읽는 히가시노게이고!믿고 읽는 히가시노게이고!믿고 읽는 히가시노게이고!
-            믿고 읽는 히가시노게이고!믿고 읽는 히가시노게이고!믿고 읽는 히가시노게이고!
-            믿고 읽는 히가시노게이고!재미있게 잘 읽었습니다. 밤에 시작했는데 읽다보니 그냥 끝까지 보느라 잠이 모자랐네요.
-            소름돋고 너무 재밌었어요.믿고 읽는 히가시노게이고!믿고 읽는 히가시노게이고!믿고 읽는 히가시노게이고!믿고 읽는 히가시노게이고!믿고 읽는 히가시노게이고!믿고 읽는 히가시노게이고!
-            믿고 읽는 히가시노게이고!재미있게 잘 읽었습니다. 밤에 시작했는데 읽다보니 그냥 끝까지 보느라 잠이 모자랐네요.
-            소름돋고 너무 재밌었어요.믿고 읽는 히가시노게이고!믿고 읽는 히가시노게이고!믿고 읽는 히가시노게이고!믿고 읽는 히가시노게이고!`
-        },
-        {
-            challengeName: "다함께 추리를!",
-            bookName: "기린의 날개",
-            created_at: "2024-05-05",
-            like_count: 5,
-            content: `너무너무 좋습니다.`
-        },
-        {
-            challengeName: "다함께 추리를2!",
-            bookName: "기린의 날개",
-            created_at: "2024-05-05",
-            like_count: 5,
-            content: `너무너무 좋습니다.`
-        },
-        {
-            challengeName: "다함께 추리를3!",
-            bookName: "매스커레이드 호텔",
-            created_at: "2024-05-05",
-            like_count: 5,
-            content: `재미있게 잘 읽었습니다. 밤에 시작했는데 읽다보니 그냥 끝까지 보느라 잠이 모자랐네요.
-            소름돋고 너무 재밌었어요.
-            믿고 읽는 히가시노게이고!믿고 읽는 히가시노게이고!믿고 읽는 히가시노게이고!믿고 읽는 히가시노게이고!
-            믿고 읽는 히가시노게이고!믿고 읽는 히가시노게이고!믿고 읽는 히가시노게이고!`
-        },
-    ]
+    useEffect(() => {
+        const fetchChaekiTodayData = async() => {
+            try {
+                const response = await axios.get(`http://ec2-13-209-50-125.ap-northeast-2.compute.amazonaws.com:8080/users/${uno}/chaekiTodays`, {
+                    headers: {
+                        Authorization: jwt
+                    }});
+
+                    if (response.status === 200) {
+                        console.log(response.data);
+                        setChaekiTodays(response.data);
+                        setChaekiTodaysCount(response.data.length)
+                    }
+            } catch (error) {
+                console.error("Failed to fetch chakiTodays: ", error)
+            }
+        };
+
+        fetchChaekiTodayData();
+    }, [uno, jwt, setChaekiTodaysCount]);
+
 
     const handleOpen = (data) => {
         setSelectedData(data);
@@ -113,12 +95,12 @@ const ChaekiTodayList = () => {
                         </Box>
 
                         <Box sx={{ display: "flex", pt: 0.5, width: "15%", justifyContent: "center" }}>
-                            <Text5>{selectedData.created_at}</Text5>
+                            <Text5>{selectedData.createdAt}</Text5>
                         </Box>
 
                         <Box sx={{ display: "flex", width: "5%", justifyContent: "right" }}>    
                             <ThumbUpAltIcon />
-                            <MainText sx={{ pl: 1 }}>{selectedData.like_count}</MainText>
+                            <MainText sx={{ pl: 1 }}>{selectedData.likeCount}</MainText>
                         </Box>
                     </Box>
                 </Box>
@@ -166,7 +148,7 @@ const ChaekiTodayList = () => {
                 pt: 2, pb: 3
             }}>
 
-            {myChaekiTodayData.map((data, index) => (
+            {chaekiTodays.map((data, index) => (
                 <CustomCard key={index} onClick={() => handleOpen(data)}>
                     <Box sx={{ display: "flex", flexDirection: "column", width: "100%", justifyContent: "center" }}>
                         <Box sx={{ display: "flex", pl: 2.5, pr: 2.5, pb: 2, height: 30 }}>
@@ -205,12 +187,12 @@ const ChaekiTodayList = () => {
                             </Box>
 
                             <Box sx={{ display: "flex", pr: 3, pt: 0.5, width: "23%", justifyContent: "right" }}>
-                                <Text5>{data.created_at}</Text5>
+                                <Text5>{data.createdAt}</Text5>
                             </Box>
 
                             <Box sx={{ display: "flex", pl: 1 }}>
                                 <ThumbUpAltIcon />
-                                <MainText sx={{ pl: 1 }}>{data.like_count}</MainText>
+                                <MainText sx={{ pl: 1 }}>{data.likeCount}</MainText>
                             </Box>
                         </Box>
                     </Box>

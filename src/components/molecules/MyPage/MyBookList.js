@@ -5,7 +5,7 @@ import bookExImg2 from "../../../assets/book2.png"
 
 import { useNavigate } from "react-router-dom";
 
-const MyBookList = () => {
+const MyBookList = ({uno, jwt, setBookLikeCount}) => {
     const bookImg = "https://placehold.co/150x200"
     const itemData = [
         {
