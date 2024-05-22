@@ -85,7 +85,6 @@ export const CustomCard = ({ user }) => {
             const day = new Date(today.createdAt).getDay();
             return daysOfWeek[day].slice(0, 1);
         });
-        console.log(newActiveDays);
         setActiveDays(newActiveDays);
     }, [user.todays]);
 

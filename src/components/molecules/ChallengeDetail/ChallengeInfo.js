@@ -53,12 +53,13 @@ const ChallengeInfo = ({ status, setStatus }) => {
       return;
     }
     try {
+      console.log(token);
       const res = await axios.post(
         `http://ec2-13-209-50-125.ap-northeast-2.compute.amazonaws.com:8080/challenges/${id}/users/${uno}`,
         {},
         {
           headers: {
-            'Authorization': `Bearer ${token}`,
+            'Authorization': {token},
           },
         }
       );

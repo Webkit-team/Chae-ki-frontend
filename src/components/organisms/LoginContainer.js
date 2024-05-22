@@ -48,7 +48,7 @@ const LoginContainer = () => {
                     username: response.data.username,
                     jwt: jwt
                 }
-                setCookie("user", user, { path: '/', 'max-age': 3600 }); // 1 hour
+                setCookie("user", user, { path: '/'}); 
 
                 console.log(response.data);
                 

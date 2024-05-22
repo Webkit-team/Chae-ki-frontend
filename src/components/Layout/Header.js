@@ -35,11 +35,11 @@ const AnimatedLink = styled(Link)(({ theme }) => ({
 const Header = () => {
     const [cookies, removeCookie] = useCookies(["user"]);
 
-    const user = cookies.user;
+    const user = cookies.user.uno;
 
-    const handleLogOut = () => {
-        alert("로그아웃되었습니다!");
+    const handleLogOut = () => {        
         removeCookie('user', { path: '/' });
+        alert("로그아웃되었습니다!");
     }
 
     return (
