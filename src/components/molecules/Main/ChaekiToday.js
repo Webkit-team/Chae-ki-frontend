@@ -6,42 +6,11 @@ import image3 from '../../../assets/backgroundimage/image3.jpg';
 import image4 from '../../../assets/backgroundimage/image4.jpg';
 import image5 from '../../../assets/backgroundimage/image5.jpg';
 import image6 from '../../../assets/backgroundimage/image6.jpg';
+import { useEffect, useState } from 'react';
+import axios from 'axios';
 
 
 const ChaekiToday = (props) => {
-    const items = [
-        {
-            bookname: "책 이름1",
-            nickname: '양준석',
-            description: "너무너무 재밌네요 특이한 등장인물들과 각색한 내용까지!",
-        },
-        {
-            bookname: "책 이름2",
-            nickname: '박성준',
-            description: "너무 마음에 듭니다. 제 취향인 것 같네요.",
-        },
-        {
-            bookname: "책 이름3",
-            nickname: '권태현',
-            description: "재밌네요.",
-        },
-        {
-            bookname: "책 이름4",
-            nickname: '최지원',
-            description: "이 책은 사용자들의 공감대를 형성하고 재미난 이야기거리를 만들어 줍니다.",
-        },
-        {
-            bookname: "책 이름5",
-            nickname: '우재현',
-            description: "책이 아름답고 재밌어요",
-        },
-        {
-            bookname: "책 이름6",
-            nickname: '전승기',
-            description: "너무너무 재밌는 사이트네요 굿굿",
-        }
-
-    ]
     const imgList = [
         image1,
         image2,
@@ -51,12 +20,27 @@ const ChaekiToday = (props) => {
         image6,
     ]
 
+    const [challengeData, setChallengeData] = useState([]);
+
+    useEffect(() => {
+        const fetchData = async () => {
+            try {
+                const response = await axios.get('http://ec2-13-209-50-125.ap-northeast-2.compute.amazonaws.com:8080/today/list');
+                setChallengeData(response.data);
+            } catch (error) {
+                console.error('Error fetching data: ', error);
+            }
+        };
+
+        fetchData();
+    }, []);
+
     return (
         <>
             <Box sx={{ my:5 ,width: '700px', height: '400px'}}>
                 <Carousel autoPlay interval={3000} sx={{width: '100vw', position: 'absolute', top: '1400px', left:0 }}>
                     {
-                        items.map((item, i) => (
+                        challengeData.map((item, i) => (
                             <Item key={i} item={item} imgList={imgList} index={i} />
                         ))
                     }
@@ -89,10 +73,10 @@ const Item = (props) => {
             }
         }}>
             <div style={{ position: 'relative', zIndex: 2 }}>
-                <h1 style={{ fontFamily: 'MaruBuri-Bold', marginBottom: '3px' }}>채키 투데이</h1><hr />
-                <h2>"{props.item.description}"</h2>
-                <span style={{ fontSize: '18px' }}>{props.item.bookname}</span>
-                <h4>{props.item.nickname}</h4>
+                <h1 style={{ fontFamily: 'MaruBuri-Bold', marginBottom: '3px' }}>이주의 채키투데이</h1><hr />
+                <h2>"{props.item.content}"</h2>
+                <span style={{ fontSize: '18px' }}>{props.item.bookName}</span>
+                <h4>{props.item.nickName}</h4>
             </div>
         </Box>
     )
