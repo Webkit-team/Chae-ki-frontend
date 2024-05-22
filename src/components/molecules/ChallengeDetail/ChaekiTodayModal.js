@@ -49,7 +49,7 @@ function ChaekiTodayModal({time, isEditable}) {
                         autoFocus
                         margin="dense"
                         id="pageCount"
-                        label="페이지 수"
+                        label="오늘 읽은 페이지 수"
                         type="number"
                         fullWidth
                         variant="outlined"

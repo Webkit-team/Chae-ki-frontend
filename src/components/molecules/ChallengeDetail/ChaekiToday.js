@@ -68,7 +68,7 @@ const ChaekiToday = () => {
         try {
             console.log(week)
             const response = await axios.get(`http://ec2-13-209-50-125.ap-northeast-2.compute.amazonaws.com:8080/challenges/${id}/week/${week}`);
-            console.log('응답 상태'+response.status);
+            console.log('응답 상태' + response.status);
             setUsers(response.data.users);
             setComments(response.data.comments);
 
@@ -133,29 +133,53 @@ const ChaekiToday = () => {
                     <TabItem label="3주" />
                     <TabItem label="4주" />
                 </Tabs>
-                <StyledBox sx={{ width: '100%' }}>
-                    {users.map((user) => (
-                        <CustomCard key={user.id} user={user} />
-                    ))}
-                </StyledBox>
+                {comments.length > 0 && (
+                    <StyledBox sx={{ width: '110%', height: 'auto', mb: 3 }}>
+                        {users.map((user) => (
+                            <CustomCard key={user.id} user={user} />
+                        ))}
+                    </StyledBox>
+                )}
             </Box>
-            <Box sx={{ width: '290px', backgroundColor: '#D9D9D9', borderRadius: '15px', p: 1, m: 1 }}>
+            <Box sx={{
+                width: '290px',
+                backgroundColor: '#D9D9D9',
+                borderRadius: '15px',
+                p: 1,
+                m: 1,
+                display: 'flex',
+                flexDirection: 'column',
+                justifyContent: 'space-between',
+                height: '480px'
+            }}>
                 <Text3>댓글창</Text3>
-                <StyledBox sx={{ width: '100%', borderRadius: '20px' }}>
+                <StyledBox sx={{
+                    width: '100%',
+                    borderRadius: '20px',
+                    flexGrow: 1,
+                    overflowY: 'auto' 
+                }}>
                     {comments.map((user) => (
                         <CustomComment key={user.id} comment={comments} />
                     ))}
                 </StyledBox>
-                <Box sx={{ display: 'flex', alignItems: 'center', mb: 2, width: '100%', backgroundColor: '#FFFFFF' }}>
+                <Box sx={{
+                    display: 'flex',
+                    alignItems: 'center',
+                    mb: 2,
+                    width: '100%',
+                    backgroundColor: '#FFFFFF'
+                }}>
                     <CustomTextField
                         sx={{ flexGrow: 1 }}
                         placeholder="댓글을 입력하세요..."
                         value={commentContent}
                         onChange={(e) => setCommentContent(e.target.value)}
-                    ></CustomTextField>
+                    />
                     <CustomButton variant="contained" onClick={handlePostComment}>입력</CustomButton>
                 </Box>
             </Box>
+
         </Box>
     );
 };
