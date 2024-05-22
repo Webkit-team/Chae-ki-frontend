@@ -136,7 +136,7 @@ const ChaekiToday = () => {
                 {users.length > 0 && (
                     <StyledBox sx={{ width: '110%', height: 'auto', mb: 3 }}>
                         {users.map((user) => (
-                            <CustomCard key={user.userNo} user={user} uno={cookies.user.uno} />
+                            <CustomCard key={user.userNo} user={user} uno={cookies.user ? cookies.user.uno : null} />
                         ))}
                     </StyledBox>
                 )}
@@ -161,7 +161,7 @@ const ChaekiToday = () => {
                         overflowY: 'auto'
                     }}>
                         {comments.map((comment) => (
-                            <CustomComment key={comment.commentNo} comment={comment} uno={cookies.user.uno} />
+                            <CustomComment key={comment.commentNo} comment={comment} uno={cookies.user ? cookies.user.uno : null} />
                         ))}
                     </StyledBox>
                 )}
