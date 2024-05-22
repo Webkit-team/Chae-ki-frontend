@@ -6,6 +6,7 @@ import FavoriteIcon from '@mui/icons-material/Favorite';
 import FavoriteBorderIcon from '@mui/icons-material/FavoriteBorder';
 import ArrowBackIosIcon from '@mui/icons-material/ArrowBackIos';
 import ArrowForwardIosIcon from '@mui/icons-material/ArrowForwardIos';
+import { useCookies } from 'react-cookie';
 
 const daysOfWeek = ["일요일", "월요일", "화요일", "수요일", "목요일", "금요일", "토요일"];
 
@@ -14,7 +15,7 @@ const CustomPaper = styled(Paper)(({ theme }) => ({
     position: 'relative',
     width: '670px',
     padding: theme.spacing(2),
-    marginLeft:2,
+    marginLeft: 2,
     marginTop: theme.spacing(2),
     boxShadow: theme.shadows[3],
     '&::before': {
@@ -31,13 +32,13 @@ const DayLabel = styled(Text3)(({ theme, isActive }) => ({
     color: isActive ? 'black' : 'lightgray',
     display: 'inline-block',
     marginRight: theme.spacing(1),
-    fontSize:'17px'
+    fontSize: '17px'
 }));
 
 const TextContainer = styled(Text5)(({ theme, isExpanded }) => ({
     p: '8px',
     width: '580px',
-    justifyContent:'start',
+    justifyContent: 'start',
     height: isExpanded ? 'auto' : '40px',
     overflow: 'hidden',
     display: '-webkit-box',
@@ -46,11 +47,12 @@ const TextContainer = styled(Text5)(({ theme, isExpanded }) => ({
     cursor: 'pointer',
 }));
 
-export const CustomCard = ({ user }) => {
-    const [currentIndex, setCurrentIndex] = useState(0); 
+export const CustomCard = ({ user, uno }) => {
+    const [currentIndex, setCurrentIndex] = useState(0);
     const [activeDays, setActiveDays] = useState([]);
     const [isExpanded, setIsExpanded] = useState(false);
     const [isLiked, setIsLiked] = useState(false);
+    const isCurrentUser = user.userUno === uno;
 
     const toggleExpand = () => {
         setIsExpanded(!isExpanded);
@@ -58,6 +60,14 @@ export const CustomCard = ({ user }) => {
 
     const handleReport = () => {
         alert('이 글을 신고하시겠습니까?');
+    };
+
+    const handleEdit = () => {
+        // 수정 로직
+    };
+
+    const handleDelete = () => {
+        // 삭제 로직
     };
 
     const toggleLike = () => {
@@ -96,14 +106,17 @@ export const CustomCard = ({ user }) => {
                     </DayLabel>
                 ))}
             </Box>
-            <Box sx={{ display: 'flex', flexDirection: 'column', width: '100vw', textAlign: 'center', justifyContent:'center', alignItems:'center' }}>
+            <Box sx={{ display: 'flex', flexDirection: 'column', width: '100vw', textAlign: 'center', justifyContent: 'center', alignItems: 'center' }}>
                 <img src={user.imageUrl} alt='프로필 이미지' style={{ width: '40px', height: '40px', borderRadius: 30, margin: 5, marginRight: '10px', backgroundColor: 'white', border: '1px solid black' }} />
-                <Text1 sx={{fontSize:'18px'}}>{user.nickname}</Text1>
+                <Text1 sx={{ fontSize: '18px' }}>{user.nickname}</Text1>
             </Box>
-            <Box sx={{ display: 'flex', flexDirection: 'column', pl: 3, alignItems:'flex-start' }}>
+            <Box sx={{ display: 'flex', flexDirection: 'column', pl: 3, alignItems: 'flex-start' }}>
                 <Box sx={{ display: 'flex', alignSelf: 'end', alignItems: 'center', p: '1px' }}>
-                    <Button sx={{ px: 0, fontSize: '15px', height: '20px', color: '#00A00B' }}>수정</Button>
-                    <Button sx={{ px: 0, fontSize: '15px', height: '20px', color: '#FF0000' }}>삭제</Button>
+                    {isCurrentUser && (<Box>
+                        <Button onClick={handleEdit} sx={{ px: 0, fontSize: '15px', height: '20px', color: '#00A00B' }}>수정</Button>
+                        <Button onClick={handleDelete} sx={{ px: 0, fontSize: '15px', height: '20px', color: '#FF0000' }}>삭제</Button>
+                    </Box>
+                    )}
                     <FlagIcon sx={{ mr: 2, color: '#FF0000' }} onClick={handleReport} />
                     {isLiked ? (
                         <FavoriteIcon onClick={toggleLike} sx={{ color: '#FD699F' }} />
@@ -128,10 +141,11 @@ export const CustomCard = ({ user }) => {
     );
 }
 
-export const CustomComment = ({comment}) => {
-    const [currentIndex, setCurrentIndex] = useState(0); 
+export const CustomComment = ({ comment, uno }) => {
+    const [currentIndex, setCurrentIndex] = useState(0);
     const [isExpanded, setIsExpanded] = useState(true);
     const [isLiked, setIsLiked] = useState(false);
+    const isCurrentUser = comment.userUno === uno;
 
     const toggleExpand = () => {
         setIsExpanded(!isExpanded);
@@ -154,28 +168,28 @@ export const CustomComment = ({comment}) => {
 
     return (
         <CustomPaper sx={{ p: '10px', width: '260px' }}>
-        <Box sx={{ display: 'flex', flexDirection: 'column', textAlign: 'left', justifyContent: 'flex-start', alignItems: 'flex-start', px:1 }}>
-            <img src={comment[currentIndex].imageUrl} alt='프로필 이미지' style={{ width: '30px', height: '30px', borderRadius: 30, backgroundColor: 'white', border: '1px solid black' }} />
-            <Text1 sx={{ fontSize: '12px' }}>{comment[currentIndex].nickname}</Text1>
-        </Box>
-        <Box sx={{ display: 'flex', flexDirection: 'column', pl: 3, textAlign: 'left', justifyContent: 'flex-start', alignItems: 'flex-start' }}>
-            <TextContainer isExpanded={isExpanded} onClick={toggleExpand} sx={{ width: '150px' }}>{comment[currentIndex].content}</TextContainer>
-            <Box sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', width: '100%', p: '1px' }}>
-                <Box sx={{ display: 'flex', alignItems: 'center' }}>
-                    <Button sx={{ px: 0, fontSize: '13px', height: '15px', color: '#00A00B', py: 0, minWidth: '30px' }}>수정</Button>
-                    <Button sx={{ px: 0, fontSize: '13px', height: '15px', color: '#FF0000', py: 0, minWidth: '35px' }}>삭제</Button>
-                </Box>
-                <Box sx={{ display: 'flex', alignItems: 'center' }}>
-                    <FlagIcon sx={{ fontSize: '18px', mr: 2, color: '#FF0000' }} onClick={handleReport} />
-                    {isLiked ? (
-                        <FavoriteIcon onClick={toggleLike} sx={{ fontSize: '18px', color: '#FD699F' }} />
-                    ) : (
-                        <FavoriteBorderIcon onClick={toggleLike} sx={{ fontSize: '18px', color: '#FD699F' }} />
-                    )}
-                    <Text5 sx={{ px: 0.5 }}>{comment[currentIndex].likeCount}</Text5>
+            <Box sx={{ display: 'flex', flexDirection: 'column', textAlign: 'left', justifyContent: 'flex-start', alignItems: 'flex-start', px: 1 }}>
+                <img src={comment[currentIndex].imageUrl} alt='프로필 이미지' style={{ width: '30px', height: '30px', borderRadius: 30, backgroundColor: 'white', border: '1px solid black' }} />
+                <Text1 sx={{ fontSize: '12px' }}>{comment[currentIndex].nickname}</Text1>
+            </Box>
+            <Box sx={{ display: 'flex', flexDirection: 'column', pl: 3, textAlign: 'left', justifyContent: 'flex-start', alignItems: 'flex-start' }}>
+                <TextContainer isExpanded={isExpanded} onClick={toggleExpand} sx={{ width: '150px' }}>{comment[currentIndex].content}</TextContainer>
+                <Box sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', width: '100%', p: '1px' }}>
+                    <Box sx={{ display: 'flex', alignItems: 'center' }}>
+                        <Button sx={{ px: 0, fontSize: '13px', height: '15px', color: '#00A00B', py: 0, minWidth: '30px' }}>수정</Button>
+                        <Button sx={{ px: 0, fontSize: '13px', height: '15px', color: '#FF0000', py: 0, minWidth: '35px' }}>삭제</Button>
+                    </Box>
+                    <Box sx={{ display: 'flex', alignItems: 'center' }}>
+                        <FlagIcon sx={{ fontSize: '18px', mr: 2, color: '#FF0000' }} onClick={handleReport} />
+                        {isLiked ? (
+                            <FavoriteIcon onClick={toggleLike} sx={{ fontSize: '18px', color: '#FD699F' }} />
+                        ) : (
+                            <FavoriteBorderIcon onClick={toggleLike} sx={{ fontSize: '18px', color: '#FD699F' }} />
+                        )}
+                        <Text5 sx={{ px: 0.5 }}>{comment[currentIndex].likeCount}</Text5>
+                    </Box>
                 </Box>
             </Box>
-        </Box>
-    </CustomPaper>
+        </CustomPaper>
     );
 }

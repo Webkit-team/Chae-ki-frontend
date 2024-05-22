@@ -68,10 +68,9 @@ const ChaekiToday = () => {
         try {
             console.log(week)
             const response = await axios.get(`http://ec2-13-209-50-125.ap-northeast-2.compute.amazonaws.com:8080/challenges/${id}/week/${week}`);
-            console.log('응답 상태' + response.status);
+            console.log(response.data.users);
             setUsers(response.data.users);
             setComments(response.data.comments);
-
 
         } catch (error) {
             console.error("요청 중 오류가 발생했습니다:", error);
@@ -80,7 +79,6 @@ const ChaekiToday = () => {
 
     const postComment = async (content) => {
         try {
-
             const token = cookies.user ? cookies.user.jwt : null;
             const uno = cookies.user ? cookies.user.uno : null;
             const response = await axios.post(
@@ -110,11 +108,11 @@ const ChaekiToday = () => {
 
     const handlePostComment = () => {
         postComment(commentContent);
-        setCommentContent(''); // 댓글 입력 후 입력 필드를 비웁니다.
+        setCommentContent(''); 
     };
 
     return (
-        <Box sx={{ display: 'flex', width: '100vw' }}>
+        <Box sx={{ display: 'flex', width: '100%', justifyContent:'space-between' }}>
             <Box sx={{ display: 'flex', flexDirection: 'column' }}>
                 <Tabs
                     value={value}
@@ -136,7 +134,7 @@ const ChaekiToday = () => {
                 {comments.length > 0 && (
                     <StyledBox sx={{ width: '110%', height: 'auto', mb: 3 }}>
                         {users.map((user) => (
-                            <CustomCard key={user.id} user={user} />
+                            <CustomCard key={user.userNo} user={user} uno={cookies.user.uno} />
                         ))}
                     </StyledBox>
                 )}
@@ -159,8 +157,8 @@ const ChaekiToday = () => {
                     flexGrow: 1,
                     overflowY: 'auto' 
                 }}>
-                    {comments.map((user) => (
-                        <CustomComment key={user.id} comment={comments} />
+                    {comments.map((comment) => (
+                        <CustomComment key={comment.commentNo} comment={comments} uno={cookies.user.uno}/>
                     ))}
                 </StyledBox>
                 <Box sx={{
