@@ -29,7 +29,7 @@ import { useCookies } from 'react-cookie';
 
 const MyPageContainer = () => {
     const navigate = useNavigate();
-    const [cookies, setCookie, removeCookie] = useCookies(["user"]);
+    const [cookies, removeCookie] = useCookies(["user"]);
 
     // response.data들
     const [no, setNo] = useState(null);
@@ -191,15 +191,15 @@ const MyPageContainer = () => {
                     }
                 });
                 setChaekiTodaysCount(responseChakiToday.data.length);
-                
-                // 책 좋아요 리스트 요청 url 추가 예정
-                // const responseLikeBook = await axios.get(``, {
-                //     headers: {
-                //         Authorization: jwt
-                //     }
-                // });
-                // setBookLikeCount(responseLikeBook.data.length);
-
+                // 여기
+                const responseLikeBook = await axios.get(`http://ec2-13-209-50-125.ap-northeast-2.compute.amazonaws.com:8080/users/${uno}/favorite-books`, {
+                    headers: {
+                        Authorization: jwt
+                    }
+                });
+                setBookLikeCount(responseLikeBook.data.books.length);
+                console.log(responseLikeBook.data); //
+                console.log(responseLikeBook.data.books.length); //
                 
 
                 console.log(response.data);
@@ -366,7 +366,7 @@ const MyPageContainer = () => {
                     }} onClick={() => handleIconClick("review")}>
                         <AutoStoriesIcon sx={{ fontSize: 50 }} />
                         <MainText>도서 후기</MainText>
-                        <MainText>2</MainText>
+                        <MainText>x</MainText>
                     </Box>
 
                     <Box sx={{
@@ -396,7 +396,7 @@ const MyPageContainer = () => {
                     }} onClick={() => handleIconClick("scrap")}>
                         <BookmarkIcon sx={{ fontSize: 50 }} />
                         <MainText>스크랩</MainText>
-                        <MainText>3</MainText>
+                        <MainText>x</MainText>
                     </Box>
 
                 </Box>
