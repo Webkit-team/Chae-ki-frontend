@@ -19,12 +19,10 @@ const LoginContainer = () => {
     const handleSubmit = async (event) => {
         event.preventDefault();
         const data = new FormData(event.currentTarget);
-
         const loginData = {
             username: data.get("id"),
             password: data.get("password")
         };
-
         try {
             const response = await axios.post("http://ec2-13-209-50-125.ap-northeast-2.compute.amazonaws.com:8080/login",
                 qs.stringify(loginData), // qs를 사용하여 URL-encoded 형식으로 변환
@@ -34,14 +32,11 @@ const LoginContainer = () => {
                     }
                 }
             );
-
-
             if (response.status === 200) {
                 if(response.data.expired === true) {
                     alert("이미 탈퇴한 사용자입니다.");
                     return;
                 }
-
                 const jwt = response.headers.authorization;
                 const user = {
                     uno: response.data.no,
@@ -49,13 +44,10 @@ const LoginContainer = () => {
                     jwt: jwt
                 }
                 setCookie("user", user, { path: '/'}); 
-
                 console.log(response.data);
-                
                 navigate('/');
             }
             
-                    
             else {
                 console.error("로그인 실패");
             }

@@ -29,7 +29,7 @@ import { useCookies } from 'react-cookie';
 
 const MyPageContainer = () => {
     const navigate = useNavigate();
-    const [cookies, setCookie, removeCookie] = useCookies(["user"]);
+    const [cookies, removeCookie] = useCookies(["user"]);
 
     // response.data들
     const [no, setNo] = useState(null);

@@ -5,23 +5,40 @@ import CustomButton from '../../atoms/CustomButton';
 import CustomTextField from '../../atoms/CustomTextField';
 import axios from 'axios';
 import ChaekiTodayModal from './ChaekiTodayModal';
+import { useParams } from 'react-router-dom';
+import { useCookies } from 'react-cookie';
 
 
 const ChaekiTime = () => {
+    const { id } = useParams();
+    const [cookies] = useCookies(["user"]);
     const [time, setTime] = useState(0);
     const [timerOn, setTimerOn] = useState(false);
     const [inputTime, setInputTime] = useState('');
-    const [isChaekiTodayActive, setIsChaekiTodayActive] = useState(true);
+    const [isChaekiTodayActive, setIsChaekiTodayActive] = useState(false);
     const [isEditable, setIsEditable] = useState('');
+    const [todayNo, setTodayNo] = useState('');
+
+    const uno = cookies.user ? cookies.user.uno : null;
+    const token = cookies.user ? cookies.user.jwt : null;
 
     const checkChaekiToday = async () => {
         try {
-            const res = await axios.get('서버 URL');
-            if(res.data){
-                setIsChaekiTodayActive(res.data);
-            }else{
-                setIsEditable('false');
-                // axios.post로 time 저장
+            const res = await axios.get(`http://ec2-13-209-50-125.ap-northeast-2.compute.amazonaws.com:8080/today/challenges/${id}/users/${uno}`,
+                {
+                    headers: {
+                        Authorization: token,
+                    }
+                }
+            );
+            if (res.data.posted) {  // 채키 타임 작성
+                setTodayNo(res.data.todayNo);
+                console.log(todayNo);
+                setIsEditable(true);
+                setIsChaekiTodayActive(true);
+            } else {    // 채키 투데이 작성
+                setIsEditable(false);
+                setIsChaekiTodayActive(true);
             }
         } catch (error) {
             console.error("채키투데이 확인 중 오류 발생:", error);
@@ -94,13 +111,13 @@ const ChaekiTime = () => {
 
     return (
         <>
-            <Box sx={{ display: 'flex', justifyContent: 'center', pt:3 }}>
+            <Box sx={{ display: 'flex', justifyContent: 'center', pt: 3 }}>
                 <Box sx={{ display: 'flex', flexDirection: 'column', width: '250px', height: '100px', p: 2 }}>
                     <Text1 sx={{ fontFamily: 'DS-DIGIB', fontSize: '72px', height: '86px', pb: 2, textAlign: 'center' }}>
                         {formatTime()}
                     </Text1>
                     <Box sx={{ display: 'flex' }}>
-                        <CustomButton onClick={() => addTime(600)} sx={{ border: 'solid 1px black', width: '100vw' }} >10분</CustomButton>
+                        <CustomButton onClick={() => addTime(6)} sx={{ border: 'solid 1px black', width: '100vw' }} >10분</CustomButton>
                         <CustomButton onClick={() => addTime(1800)} sx={{ border: 'solid 1px black', width: '100vw' }} >30분</CustomButton>
                         <CustomButton onClick={() => addTime(3600)} sx={{ border: 'solid 1px black', width: '100vw' }} >60분</CustomButton>
                     </Box>
@@ -140,7 +157,7 @@ const ChaekiTime = () => {
             </Box>
             <Box sx={{ display: 'flex', justifyContent: 'center', my: 4 }}>
                 {isChaekiTodayActive && (
-                    <ChaekiTodayModal time={time} isEditable={isEditable}/>
+                    <ChaekiTodayModal time={time} isEditable={isEditable} todayNo={todayNo}/>
                 )}
             </Box>
         </>

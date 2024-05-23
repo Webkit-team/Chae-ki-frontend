@@ -6,6 +6,7 @@ import './css/Header.css';
 import { styled } from '@mui/system';
 import { Link } from 'react-router-dom';
 import { useCookies } from 'react-cookie';
+import { useEffect } from 'react';
 
 const AnimatedLink = styled(Link)(({ theme }) => ({
     position: 'relative',
@@ -35,11 +36,18 @@ const AnimatedLink = styled(Link)(({ theme }) => ({
 const Header = () => {
     const [cookies, removeCookie] = useCookies(["user"]);
 
-    const user = cookies.user ? cookies.user.uno : null;
+    useEffect(() => {
+        if (cookies.user) {
+          console.log('로그인 상태입니다.', cookies.user.uno);
+
+        } else {
+          console.log('로그아웃 상태입니다.');
+        }
+      }, [cookies.user]);
 
     const handleLogOut = () => {
         removeCookie('user', { path: '/' });
-        alert("로그아웃되었습니다!");
+        alert("로그아웃되었습니다!");   
     }
 
     return (
@@ -109,7 +117,7 @@ const Header = () => {
 
 
                 <div className="login">
-                    {user ? (
+                    {cookies.user.uno ? (
                         <>
                             <Link to="/my" className="my_page_link">마이페이지</Link>
                             <Link to="/" className="logout_link" onClick={(handleLogOut)}>로그아웃</Link>

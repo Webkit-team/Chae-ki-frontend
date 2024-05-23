@@ -74,11 +74,15 @@
   src: url("./fonts/DS-DIGIT.TTF") format("truetype");
 }
 
+html{
+  padding:0;
+  margin:0;
+}
 body {
   font-family: "NanumBarunGothicLight";
   font-weight: 900;
   font-weight: normal;
-  margin: 0 auto;
+  margin: auto;
   overflow-x: hidden;
 }
 

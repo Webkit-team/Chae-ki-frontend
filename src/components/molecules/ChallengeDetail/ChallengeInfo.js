@@ -1,5 +1,5 @@
 import { Box, CircularProgress } from '@mui/material';
-import { useParams } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 import { Text2, Text4, Text5 } from '../../atoms/Text';
 import CustomButton from '../../atoms/CustomButton';
 import { useEffect, useState } from 'react';
@@ -11,6 +11,7 @@ const ChallengeInfo = ({ status, setStatus }) => {
   const [challenge, setChallenge] = useState({});
   const [loading, setLoading] = useState(true);
   const [cookies] = useCookies(["user"]);
+  const navigate = useNavigate();
 
   useEffect(() => {
     const fetchData = async () => {
@@ -45,13 +46,14 @@ const ChallengeInfo = ({ status, setStatus }) => {
   }
 
   const handleJoin = async () => {
-
     const token = cookies.user ? cookies.user.jwt : null;
     const uno = cookies.user ? cookies.user.uno : null;
+
     if (!token) {
-      alert('로그인이 필요합니다.');
+      navigate('/login');
       return;
     }
+
     try {
       console.log(token);
       const res = await axios.post(
@@ -68,6 +70,7 @@ const ChallengeInfo = ({ status, setStatus }) => {
       }
     } catch (error) {
       console.error('참가 실패:', error.response ? error.response.data : error.message);
+      alert(error.response ? error.response.data : error.message);
     }
   };
 
@@ -77,7 +80,7 @@ const ChallengeInfo = ({ status, setStatus }) => {
         <Box sx={{ display: 'flex', flexGrow: 1, height: '270px' }}>
           <Box sx={{ display: 'flex', flexDirection: 'column' }}>
             <img src={challenge.bookDetail.imageUrl} alt={challenge.bookDetail.name} style={{ width: '200px', height: '270px', border: 'solid 1px #CECECE' }} />
-            <CustomButton to={`/books/${id}`} sx={{ ml: 0, border: 'solid black 1px', mt: 2, width: '200px' }}>도서 상세 보기</CustomButton>
+            <CustomButton to={`/books/${challenge.bookDetail.no}`} sx={{ ml: 0, border: 'solid black 1px', mt: 2, width: '200px' }}>도서 상세 보기</CustomButton>
           </Box>
           <Box sx={{ ml: 5, flexGrow: 1 }}>
             <Text4 sx={{ color: '#828181' }}>{challenge.name}</Text4>
@@ -96,7 +99,7 @@ const ChallengeInfo = ({ status, setStatus }) => {
             borderColor: '#000000',
           },
           alignSelf: 'flex-end'
-        }} style={{ color: '#FFFFFF' }} to={`/challenges/${id}`} onClick={handleJoin}>
+        }} style={{ color: '#FFFFFF' }} onClick={handleJoin}>
           참가하기
         </CustomButton>
       </Box>
