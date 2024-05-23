@@ -4,8 +4,12 @@ import bookExImg1 from "../../../assets/book1.png"
 import bookExImg2 from "../../../assets/book2.png"
 
 import { useNavigate } from "react-router-dom";
+import { useState } from "react";
 
 const MyBookList = ({uno, jwt, setBookLikeCount}) => {
+
+    const [books, setBooks] = useState([]);
+
     const bookImg = "https://placehold.co/150x200"
     const itemData = [
         {
@@ -74,7 +78,7 @@ const MyBookList = ({uno, jwt, setBookLikeCount}) => {
     return (<>
         <Container
             sx={{
-                display: "flex", alignItems: "center", justifyContent: "center"
+                display: "flex", width:"100%", alignItems: "center", justifyContent: "center"
             }}
         >
             <ImageList

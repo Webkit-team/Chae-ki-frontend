@@ -144,7 +144,8 @@ const ChaekiTodayList = ({uno, jwt, setChaekiTodaysCount}) => {
                 gridTemplateColumns: "400px 400px",
                 justifyContent: "center",
                 gap: 5,
-                width: 900,
+                width: "100%", height: 500,
+                overflowY: "scroll",
                 pt: 2, pb: 3
             }}>
 
