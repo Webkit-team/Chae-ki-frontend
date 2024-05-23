@@ -2,7 +2,7 @@ import { Box, Divider, Grid } from "@mui/material";
 import FavoriteIcon from '@mui/icons-material/Favorite';
 import FavoriteBorderIcon from '@mui/icons-material/FavoriteBorder';
 import { SubTitle, MainText, Text2, Text3, Text5 } from "../atoms/Text";
-import { Link, useParams } from "react-router-dom";
+import { Link, useNavigate, useParams } from "react-router-dom";
 import axios from "axios";
 import { useEffect, useState } from "react";
 import { useCookies } from "react-cookie";
@@ -10,14 +10,58 @@ import { useCookies } from "react-cookie";
 const BookDetailContainer = () => {
     const { id } = useParams();
     const [cookies] = useCookies(["user"]);
-    const [like, setLike] = useState(false);
     const [book, setBook] = useState({});
+    const [like, setLike] = useState(false);
 
     const uno = cookies.user ? cookies.user.uno : null;
     const token = cookies.user ? cookies.user.jwt : null;
+    const navigate = useNavigate();
 
-    const handleLikeToggle = () => {
-        setLike(!like);
+    const handleLikeOn = async () => {
+        try {
+            const url = `http://ec2-13-209-50-125.ap-northeast-2.compute.amazonaws.com:8080/books/${id}/users/${uno}`;
+            const response = await axios.post(url, {}, {
+                headers: {
+                    Authorization: token
+                }
+            });
+
+            if (response.status === 200) {
+                console.log(response.status);
+                setLike(!like);
+                setBook(prevBook => ({
+                    ...prevBook,
+                    likeCount: response.data.likeCount
+                }));
+            }
+        } catch (error) {
+            alert('로그인이 필요합니다.');
+        }
+    }
+
+    const handleLikeOff = async () => {
+        try {
+            const url = `http://ec2-13-209-50-125.ap-northeast-2.compute.amazonaws.com:8080/books/${id}/users/${uno}`;
+            const response = await axios.delete(url, {
+                headers: {
+                    Authorization: token
+                }
+            });
+            if (response.status === 200) {
+                console.log(response.status);
+                setLike(!like);
+                setBook(prevBook => ({
+                    ...prevBook,
+                    likeCount: response.data.likeCount
+                }));
+            }
+        } catch (error) {
+            alert('로그인이 필요합니다.');
+        }
+    };
+
+    const handleImageClick = () => {
+        window.location.href = book.shopUrl;
     }
 
     useEffect(() => {
@@ -34,6 +78,7 @@ const BookDetailContainer = () => {
                 });
 
                 if (response.status === 200) {
+                    setLike(response.data.checkLike)
                     console.log(response.data);
                     setBook(response.data);
                 }
@@ -41,7 +86,6 @@ const BookDetailContainer = () => {
                 console.error("Failed to fetch book data:", error);
             }
         }
-
         fetchBookData();
     }, [id, uno, token]);
 
@@ -57,10 +101,12 @@ const BookDetailContainer = () => {
                             width: 250,
                             height: 350,
                             objectFit: "cover",
-                            border: 'solid 1px grey'
+                            border: 'solid 1px grey',
+                            cursor:'pointer'
                         }}
                         src={book.imageUrl}
                         alt={book.name}
+                        onClick={handleImageClick}
                     />
                     <Grid container spacing={1} sx={{ textAlign: "right", py: 3.5 }}>
                         <Grid item xs={6}>
@@ -101,23 +147,21 @@ const BookDetailContainer = () => {
                             <Box sx={{ flexGrow: 1 }}>
                                 <Text2>{book.name}</Text2>
                             </Box>
-                            <Box sx={{ display: "flex", justifyContent: "end" }}>
-                                <Box onClick={handleLikeToggle} sx={{ cursor: "pointer" }}>
+                            <Box sx={{ display: "flex", justifyContent: "flex-end", alignItems: 'flex-end' }}>
+                                <Box sx={{ cursor: "pointer" }}>
                                     {like ?
-                                        <FavoriteIcon sx={{ fontSize: 30, pr: 0.5, color: '#FF0000' }} />
+                                        <FavoriteIcon onClick={handleLikeOff}sx={{ fontSize: 30, pr: 0.5, color: '#FF0000' }} />
                                         :
-                                        <FavoriteBorderIcon sx={{ fontSize: 30, pr: 0.5, color: '#FF0000' }} />}
+                                        <FavoriteBorderIcon  onClick={handleLikeOn} sx={{ fontSize: 30, pr: 0.5, color: '#FF0000' }} />}
                                 </Box>
-                                <Text2>{book.likeCount}</Text2>
                             </Box>
                         </Box>
                         <Divider sx={{ border: "solid 1px", mt: 1, mb: 1 }} />
-                        <Box sx={{ overflowY: "auto", maxHeight: '400px' }}>
+                        <Box sx={{ overflowY: "auto", height: '290px' }}>
                             <MainText>{book.description}</MainText>
                         </Box>
-                        <Divider sx={{ border: "solid 1px", mt: 1, mb: 1 }} />
                         <Box sx={{ pt: 0.5, pb: 1 }}>
-                            <Link to={book.shopUrl}><Text5>바로가기(알라딘)</Text5></Link>
+
                         </Box>
                     </Box>
                 </Box>

@@ -7,6 +7,7 @@ import FavoriteBorderIcon from '@mui/icons-material/FavoriteBorder';
 import ArrowBackIosIcon from '@mui/icons-material/ArrowBackIos';
 import ArrowForwardIosIcon from '@mui/icons-material/ArrowForwardIos';
 import { useCookies } from 'react-cookie';
+import axios from 'axios';
 
 const daysOfWeek = ["일요일", "월요일", "화요일", "수요일", "목요일", "금요일", "토요일"];
 
@@ -47,28 +48,36 @@ export const CustomCard = ({ user, uno }) => {
     const [currentIndex, setCurrentIndex] = useState(0);
     const [activeDays, setActiveDays] = useState([]);
     const [isLiked, setIsLiked] = useState(false);
-    const isCurrentUser = user.userNo === uno;
+    const currentToday = user.todays[currentIndex] || {};
+    const [cookies] = useCookies(["user"]);
+    const [likeCount, setLikeCount] = useState(user.todays[currentIndex]?.likeCount || 0);
 
+    const token = cookies.user ? cookies.user.jwt : null;
 
     const handleReport = () => {
         const isConfirmed = window.confirm('정말로 신고하시겠습니까?');
-        if(isConfirmed){
+        if (isConfirmed) {
             alert('신고가 완료되었습니다.');
-        }else{
+        } else {
             return;
         }
     };
 
     const toggleLike = () => {
-        setIsLiked(!isLiked);
-        // axios.post('/api/like', { liked: !isLiked })
-        //     .then(response => {
-        //         console.log(response.data); 
-        //     })
-        //     .catch(error => {
-        //         console.error('좋아요 상태 변경 실패:', error);
-        //     });
+        axios.put(`http://ec2-13-209-50-125.ap-northeast-2.compute.amazonaws.com:8080/like/today/${currentToday.todayNo}`, { liked: !isLiked }, {
+            headers: {
+                Authorization: token
+            }
+        })
+            .then(response => {
+                setIsLiked(!isLiked);
+                setLikeCount(prevCount => isLiked ? prevCount - 1 : prevCount + 1);
+            })
+            .catch(error => {
+                console.error('좋아요 상태 변경 실패:', error);
+            });
     };
+
 
     const handlePrev = () => {
         setCurrentIndex(currentIndex > 0 ? currentIndex - 1 : (user.todays?.length || 1) - 1);
@@ -84,13 +93,12 @@ export const CustomCard = ({ user, uno }) => {
             return daysOfWeek[day].slice(0, 1);
         });
         setActiveDays(newActiveDays);
-    }, [user.todays]);
+        setLikeCount(user.todays[currentIndex]?.likeCount || 0);
+    }, [user.todays, currentIndex]);
 
     if (!user || !user.todays || user.todays.length === 0) {
         return null;
     }
-
-    const currentToday = user.todays[currentIndex] || {};
 
     return (
         <CustomPaper>
@@ -121,9 +129,9 @@ export const CustomCard = ({ user, uno }) => {
                             ) : (
                                 <FavoriteBorderIcon onClick={toggleLike} sx={{ color: '#FD699F' }} />
                             )}
-                            <Text5 sx={{ px: 0.5 }}>{currentToday.likeCount}</Text5>
+                            <Text5 sx={{ px: 0.5 }}>{likeCount}</Text5>
                         </Box>
-                        <TextContainer sx={{fontSize:'16px'}}>{currentToday.content}</TextContainer>
+                        <TextContainer sx={{ fontSize: '16px' }}>{currentToday.content}</TextContainer>
                         <Box sx={{ display: 'flex', mt: 'auto', alignItems: 'center', alignSelf: 'flex-end' }}>
                             <Text5 sx={{ mr: 3 }}>{currentToday.createdAt}</Text5>
                             <IconButton sx={{ p: 0 }} onClick={handlePrev}>
@@ -142,28 +150,35 @@ export const CustomCard = ({ user, uno }) => {
     );
 }
 
-export const CustomComment = ({ comment, uno }) => {
+export const CustomComment = ({ comment }) => {
     const [isLiked, setIsLiked] = useState(false);
-    const isCurrentUser = comment.userNo === uno;
+    const [cookies] = useCookies(["user"]);
+    const [likeCount, setLikeCount] = useState(comment.likeCount);
+
+    const token = cookies.user ? cookies.user.jwt : null;
 
     const handleReport = () => {
         const isConfirmed = window.confirm('정말로 신고하시겠습니까?');
-        if(isConfirmed){
+        if (isConfirmed) {
             alert('신고가 완료되었습니다.');
-        }else{
+        } else {
             return;
         }
     };
 
     const toggleLike = () => {
-        setIsLiked(!isLiked);
-        // axios.post('/api/like', { liked: !isLiked })
-        //     .then(response => {
-        //         console.log(response.data); 
-        //     })
-        //     .catch(error => {
-        //         console.error('좋아요 상태 변경 실패:', error);
-        //     });
+        axios.put(`http://ec2-13-209-50-125.ap-northeast-2.compute.amazonaws.com:8080/like/comments/${comment.commentNo}`, { liked: !isLiked }, {
+            headers: {
+                Authorization: token
+            }
+        })
+            .then(response => {
+                setIsLiked(!isLiked);
+                setLikeCount(prevCount => isLiked ? prevCount - 1 : prevCount + 1);
+            })
+            .catch(error => {
+                console.error('좋아요 상태 변경 실패:', error);
+            });
     };
     if (!comment) {
         return null;
@@ -178,7 +193,7 @@ export const CustomComment = ({ comment, uno }) => {
                         <Text1 sx={{ fontSize: '14px', maxWidth: '50px' }}>{comment.nickname}</Text1>
                     </Box>
                     <Box sx={{ display: 'flex', flexDirection: 'column', pl: 1, textAlign: 'left', justifyContent: 'flex-start', alignItems: 'flex-start' }}>
-                        <TextContainer sx={{ width: '150px', fontSize:'14px' }}>{comment.content}</TextContainer>
+                        <TextContainer sx={{ width: '150px', fontSize: '14px' }}>{comment.content}</TextContainer>
                         <Box sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', width: '100%', p: '1px' }}>
                             {/* {isCurrentUser && (
                                 <Box sx={{ display: 'flex', alignItems: 'center' }}>
@@ -193,7 +208,7 @@ export const CustomComment = ({ comment, uno }) => {
                                 ) : (
                                     <FavoriteBorderIcon onClick={toggleLike} sx={{ fontSize: '18px', color: '#FD699F' }} />
                                 )}
-                                <Text5 sx={{ px: 0.5 }}>{comment.likeCount}</Text5>
+                                <Text5 sx={{ px: 0.5 }}>{likeCount}</Text5>
                             </Box>
                         </Box>
                     </Box>

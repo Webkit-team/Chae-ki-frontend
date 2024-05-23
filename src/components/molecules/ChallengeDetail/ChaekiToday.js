@@ -81,16 +81,16 @@ const ChaekiToday = () => {
             const token = cookies.user ? cookies.user.jwt : null;
             const uno = cookies.user ? cookies.user.uno : null;
             const response = await axios.post(
-                `http://localhost:8080/comments/users/${uno}/challenges/${id}`,
-                { content }, // 바디에 댓글 내용을 넣습니다.
+                `http://ec2-13-209-50-125.ap-northeast-2.compute.amazonaws.com:8080/comments/users/${uno}/challenges/${id}`,
+                { content }, 
                 {
                     headers: {
-                        'Authorization': `Bearer ${token}`, // 헤더에 인증 정보를 넣습니다.
+                        Authorization: token, 
                     },
                 }
             );
             console.log('댓글 작성 성공:', response.data);
-            // 성공 후 필요한 로직을 추가할 수 있습니다. 예를 들어 댓글 목록을 새로고침하는 등의 작업이 있을 수 있습니다.
+            await fetchData(value + 1);
         } catch (error) {
             console.error('댓글 작성 중 오류가 발생했습니다:', error);
         }
