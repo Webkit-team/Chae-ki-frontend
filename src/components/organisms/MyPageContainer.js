@@ -1,7 +1,7 @@
 import MyChallengeList from "../molecules/MyPage/MyChallengeList";
 import MyChaekiTodayList from "../molecules/MyPage/MyChaekiTodayList"
 import MyBookList from "../molecules/MyPage/MyBookList";
-import { MainText, SubTitle, Text3, Text5 } from "../atoms/Text";
+import { MainText, SubTitle, Text3, Text4, Text5 } from "../atoms/Text";
 import defaultImg from "../../assets/defaultProfile.png";
 import CustomButton from "../atoms/CustomButton";
 
@@ -193,12 +193,12 @@ const MyPageContainer = () => {
                 setChaekiTodaysCount(responseChakiToday.data.length);
                 
                 // 책 좋아요 리스트 요청 url 추가 예정
-                const responseLikeBook = await axios.get(``, {
-                    headers: {
-                        Authorization: jwt
-                    }
-                });
-                setBookLikeCount(responseLikeBook.data.length);
+                // const responseLikeBook = await axios.get(``, {
+                //     headers: {
+                //         Authorization: jwt
+                //     }
+                // });
+                // setBookLikeCount(responseLikeBook.data.length);
 
                 
 
@@ -220,7 +220,7 @@ const MyPageContainer = () => {
         <Box sx={{pt:4}}>
             <Box sx={{ display: "flex", flexDirection: "column" }}>
                 
-                {/* 사용자 영역 */}
+                {/* 사용자 정보 영역 */}
                 <Box
                     sx={{
                         display: "flex",
@@ -237,29 +237,43 @@ const MyPageContainer = () => {
                         sx={{ width: 100, height: 100, border: "1px solid", borderRadius: "50%" }}
                     />
 
-                    <Box sx={{ display:"flex", fontSize: "16px", width: "25%" }}>
-                        <Box sx={{ display:"flex", alignItems:"center" }}>
-                            <Text3>{nickname}의 서재</Text3>
+                    <Box sx={{ display:"flex", flexDirection:"column", fontSize: "16px", width: "20%" }}>
+                        <Box sx={{ display:"flex", flexDirection:"column", width:"100%", alignItems:"center", pb:1 }}>
+                            <Box sx={{display:"flex", flexDirection:"row"}}>
+                                <Text3>{nickname}</Text3>
+                                <Text4 sx={{pt:0.5, pl:1}}>님의</Text4>
+                            </Box>
+
+                            <Text4 sx={{pt:1}}>서재</Text4>
                         </Box>
                         
-                        <Box sx={{display:"flex", pl:2, pb:2 }} >
-                            <Tooltip title={`${num}단계 : ${grade} 등급`} arrow>
-                                <Box
-                                    component="img"
-                                    src={gradeImage}
-                                    sx={{
-                                        width: 35,
-                                        height: 35,
-                                        borderRadius: "20%",
-                                    }}                                
-                                />                
-                            </Tooltip>   
+                        <Box sx={{display:"flex", width: "100%", alignItems:"center"}} >
+                            <Box sx={{display:"flex", width: "20%"}}>
+                                <Tooltip title={`${num}단계 : ${grade} 등급`} arrow >
+                                    <Box
+                                        component="img"
+                                        src={gradeImage}
+                                        sx={{
+                                            width: 35,
+                                            height: 35,
+                                            borderRadius: "20%",
+                                        }}                                
+                                    />                
+                                </Tooltip>   
+                            </Box>
+
+                            <Box sx={{display:"flex", width:100, alignItems:"center", justifyContent:"center"}}>
+                                <Text4 sx={{fontFamily:'NanumBarunGothicBold'}}>{point}</Text4>
+                                <Text4 sx={{pl:0.5}}>점</Text4>
+                            </Box>
+{/* 위치 조정 해야함 */}
+                            
                         </Box>
                     </Box>
 
                     <Box sx={{ width: "25%", textAlign: "center" }}>
                         <CustomButton variant="contained" sx={{ border: "1px solid", borderRadius: 1 }} onClick={handleOpen}>보유 쿠폰</CustomButton>
-                        <CustomButton variant="contained" onClick={handleGetCoupon}>쿠폰 받기</CustomButton>
+                        <CustomButton variant="contained" sx={{ border: "1px solid", borderRadius: 1 }} onClick={handleGetCoupon}>쿠폰 받기</CustomButton>
 
                         <MyCouponList open={open} handleClose={handleClose}></MyCouponList>
                     </Box>
