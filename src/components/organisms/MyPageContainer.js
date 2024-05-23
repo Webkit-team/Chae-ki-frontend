@@ -1,7 +1,7 @@
 import MyChallengeList from "../molecules/MyPage/MyChallengeList";
 import MyChaekiTodayList from "../molecules/MyPage/MyChaekiTodayList"
 import MyBookList from "../molecules/MyPage/MyBookList";
-import { MainText, SubTitle, Text3, Text5 } from "../atoms/Text";
+import { MainText, SubTitle, Text3, Text4, Text5 } from "../atoms/Text";
 import defaultImg from "../../assets/defaultProfile.png";
 import CustomButton from "../atoms/CustomButton";
 
@@ -39,8 +39,17 @@ const MyPageContainer = () => {
     const [point, setPoint] = useState(null);
     const { grade, gradeImage, num } = determineGrade(point);
 
-    // 활동 개수
-    const [challengesCount, SetChallengesCount] = useState(0);
+    // 나중에 합쳐
+    // const [userActData, setUserActData] = useState({
+    //     no : null,
+    //     userImage : defaultImg,
+    //     nickname : null,
+    //     totalReadingTime : null,
+    //     point : null
+    // });
+
+    // 활동 횟수
+    const [challengesCount, setChallengesCount] = useState(0);
     const [chaekiTodaysCount, setChaekiTodaysCount] = useState(0);
     const [bookLikeCount, setBookLikeCount] = useState(0);
 
@@ -50,6 +59,7 @@ const MyPageContainer = () => {
     const [showActivity, setShowActivity] = useState(null);
     const [open, setOpen] = useState(false);
 
+
     const handleIconClick = (activity) => {
         setShowActivity(showActivity === activity ? null : activity);
     };
@@ -57,7 +67,7 @@ const MyPageContainer = () => {
     const getActivityComponent = (activity) => {
         switch (activity) {
             case "challenge":
-                return <MyChallengeList uno={uno} jwt={jwt} SetChallengesCount={SetChallengesCount}/>;
+                return <MyChallengeList uno={uno} jwt={jwt} setChallengesCount={setChallengesCount}/>;
             case "today":
                 return <MyChaekiTodayList uno={uno} jwt={jwt} setChaekiTodaysCount={setChaekiTodaysCount}/>
             case "readTime":
@@ -94,9 +104,9 @@ const MyPageContainer = () => {
           grade = "새싹";
           gradeImage = sproutImg;
         } else if (point < 100) {
-            num = "2";
-            grade = "새싹";
-            gradeImage = sproutImg;
+            num = "1";
+            grade = "씨앗";
+            gradeImage = seedImge;
         } else {
             num = null;
             grade = null;
@@ -143,10 +153,12 @@ const MyPageContainer = () => {
     useEffect(() => {
         // 회원정보 불러오기
         const fetchUserData = async() => {
-            // if (!uno || !jwt) {
-            //     console.log("UNO or JWT is missing");
-            //     return;
-            //   }
+            if (!uno || !jwt) {
+                console.log("UNO or JWT is missing");
+                alert("유저 정보를 찾을 수 없습니다!");
+                navigate("/login");
+                return;
+              }
 
             try {
                 const response = await axios.get(`http://ec2-13-209-50-125.ap-northeast-2.compute.amazonaws.com:8080/users/${uno}`, {
@@ -154,13 +166,40 @@ const MyPageContainer = () => {
                         Authorization: jwt
                     }
                 });
-    
+
+
+                // 나중에 합칠거
                 setNo(response.data.no);
                 setUserImage(response.data.imageUrl);
                 setNickname(response.data.nickname);
                 setTotalReadingTime(response.data.totalReadingTime);
                 setPoint(response.data.point);
 
+                // setUserActData(response.data.no, response.data.imageUrl, )
+
+                // 활동 횟수 미리 표시
+                const responseChallenge = await axios.get(`http://ec2-13-209-50-125.ap-northeast-2.compute.amazonaws.com:8080/users/${uno}/challenges`, {
+                    headers: {
+                        Authorization: jwt
+                    }
+                });
+                setChallengesCount(responseChallenge.data.length);
+
+                const responseChakiToday = await axios.get(`http://ec2-13-209-50-125.ap-northeast-2.compute.amazonaws.com:8080/users/${uno}/chaekiTodays`, {
+                    headers: {
+                        Authorization: jwt
+                    }
+                });
+                setChaekiTodaysCount(responseChakiToday.data.length);
+
+                const responseLikeBook = await axios.get(`http://ec2-13-209-50-125.ap-northeast-2.compute.amazonaws.com:8080/users/${uno}/favorite-books`, {
+                    headers: {
+                        Authorization: jwt
+                    }
+                });
+                setBookLikeCount(responseLikeBook.data.books.length);
+
+                console.log(responseLikeBook.data);
                 console.log(response.data);
 
             } catch (error) {
@@ -179,7 +218,7 @@ const MyPageContainer = () => {
         <Box sx={{pt:4}}>
             <Box sx={{ display: "flex", flexDirection: "column" }}>
                 
-                {/* 사용자 영역 */}
+                {/* 사용자 정보 영역 */}
                 <Box
                     sx={{
                         display: "flex",
@@ -196,34 +235,41 @@ const MyPageContainer = () => {
                         sx={{ width: 100, height: 100, border: "1px solid", borderRadius: "50%" }}
                     />
 
-                    <Box sx={{ display:"flex", fontSize: "16px", width: "25%" }}>
-                        <Box sx={{ display:"flex", alignItems:"center" }}>
-                            <Text3>{nickname}의 서재</Text3>
+                    <Box sx={{ display:"flex", flexDirection:"column", fontSize: "16px", width: "20%" }}>
+                        <Box sx={{ display:"flex", flexDirection:"column", width:"100%", alignItems:"center", pb:1 }}>
+                            <Box sx={{display:"flex", flexDirection:"row"}}>
+                                <Text3>{nickname}</Text3>
+                                <Text4 sx={{pt:0.5, pl:1}}>님의</Text4>
+                            </Box>
+
+                            <Text4 sx={{pt:1}}>서재</Text4>
                         </Box>
                         
-                        <Box sx={{display:"flex", pl:2, pb:2 }} >
-                            <Tooltip title={`${num}단계 : ${grade} 등급`} arrow>
-                                <Box
-                                    component="img"
-                                    src={gradeImage}
-                                    sx={{
-                                        width: 35,
-                                        height: 35,
-                                        // backgroundColor: "#d9d9d9",
-                                        borderRadius: "20%",
-                                    }}                                
-                                />                
-                            </Tooltip>   
-                        </Box>
+                        <Box sx={{display:"flex", width: "100%", alignItems:"center"}} >
+                            <Box sx={{display:"flex", width: "20%"}}>
+                                <Tooltip title={`${num}단계 : ${grade} 등급`} arrow >
+                                    <Box
+                                        component="img"
+                                        src={gradeImage}
+                                        sx={{
+                                            width: 35,
+                                            height: 35,
+                                            borderRadius: "20%",
+                                        }}                                
+                                    />                
+                                </Tooltip>   
+                            </Box>
 
-                        {/* <Box >
-                            <Text3>{grade} 등급</Text3>
-                        </Box> */}
+                            <Box sx={{display:"flex", width:100, alignItems:"center", justifyContent:"center"}}>
+                                <Text4 sx={{fontFamily:'NanumBarunGothicBold'}}>{point}</Text4>
+                                <Text4 sx={{pl:0.5}}>점</Text4>
+                            </Box>                    
+                        </Box>
                     </Box>
 
                     <Box sx={{ width: "25%", textAlign: "center" }}>
                         <CustomButton variant="contained" sx={{ border: "1px solid", borderRadius: 1 }} onClick={handleOpen}>보유 쿠폰</CustomButton>
-                        <CustomButton variant="contained" onClick={handleGetCoupon}>쿠폰 받기</CustomButton>
+                        <CustomButton variant="contained" sx={{ border: "1px solid", borderRadius: 1 }} onClick={handleGetCoupon}>쿠폰 받기</CustomButton>
 
                         <MyCouponList open={open} handleClose={handleClose}></MyCouponList>
                     </Box>
@@ -256,7 +302,6 @@ const MyPageContainer = () => {
                         display: "flex",
                         justifyContent: "space-between",
                         width: "100%",
-                        // textAlign: "center",
                         pt: 3, pb: 3
                     }}
                 >
@@ -266,8 +311,8 @@ const MyPageContainer = () => {
                         cursor: "pointer",
                         lineHeight: 2,
                         width: 100,
-                        backgroundColor: showActivity === "challenge" ? "#D9D9D9" : "transparent", // 선택된 활동에 따른 배경색 변경
-                        transform: showActivity === "challenge" ? "scale(1.1)" : "none", // 선택된 활동에 따른 크기 변경
+                        backgroundColor: showActivity === "challenge" ? "#D9D9D9" : "transparent",
+                        transform: showActivity === "challenge" ? "scale(1.1)" : "none",
                         border: showActivity === "challenge" ? "solid 1px #d9d9d9" : "none",
                         borderRadius: showActivity === "challenge" ? "10%" : "none",
                     }} onClick={() => handleIconClick("challenge")}>
@@ -281,8 +326,8 @@ const MyPageContainer = () => {
                         cursor: "pointer",
                         lineHeight: 2,
                         width: 100,
-                        backgroundColor: showActivity === "today" ? "#D9D9D9" : "transparent", // 선택된 활동에 따른 배경색 변경
-                        transform: showActivity === "today" ? "scale(1.1)" : "none", // 선택된 활동에 따른 크기 변경
+                        backgroundColor: showActivity === "today" ? "#D9D9D9" : "transparent",
+                        transform: showActivity === "today" ? "scale(1.1)" : "none",
                         border: showActivity === "today" ? "solid 1px #d9d9d9" : "none",
                         borderRadius: showActivity === "today" ? "10%" : "none",
                     }} onClick={() => handleIconClick("today")}>
@@ -296,8 +341,8 @@ const MyPageContainer = () => {
                         cursor: "pointer",
                         lineHeight: 2,
                         width: 100,
-                        backgroundColor: showActivity === "readTime" ? "#D9D9D9" : "transparent", // 선택된 활동에 따른 배경색 변경
-                        transform: showActivity === "readTime" ? "scale(1.1)" : "none", // 선택된 활동에 따른 크기 변경
+                        backgroundColor: showActivity === "readTime" ? "#D9D9D9" : "transparent",
+                        transform: showActivity === "readTime" ? "scale(1.1)" : "none",
                         border: showActivity === "readTime" ? "solid 1px #d9d9d9" : "none",
                         borderRadius: showActivity === "readTime" ? "10%" : "none",
                     }} onClick={() => handleIconClick("readTime")}>
@@ -310,14 +355,14 @@ const MyPageContainer = () => {
                         cursor: "pointer",
                         lineHeight: 2,
                         width: 100,
-                        backgroundColor: showActivity === "review" ? "#D9D9D9" : "transparent", // 선택된 활동에 따른 배경색 변경
-                        transform: showActivity === "review" ? "scale(1.1)" : "none", // 선택된 활동에 따른 크기 변경
+                        backgroundColor: showActivity === "review" ? "#D9D9D9" : "transparent",
+                        transform: showActivity === "review" ? "scale(1.1)" : "none",
                         border: showActivity === "review" ? "solid 1px #d9d9d9" : "none",
                         borderRadius: showActivity === "review" ? "10%" : "none",
                     }} onClick={() => handleIconClick("review")}>
                         <AutoStoriesIcon sx={{ fontSize: 50 }} />
                         <MainText>도서 후기</MainText>
-                        <MainText>2</MainText>
+                        <MainText>x</MainText>
                     </Box>
 
                     <Box sx={{
@@ -325,8 +370,8 @@ const MyPageContainer = () => {
                         cursor: "pointer",
                         lineHeight: 2,
                         width: 100,
-                        backgroundColor: showActivity === "like" ? "#D9D9D9" : "transparent", // 선택된 활동에 따른 배경색 변경
-                        transform: showActivity === "like" ? "scale(1.1)" : "none", // 선택된 활동에 따른 크기 변경
+                        backgroundColor: showActivity === "like" ? "#D9D9D9" : "transparent",
+                        transform: showActivity === "like" ? "scale(1.1)" : "none",
                         border: showActivity === "like" ? "solid 1px #d9d9d9" : "none",
                         borderRadius: showActivity === "like" ? "10%" : "none",
                     }} onClick={() => handleIconClick("like")}>
@@ -340,14 +385,14 @@ const MyPageContainer = () => {
                         cursor: "pointer",
                         lineHeight: 2,
                         width: 100,
-                        backgroundColor: showActivity === "scrap" ? "#D9D9D9" : "transparent", // 선택된 활동에 따른 배경색 변경
-                        transform: showActivity === "scrap" ? "scale(1.1)" : "none", // 선택된 활동에 따른 크기 변경
+                        backgroundColor: showActivity === "scrap" ? "#D9D9D9" : "transparent",
+                        transform: showActivity === "scrap" ? "scale(1.1)" : "none",
                         border: showActivity === "scrap" ? "solid 1px #d9d9d9" : "none",
                         borderRadius: showActivity === "scrap" ? "10%" : "none",
                     }} onClick={() => handleIconClick("scrap")}>
                         <BookmarkIcon sx={{ fontSize: 50 }} />
                         <MainText>스크랩</MainText>
-                        <MainText>3</MainText>
+                        <MainText>x</MainText>
                     </Box>
 
                 </Box>
@@ -355,11 +400,7 @@ const MyPageContainer = () => {
                 <Divider width="100%" sx={{ border: "solid 1px" }} />
 
                 {/* 활동 내역 영역 */}
-                <Box
-                    sx={{
-                        pt: 3, pb: 3
-                    }}
-                >
+                <Box sx={{ pt: 3, pb: 3 }}>
                     {showActivity && (
                         <Box>
                             {getActivityComponent(showActivity)}
@@ -368,9 +409,7 @@ const MyPageContainer = () => {
                 </Box>
 
             </Box>
-
         </Box>
-
 
     </Container>)
 }

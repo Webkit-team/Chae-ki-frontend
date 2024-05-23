@@ -47,7 +47,8 @@ const EditContainer = () => {
             console.log(uno);
         }
         else {
-            console.log("등록된 회원이 아닙니다!");
+            alert("로그인이 필요합니다!");
+            navigate("/login");
         }
     }, [uno]);
 
@@ -192,8 +193,6 @@ const EditContainer = () => {
                         src={defaultImg}
                         alt="기본 이미지"
                         sx={{
-                            // border: "1px solid",
-                            // borderRadius: "100%",
                             width: "180px",
                             height: "180px"
                         }}

@@ -1,22 +1,14 @@
-import { Box, Card, CardContent, Container, MenuItem, Select } from "@mui/material";
+import { Box, Card, CardContent, Container } from "@mui/material";
 import { MainText, Text5 } from "../../atoms/Text";
-import CustomFormControl from "../../atoms/CustomFormControl"
 import { useEffect, useState } from "react";
 
 import CustomButton from "../../atoms/CustomButton";
 import axios from "axios";
 
-const MyChallengeList = ({uno, jwt, SetChallengesCount}) => {
-
-    // const [challenge, setChallenge] = useState("doing");
-
-    // const handleChange = (e) => {
-    //     setChallenge(e.target.value);
-    // };
-        
+const MyChallengeList = ({uno, jwt, setChallengesCount}) => {
+      
     const [challenges, setChallenges] = useState([]);
     
-
     useEffect(() => {
         const fetchChallengeData = async() => {
             try {
@@ -28,7 +20,7 @@ const MyChallengeList = ({uno, jwt, SetChallengesCount}) => {
                 if (response.status === 200) {
                     console.log(response.data);
                     setChallenges(response.data);
-                    SetChallengesCount(response.data.length);
+                    setChallengesCount(response.data.length);
                 }
 
             } catch (error) {
@@ -37,28 +29,13 @@ const MyChallengeList = ({uno, jwt, SetChallengesCount}) => {
         };
 
         fetchChallengeData();
-    }, [uno, jwt]);
+    }, [uno, jwt, setChallengesCount]);
 
 
     return (<>
 
-        <Container sx={{ display: "flex", flexDirection: "column", width: 900 }}>
-            {/* <Box sx={{ display: "flex", justifyContent: "center" }}>
-                <CustomFormControl>
-
-                    <Select
-                        variant="outlined"
-                        value={challenge}
-                        onChange={handleChange}
-                    >
-                        <MenuItem value="doing">참여중인 챌린지</MenuItem>
-                        <MenuItem value="done">참여완료 챌린지</MenuItem>
-                    </Select>
-
-                </CustomFormControl>
-            </Box> */}
-
-
+        <Container sx={{ display: "flex", flexDirection: "column", width: "100%", pt: 2, pb: 2, height: 500, overflowY: "scroll" }}>
+            
             <Box sx={{ display: "flex", flexDirection: "column", alignItems: "left" }}>
                 {challenges.map((challenge) => (
                     <Card
@@ -83,7 +60,7 @@ const MyChallengeList = ({uno, jwt, SetChallengesCount}) => {
 
                             </Box>
 
-                            <Box sx={{ pl: 3 }}>
+                            <Box sx={{ pl: 3, width: "85%"}}>
                                 <MainText
                                     sx={{
                                         fontFamily: 'NanumBarunGothicBold',
@@ -103,7 +80,7 @@ const MyChallengeList = ({uno, jwt, SetChallengesCount}) => {
                                 </Text5>
                             </Box>
 
-                            <Box sx={{ display: "flex", alignItems: "center", marginLeft: "auto", alignSelf: "flex-end", height: 20, pl: 10, pb: 2 }}>
+                            <Box sx={{ display: "flex", width:"25%"}}>
                                 <CustomButton variant="outlined" sx={{
                                     backgroundColor: 'black',
                                     '&:hover': {
