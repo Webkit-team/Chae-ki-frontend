@@ -6,11 +6,16 @@ import ChallengeInfo from '../molecules/ChallengeDetail/ChallengeInfo';
 import ChakiTime from '../molecules/ChallengeDetail/ChaekiTime';
 import ChakiToday from '../molecules/ChallengeDetail/ChaekiToday';
 import ChallengeGuide from '../molecules/ChallengeDetail/ChallengeGuide';
+import { useCookies } from 'react-cookie';
 
 const ChallengeDetailContainer = () => {
     const [status, setStatus] = useState('');
     const [selectedTab, setSelectedTab] = useState(0);
     const { id } = useParams(); 
+    const [cookies] = useCookies(["user"]);
+
+    const uno = cookies.user ? cookies.user.uno : null;
+    const token = cookies.user ? cookies.user.jwt : null;
 
     const getStatusText = (status) => {
         switch(status) {
@@ -25,17 +30,28 @@ const ChallengeDetailContainer = () => {
         }
     };
 
-    const getDisabledTabs = (status) => {
+    const getDisabledTabs = (status, uno) => {
+        let disabledTabs = [];
+        
         switch(status) {
             case 'RECRUITING':
-                return [];  // [1, 2]로 바꿔야함 API 연결 후 
+                disabledTabs = [1, 2];  
+                break;
             case 'ONGOING':
-                return []; 
+                disabledTabs = []; 
+                break;
             case 'ENDED':
-                return [1]; 
+                disabledTabs = [1]; 
+                break;
             default:
-                return [];
+                disabledTabs = [];
         }
+
+        if (!uno) {
+            disabledTabs.push(1); // uno가 없으면 채키 타임 비활성화
+        }
+
+        return disabledTabs;
     };
     
     const handleTabChange = (newValue) => {
@@ -59,11 +75,11 @@ const ChallengeDetailContainer = () => {
     
     return (
         <>
-            <SubTitle>{getStatusText(status)}</SubTitle>
+            <SubTitle >{getStatusText(status)}</SubTitle>
             <CustomTabs 
                 onTabChange={handleTabChange} 
                 labels={["챌린지 정보", "채키 타임", "채키 투데이", "챌린지 가이드"]}
-                disabledTabs={getDisabledTabs(status)}
+                disabledTabs={getDisabledTabs(status, uno)}
             />
             {renderTabContent()}
         </>

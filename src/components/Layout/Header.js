@@ -39,7 +39,7 @@ const Header = () => {
 
     const handleLogOut = () => {
         removeCookie('user', { path: '/' });
-        alert("로그아웃되었습니다!");
+        alert("로그아웃되었습니다!");   
     }
 
     return (

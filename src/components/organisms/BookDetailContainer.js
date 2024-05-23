@@ -1,12 +1,8 @@
-import { Box, Divider } from "@mui/material";
+import { Box, Divider, Grid } from "@mui/material";
 import FavoriteIcon from '@mui/icons-material/Favorite';
 import FavoriteBorderIcon from '@mui/icons-material/FavoriteBorder';
 import { SubTitle, MainText, Text2, Text3, Text5 } from "../atoms/Text";
-
-import bookExImg1 from "../../assets/book1.png"
-import bookExImg2 from "../../assets/book2.png"
 import { Link, useParams } from "react-router-dom";
-
 import axios from "axios";
 import { useEffect, useState } from "react";
 import { useCookies } from "react-cookie";
@@ -27,13 +23,10 @@ const BookDetailContainer = () => {
     useEffect(() => {
         const fetchBookData = async () => {
             try {
-                let url = '';
+                let url = `http://ec2-13-209-50-125.ap-northeast-2.compute.amazonaws.com:8080/books/${id}`;
                 if (uno) {
-                    url = `http://ec2-13-209-50-125.ap-northeast-2.compute.amazonaws.com:8080/books/${id}/users/${uno}`;
-                } else {
-                    url = `http://ec2-13-209-50-125.ap-northeast-2.compute.amazonaws.com:8080/books/${id}`;
+                    url += `?userNo=${uno}`;
                 }
-
                 const response = await axios.get(url, {
                     headers: {
                         Authorization: token
@@ -63,101 +56,74 @@ const BookDetailContainer = () => {
                         sx={{
                             width: 250,
                             height: 350,
-                            objectFit: "cover"
+                            objectFit: "cover",
+                            border: 'solid 1px grey'
                         }}
                         src={book.imageUrl}
                         alt={book.name}
                     />
-                    <Box sx={{ display: "flex", flexDirection: "column", textAlign: "right" }}>
-                        <Box sx={{ pt: 3.5, height: 40 }}>
+                    <Grid container spacing={1} sx={{ textAlign: "right", py: 3.5 }}>
+                        <Grid item xs={6}>
                             <Text3>저자</Text3>
-                        </Box>
-                        <Box sx={{ height: 40 }}>
-                            <Text3>옮긴이</Text3>
-                        </Box>
-                        <Box sx={{ height: 40 }}>
+                        </Grid>
+                        <Grid item xs={6}>
+                            <MainText>{book.writer}</MainText>
+                        </Grid>
+                        <Grid item xs={6}>
                             <Text3>출판사</Text3>
-                        </Box>
-                        <Box sx={{ height: 40 }}>
+                        </Grid>
+                        <Grid item xs={6}>
+                            <MainText>{book.publisher}</MainText>
+                        </Grid>
+                        <Grid item xs={6}>
                             <Text3>출간일</Text3>
-                        </Box>
-                        <Box sx={{ height: 40 }}>
+                        </Grid>
+                        <Grid item xs={6}>
+                            <MainText>{book.publishDate}</MainText>
+                        </Grid>
+                        <Grid item xs={6}>
                             <Text3>분야</Text3>
-                        </Box>
-                        <Box sx={{ height: 58 }}>
+                        </Grid>
+                        <Grid item xs={6}>
+                            <MainText>{book.category}</MainText>
+                        </Grid>
+                        <Grid item xs={6}>
                             <Text3>도서 가격</Text3>
-                        </Box>
-                        <Box sx={{ height: 40 }}>
-                            <Text3>도서 구매 링크</Text3>
-                        </Box>
-                    </Box>
-
+                        </Grid>
+                        <Grid item xs={6}>
+                            <MainText>{book.price}원</MainText>
+                        </Grid>
+                    </Grid>
                 </Box>
-
-
                 <Box sx={{ display: "flex", width: "60%" }}>
                     <Box sx={{ width: "100%" }}>
-                        <Divider width="100%" sx={{ border: "solid 1px", mb: 1 }}></Divider>
-
                         <Box sx={{ display: "flex", width: "100%" }}>
-                            <Box sx={{ width: "85%", height: 80 }}>
+                            <Box sx={{ flexGrow: 1 }}>
                                 <Text2>{book.name}</Text2>
                             </Box>
-
-                            <Box sx={{ display: "flex", width: "15%", justifyContent: "end" }}>
+                            <Box sx={{ display: "flex", justifyContent: "end" }}>
                                 <Box onClick={handleLikeToggle} sx={{ cursor: "pointer" }}>
                                     {like ?
                                         <FavoriteIcon sx={{ fontSize: 30, pr: 0.5, color: '#FF0000' }} />
                                         :
                                         <FavoriteBorderIcon sx={{ fontSize: 30, pr: 0.5, color: '#FF0000' }} />}
                                 </Box>
-
                                 <Text2>{book.likeCount}</Text2>
                             </Box>
                         </Box>
-
-                        <Divider width="100%" sx={{ border: "solid 1px", mt: 1, mb: 1 }}></Divider>
-
-                        <Box sx={{ height: 235, overflowY: "auto" }}>
+                        <Divider sx={{ border: "solid 1px", mt: 1, mb: 1 }} />
+                        <Box sx={{ overflowY: "auto", maxHeight: '400px' }}>
                             <MainText>{book.description}</MainText>
                         </Box>
-
-                        <Divider width="100%" sx={{ border: "solid 1px", mt: 1, mb: 1 }}></Divider>
-
-                        <Box sx={{ pt: 2.5, height: 40 }}>
-                            <MainText>{book.writer}</MainText>
-                        </Box>
-
-                        <Box sx={{ height: 40 }}>
-                            <MainText>{book.translator}</MainText>
-                        </Box>
-
-                        <Box sx={{ height: 40 }}>
-                            <MainText>{book.publisher}</MainText>
-                        </Box>
-
-                        <Box sx={{ height: 40 }}>
-                            <MainText>{book.publishDate}</MainText>
-                        </Box>
-
-                        <Box sx={{ height: 40 }}>
-                            <MainText>{book.category}</MainText>
-                        </Box>
-
-                        <Box sx={{ height: 40 }}>
-                            <MainText>{book.price}</MainText>
-                        </Box>
-
-                        <Divider width="100%" sx={{ border: "solid 1px", mt: 1, mb: 1 }}></Divider>
-
-                        <Box sx={{ pt: 0.5, pb: 1, mb:5, height: 40 }}>
+                        <Divider sx={{ border: "solid 1px", mt: 1, mb: 1 }} />
+                        <Box sx={{ pt: 0.5, pb: 1 }}>
                             <Link to={book.shopUrl}><Text5>바로가기(알라딘)</Text5></Link>
                         </Box>
                     </Box>
                 </Box>
-
             </Box>
-        </>)
+        </>
+    );
 };
 
 export default BookDetailContainer;
