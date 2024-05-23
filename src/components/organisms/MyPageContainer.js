@@ -191,17 +191,15 @@ const MyPageContainer = () => {
                     }
                 });
                 setChaekiTodaysCount(responseChakiToday.data.length);
-                // 여기
+
                 const responseLikeBook = await axios.get(`http://ec2-13-209-50-125.ap-northeast-2.compute.amazonaws.com:8080/users/${uno}/favorite-books`, {
                     headers: {
                         Authorization: jwt
                     }
                 });
                 setBookLikeCount(responseLikeBook.data.books.length);
-                console.log(responseLikeBook.data); //
-                console.log(responseLikeBook.data.books.length); //
-                
 
+                console.log(responseLikeBook.data);
                 console.log(response.data);
 
             } catch (error) {
@@ -265,9 +263,7 @@ const MyPageContainer = () => {
                             <Box sx={{display:"flex", width:100, alignItems:"center", justifyContent:"center"}}>
                                 <Text4 sx={{fontFamily:'NanumBarunGothicBold'}}>{point}</Text4>
                                 <Text4 sx={{pl:0.5}}>점</Text4>
-                            </Box>
-{/* 위치 조정 해야함 */}
-                            
+                            </Box>                    
                         </Box>
                     </Box>
 
@@ -404,11 +400,7 @@ const MyPageContainer = () => {
                 <Divider width="100%" sx={{ border: "solid 1px" }} />
 
                 {/* 활동 내역 영역 */}
-                <Box
-                    sx={{
-                        pt: 3, pb: 3
-                    }}
-                >
+                <Box sx={{ pt: 3, pb: 3 }}>
                     {showActivity && (
                         <Box>
                             {getActivityComponent(showActivity)}
@@ -417,9 +409,7 @@ const MyPageContainer = () => {
                 </Box>
 
             </Box>
-
         </Box>
-
 
     </Container>)
 }

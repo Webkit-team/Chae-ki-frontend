@@ -1,4 +1,4 @@
-import { Container, ImageList, ImageListItem, ImageListItemBar, Paper } from "@mui/material";
+import { Container, ImageList, ImageListItem, ImageListItemBar, Paper, Tooltip } from "@mui/material";
 
 import { useNavigate } from "react-router-dom";
 import { useEffect, useState } from "react";
@@ -41,7 +41,6 @@ const MyBookList = ({uno, jwt, setBookLikeCount}) => {
                 display: "flex", width:"100%", alignItems: "center", justifyContent: "center"
             }}
         >
-            {/* width:810 height:100% */}
             <ImageList
                 sx={{ width: 800, height: 550, overflowY: "scroll", pl: "1px", pr: "1px", pt: "1px", pb: "1px" }}
                 cols={4}
@@ -73,6 +72,8 @@ const MyBookList = ({uno, jwt, setBookLikeCount}) => {
                                 style={{ width: "150px", height: "200px", objectFit: "cover" }}
                                 onClick={() => (handleBookClick(book.bookNo))}
                             />
+                            <Tooltip title={book.title} arrow>
+
                             <ImageListItemBar
                                 title={book.title}
                                 position="below"
@@ -83,6 +84,7 @@ const MyBookList = ({uno, jwt, setBookLikeCount}) => {
                                     textAlign: "center"
                                 }}
                             />
+                            </Tooltip>
                         </ImageListItem>
                     </Paper>
                 ))}
