@@ -192,7 +192,15 @@ const SignUpContainer = () => {
                     variant="contained"
                     tabIndex={-1}
                     startIcon={<CloudUploadIcon />}
-                    sx={{ mt: 3 }}
+                    sx={{ mt: 3,
+                        borderRadius: 1,
+                        backgroundColor: 'black',
+                        '&:hover': {
+                            backgroundColor: '#949494',
+                            borderColor: '#000000',
+                        },
+                        color: '#FFFFFF !important'
+                     }}
                 >
                     사진 불러오기
                     <input
@@ -262,12 +270,20 @@ const SignUpContainer = () => {
                     onChange={onChangeNickname}
                     error={!isNickname}
                 />
-
+{/* disabled 고쳐야함 */}
                 <Button
-                    variant="contained" color="success"
+                    variant="outlined" 
                     onClick={handleSignUp}
                     disabled={!isId || !isPwd || !isNickname || !matchPwd || !notduple}
-                    sx={{ mt: 1.5, mb: 2 }}
+                    sx={{ mt: 1.5, mb: 2,
+                        borderRadius: 1,
+                        backgroundColor: 'black',
+                        '&:hover': {
+                            backgroundColor: '#949494',
+                            borderColor: '#000000',
+                        },
+                        color: '#FFFFFF !important'
+                     }}
                 >
                     회원가입
                 </Button>
