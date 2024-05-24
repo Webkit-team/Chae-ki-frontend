@@ -1,8 +1,9 @@
-import { Button, Link, Grid, Box, Container, IconButton } from '@mui/material';
+import { Link, Grid, Box, Container, IconButton, Button } from '@mui/material';
 import PersonIcon from '@mui/icons-material/Person';
 import KeyIcon from '@mui/icons-material/Key';
 
 import CustomTextField from '../atoms/CustomTextField';
+import CustomButton from '../atoms/CustomButton';
 
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
@@ -97,8 +98,16 @@ const LoginContainer = () => {
                     <Button
                         type="submit"
                         fullWidth
-                        variant="contained"
-                        sx={{ width: 300, mt: 3, mb: 2 }}
+                        variant="outlined"
+                        sx={{ width: 300, mt: 3, mb: 2,
+                            borderRadius: 1,
+                            backgroundColor: 'black',
+                            '&:hover': {
+                                backgroundColor: '#949494',
+                                borderColor: '#000000',
+                            },
+                            color: '#FFFFFF !important'
+                         }}
                     >
                         로그인
                     </Button>

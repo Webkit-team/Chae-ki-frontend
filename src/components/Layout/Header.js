@@ -117,7 +117,7 @@ const Header = () => {
 
 
                 <div className="login">
-                    {cookies.user.uno ? (
+                    {cookies.user?.uno ? (
                         <>
                             <Link to="/my" className="my_page_link">마이페이지</Link>
                             <Link to="/" className="logout_link" onClick={(handleLogOut)}>로그아웃</Link>
