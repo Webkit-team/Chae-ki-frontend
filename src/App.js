@@ -32,8 +32,6 @@ const App = () => {
           <Route path="/books/:id" element={<BookDetailPage />}></Route>
 
           <Route path="/my" element={<MyPage />}></Route>
-          {/* 회원정보수정 페이지 리액트 url 바꿔야하나? 유저 넘버 모르도록? */}
-          {/* <Route path="/users/:uno" element={<EditPage />}></Route> */}
           <Route path="/edit" element={<EditPage />}></Route>
           <Route path="*" element={<ErrorPage />}></Route>
         </Routes>

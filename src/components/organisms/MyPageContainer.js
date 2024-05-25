@@ -1,6 +1,7 @@
 import MyChallengeList from "../molecules/MyPage/MyChallengeList";
 import MyChaekiTodayList from "../molecules/MyPage/MyChaekiTodayList"
 import MyBookList from "../molecules/MyPage/MyBookList";
+import MyReviewList from "../molecules/MyPage/MyReviewList";
 import { MainText, SubTitle, Text3, Text4, Text5 } from "../atoms/Text";
 import defaultImg from "../../assets/defaultProfile.png";
 import CustomButton from "../atoms/CustomButton";
@@ -25,8 +26,9 @@ import axios from "axios";
 import { useNavigate } from 'react-router-dom';
 import { useEffect, useState } from "react";
 import { useCookies } from 'react-cookie';
-import MyReadingTime from "../molecules/MyPage/MyReadingTime";
 
+import ReviewContainer from "./ReviewContainer";
+import MyReadingTime from "../molecules/MyPage/MyReadingTime";
 
 const MyPageContainer = () => {
     const navigate = useNavigate();
@@ -74,7 +76,7 @@ const MyPageContainer = () => {
             case "readTime":
                 return <MyReadingTime/>
             case "review":
-                return <MainText>도서 후기 리스트입니다.</MainText>
+                return <MyReviewList />
             case "like":
                 return <MyBookList uno={uno} jwt={jwt} setBookLikeCount={setBookLikeCount}/>
             case "scrap":
@@ -363,7 +365,7 @@ const MyPageContainer = () => {
                     }} onClick={() => handleIconClick("review")}>
                         <AutoStoriesIcon sx={{ fontSize: 50 }} />
                         <MainText>도서 후기</MainText>
-                        <MainText>x</MainText>
+                        <MainText>1</MainText>
                     </Box>
 
                     <Box sx={{
@@ -381,7 +383,7 @@ const MyPageContainer = () => {
                         <MainText>{bookLikeCount}</MainText>
                     </Box>
 
-                    <Box sx={{
+                    {/* <Box sx={{
                         textAlign: "center",
                         cursor: "pointer",
                         lineHeight: 2,
@@ -394,7 +396,7 @@ const MyPageContainer = () => {
                         <BookmarkIcon sx={{ fontSize: 50 }} />
                         <MainText>스크랩</MainText>
                         <MainText>x</MainText>
-                    </Box>
+                    </Box> */}
 
                 </Box>
 
