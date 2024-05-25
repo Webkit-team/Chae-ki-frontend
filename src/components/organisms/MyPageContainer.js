@@ -25,6 +25,7 @@ import axios from "axios";
 import { useNavigate } from 'react-router-dom';
 import { useEffect, useState } from "react";
 import { useCookies } from 'react-cookie';
+import MyReadingTime from "../molecules/MyPage/MyReadingTime";
 
 
 const MyPageContainer = () => {
@@ -75,7 +76,7 @@ const MyPageContainer = () => {
             case "review":
                 return <MainText>도서 후기 리스트입니다.</MainText>
             case "like":
-                return <MyBookList uno={uno} jwt={jwt} setBookLikeCount={setBookLikeCount}/>
+                return <MyReadingTime/>
             case "scrap":
                 return <MainText>스크랩 도서 후기 목록입니다.</MainText>
             default:
