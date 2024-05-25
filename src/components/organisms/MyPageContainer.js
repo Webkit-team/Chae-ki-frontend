@@ -26,8 +26,9 @@ import axios from "axios";
 import { useNavigate } from 'react-router-dom';
 import { useEffect, useState } from "react";
 import { useCookies } from 'react-cookie';
-import ReviewContainer from "./ReviewContainer";
 
+import ReviewContainer from "./ReviewContainer";
+import MyReadingTime from "../molecules/MyPage/MyReadingTime";
 
 const MyPageContainer = () => {
     const navigate = useNavigate();
@@ -73,7 +74,7 @@ const MyPageContainer = () => {
             case "today":
                 return <MyChaekiTodayList uno={uno} jwt={jwt} setChaekiTodaysCount={setChaekiTodaysCount}/>
             case "readTime":
-                return <MainText>누적 독서 시간 ~~</MainText>
+                return <MyReadingTime/>
             case "review":
                 return <MyReviewList />
             case "like":
