@@ -72,11 +72,11 @@ const MyPageContainer = () => {
             case "today":
                 return <MyChaekiTodayList uno={uno} jwt={jwt} setChaekiTodaysCount={setChaekiTodaysCount}/>
             case "readTime":
-                return <MainText>누적 독서 시간 ~~</MainText>
+                return <MyReadingTime/>
             case "review":
                 return <MainText>도서 후기 리스트입니다.</MainText>
             case "like":
-                return <MyReadingTime/>
+                return <MyBookList uno={uno} jwt={jwt} setBookLikeCount={setBookLikeCount}/>
             case "scrap":
                 return <MainText>스크랩 도서 후기 목록입니다.</MainText>
             default:

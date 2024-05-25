@@ -18,6 +18,7 @@
     "dayjs": "^1.11.11",
     "qs": "^6.12.1",
     "react": "^18.3.1",
+    "react-chartjs-2": "^5.2.0",
     "react-compound-timer": "^2.0.5",
     "react-cookie": "^7.1.4",
     "react-dom": "^18.3.1",
